@@ -1,40 +1,57 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { Roboto_Condensed } from "next/font/google";
 const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
+import { useTheme } from "next-themes";
 
 const Footer = () => {
+  // Checking Current set Theme by user
+  const theme = useTheme();
   return (
-    <footer className={`${roboto400.className} text-gray-600 body-font`}>
-      <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
+    <footer
+      className={`${roboto400.className} text-gray-600 dark:text-dark-secondaryText body-font border-t-2 border-slate-300 dark:border-t-black`}
+    >
+      <div className="dark:bg-dark-primaryBackground container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
           <Link
             href="/"
-            className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
+            className="flex title-font font-medium items-center md:justify-start justify-center"
           >
-            <Image
-              src="/logo.png"
-              alt="pktraderslogo"
-              width={250}
-              height={50}
-              priority
-              className="w-auto h-auto"
-            />
+            {theme.theme === "dark" ? (
+              <Image
+                src="/logodark.png"
+                alt="logo"
+                width={250}
+                height={50}
+                priority
+                className="w-auto h-auto"
+              />
+            ) : (
+              <Image
+                src="/logo.png"
+                alt="logo"
+                width={250}
+                height={50}
+                priority
+                className="w-auto h-auto"
+              />
+            )}
           </Link>
-          <p className="mt-2 px-4 text-sm text-gray-500">
+          <p className="mt-2 px-4 text-sm dark:text-dark-primaryText">
             Trade around the World Safely With Pakistani Traders.
           </p>
         </div>
         <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+            <h2 className="title-font font-medium text-gray-900 dark:text-dark-primaryText tracking-widest text-sm mb-3">
               SHOP
             </h2>
             <nav className="list-none mb-10">
               <li>
                 <Link
                   href="/tshirts"
-                  className="text-gray-600 hover:text-gray-800"
+                  className="hover:text-gray-800 dark:hover:text-dark-primaryText"
                 >
                   T-shirts
                 </Link>
@@ -42,7 +59,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/hoodies"
-                  className="text-gray-600 hover:text-gray-800"
+                  className="hover:text-gray-800 dark:hover:text-dark-primaryText"
                 >
                   Hoodies
                 </Link>
@@ -50,7 +67,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/sweatshirts"
-                  className="text-gray-600 hover:text-gray-800"
+                  className=" dark:hover:text-dark-primaryText hover:text-gray-800"
                 >
                   Sweatshirts
                 </Link>
@@ -58,7 +75,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/caps"
-                  className="text-gray-600 hover:text-gray-800"
+                  className="dark:hover:text-dark-primaryText hover:text-gray-800"
                 >
                   Caps
                 </Link>
@@ -66,83 +83,89 @@ const Footer = () => {
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+            <h2 className="title-font font-medium text-gray-900 dark:text-dark-primaryText tracking-widest text-sm mb-3">
               GET TO KNOW US
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Careers</a>
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
+                  Careers
+                </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   About PKTraders
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Blogs</a>
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
+                  Blogs
+                </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Investor Relations
                 </a>
               </li>
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+            <h2 className="title-font font-medium text-gray-900 dark:text-dark-primaryText tracking-widest text-sm mb-3">
               MAKE MONEY WITH US
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Sell products on Amazon
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Become an Affiliate
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Advertise Your Products
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Self-Publish with Us
                 </a>
               </li>
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">
+            <h2 className="title-font font-medium text-gray-900 dark:text-dark-primaryText tracking-widest text-sm mb-3">
               OTHER USEFUL LINKS
             </h2>
             <nav className="list-none mb-10">
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Privacy Policy
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Terms & Conditions
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
                   Customer Care
                 </a>
               </li>
               <li>
-                <a className="text-gray-600 hover:text-gray-800">Help</a>
+                <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
+                  Help
+                </a>
               </li>
             </nav>
           </div>
         </div>
       </div>
-      <div className="bg-gray-100 ">
+      <div className="bg-gray-100 dark:bg-dark-secondaryBackground ">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-gray-500 text-sm text-center sm:text-left">
             © 2023 PKTraders

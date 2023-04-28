@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useContext } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
@@ -9,7 +10,7 @@ const ForgotPassword = () => {
   return (
     <>
       <div className="mx-auto max-w-md mt-5">
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white dark:bg-dark-secondaryBackground dark:border-none shadow-sm">
           <div className="p-4 sm:p-7">
             <div className="text-center">
               <div className="mb-4 inline-block rounded-full bg-[#ed1c24] p-2 text-white">
@@ -28,10 +29,10 @@ const ForgotPassword = () => {
                   />
                 </svg>
               </div>
-              <h1 className="block text-2xl font-bold text-gray-800">
+              <h1 className="block text-2xl font-bold text-gray-800 dark:text-dark-primaryText">
                 Forgot password?
               </h1>
-              <p className="mt-2 text-sm text-gray-600">
+              <p className="mt-2 text-sm text-gray-600 dark:text-dark-secondaryText">
                 Don't worry we'll send you reset instructions.
               </p>
             </div>
@@ -42,7 +43,7 @@ const ForgotPassword = () => {
                   <div>
                     <label
                       htmlFor="email"
-                      className="mb-2 block text-sm text-gray-600"
+                      className="mb-2 block text-sm text-gray-600 dark:text-dark-primaryText"
                     >
                       Email address
                     </label>
@@ -51,7 +52,7 @@ const ForgotPassword = () => {
                         type="email"
                         id="email"
                         name="email"
-                        className="peer block w-full rounded-md border border-gray-200 bg-gray-50 py-3 px-4 text-sm outline-none ring-offset-1 focus:bg-white  "
+                        className="peer block w-full rounded-md border dark:text-black border-gray-200 bg-gray-50 py-3 px-4 text-sm outline-none ring-offset-1 focus:bg-white"
                         required
                         aria-describedby="email-error"
                       />
@@ -90,18 +91,18 @@ const ForgotPassword = () => {
         </div>
 
         <p className="mt-3 flex items-center justify-center divide-x divide-gray-300 text-center">
-          <span className="inline pl-1 pr-3 text-sm text-gray-600">
+          <span className="inline pl-1 pr-3 text-sm text-gray-600 dark:text-dark-secondaryText">
             Remember your password?
-            <a
+            <Link
               className="font-medium text-[#ed1c24] decoration-2 hover:underline"
-              href="#"
+              href="/login"
             >
               {" "}
               Sign in here{" "}
-            </a>
+            </Link>
           </span>
           <a
-            className="pl-3 text-sm text-gray-600 decoration-2 hover:underline"
+            className="pl-3 text-sm text-gray-600 dark:text-dark-secondaryText decoration-2 hover:underline"
             href="#"
             target="_blank"
           >

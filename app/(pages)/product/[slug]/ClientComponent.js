@@ -61,7 +61,7 @@ const ClientComponent = (props) => {
   };
 
   return (
-    <div className="bg-white py-6 sm:py-8 lg:py-12">
+    <div className="bg-white dark:bg-dark-primaryBackground py-6 sm:py-8 lg:py-12">
       <ToastContainer
         position="bottom-left"
         autoClose={2000}
@@ -81,10 +81,7 @@ const ClientComponent = (props) => {
             <div className="order-last flex gap-4 lg:order-none lg:flex-col">
               {otherimgs.map((key) => {
                 return (
-                  <div
-                    key={key}
-                    className="overflow-hidden rounded-lg bg-gray-100"
-                  >
+                  <div key={key} className="overflow-hidden rounded-lg">
                     <img
                       src={key}
                       loading="lazy"
@@ -96,7 +93,7 @@ const ClientComponent = (props) => {
               })}
             </div>
 
-            <div className="relative overflow-hidden rounded-lg bg-gray-100 lg:col-span-4">
+            <div className="relative overflow-hidden rounded-lg lg:col-span-4">
               <img
                 src={img}
                 loading="lazy"
@@ -131,10 +128,10 @@ const ClientComponent = (props) => {
           <div className="md:py-8">
             {/* <!-- name - start --> */}
             <div className="mb-2 md:mb-3">
-              <span className="mb-0.5 inline-block text-gray-500">
+              <span className="mb-0.5 inline-block text-gray-500 dark:text-dark-secondaryText">
                 {category.charAt(0).toUpperCase() + category.slice(1)}
               </span>
-              <h2 className="text-2xl font-bold text-gray-800 lg:text-3xl">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-dark-primaryText lg:text-3xl">
                 {title}
               </h2>
             </div>
@@ -159,7 +156,7 @@ const ClientComponent = (props) => {
 
             {/* <!-- color - start --> */}
             <div className="mb-4 md:mb-6">
-              <span className="mb-3 inline-block text-sm font-semibold text-gray-500 md:text-base">
+              <span className="mb-3 inline-block text-sm font-semibold text-gray-500 dark:text-dark-secondaryText md:text-base">
                 Color
               </span>
 
@@ -172,10 +169,10 @@ const ClientComponent = (props) => {
                       name="color"
                       key={key}
                       type="button"
-                      className={`h-8 w-8 rounded-full border bg-gray-500 ring-2 ${
+                      className={`h-8 w-8 rounded-full border bg-gray-500 ${
                         colorVariant === key
-                          ? "ring-gray-800"
-                          : "ring-transparent hover:ring-gray-200"
+                          ? "ring-gray-800 dark:ring-dark-primaryText ring-2"
+                          : "ring-transparent hover:ring-gray-200 dark:hover:bg-dark-tertiaryBackground"
                       } ring-offset-1 transition duration-100`}
                       style={{ backgroundColor: key }}
                     ></button>
@@ -187,7 +184,7 @@ const ClientComponent = (props) => {
 
             {/* <!-- size - start --> */}
             <div className="mb-8 md:mb-10">
-              <span className="mb-3 inline-block text-sm font-semibold text-gray-500 md:text-base">
+              <span className="mb-3 inline-block text-sm font-semibold text-gray-500 dark:text-dark-secondaryText md:text-base">
                 Size
               </span>
 
@@ -200,10 +197,10 @@ const ClientComponent = (props) => {
                       key={key}
                       value={key}
                       type="button"
-                      className={`flex h-8 w-12 items-center justify-center rounded-md border ${
+                      className={`flex h-8 w-12 items-center justify-center rounded-md border dark:border-none ${
                         sizeVariant === key
                           ? "bg-[#ed1c24] text-white"
-                          : "bg-white hover:bg-gray-100 text-gray-800"
+                          : "bg-white dark:bg-dark-fourthBackground dark:hover:bg-white hover:bg-gray-100 text-gray-800"
                       } text-center text-sm font-semibold transition duration-100 active:bg-gray-200`}
                     >
                       {key}
@@ -217,19 +214,19 @@ const ClientComponent = (props) => {
             {/* <!-- price - start --> */}
             <div className="mb-4">
               <div className="flex items-end gap-2">
-                <span className="text-xl font-bold text-gray-800 md:text-2xl">
+                <span className="text-xl font-bold text-gray-800 dark:text-dark-primaryText md:text-2xl">
                   Rs. {price}
                 </span>
               </div>
 
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-gray-500 dark:text-dark-primaryText">
                 incl. VAT plus shipping
               </span>
             </div>
             {/* <!-- price - end --> */}
 
             {/* <!-- shipping notice - start --> */}
-            <div className="mb-6 flex items-center gap-2 text-gray-500">
+            <div className="mb-6 flex items-center gap-2 text-gray-500 dark:text-dark-secondaryText">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -288,7 +285,7 @@ const ClientComponent = (props) => {
                     toast.error("Please Select Size and Color");
                   }
                 }}
-                className="inline-block rounded-lg bg-gray-200 px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base"
+                className="inline-block rounded-lg bg-gray-200 dark:bg-dark-fourthBackground dark:hover:bg-white px-8 py-3 text-center text-sm font-semibold text-gray-500 outline-none transition duration-100 hover:bg-gray-300 focus-visible:ring active:text-gray-700 md:text-base"
               >
                 Buy now
               </button>
@@ -329,11 +326,11 @@ const ClientComponent = (props) => {
         </div>
         {/* <!-- description - start --> */}
         <div className="mt-10 md:mt-16 lg:mt-20">
-          <div className="mb-3 text-lg font-semibold text-gray-800">
-            Description
+          <div className="mb-3 text-lg font-bold text-gray-800 dark:text-dark-primaryText">
+            Description :
           </div>
 
-          <p className="text-gray-500">{desc}</p>
+          <p className="text-gray-500 dark:text-dark-primaryText">{desc}</p>
         </div>
         {/* <!-- description - end --> */}
       </div>

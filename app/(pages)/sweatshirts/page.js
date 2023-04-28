@@ -17,7 +17,7 @@ const SweatShirts = async () => {
   const sweatshirts = await getSweatShirts();
   return (
     <>
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-600  dark:text-dark-primaryText body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap md:flex-nowrap -m-4">
             {sweatshirts.length === 0 ? (
@@ -30,7 +30,7 @@ const SweatShirts = async () => {
                   <Link
                     key={item._id}
                     href={`/product/${item.slug}`}
-                    className="lg:w-1/5 md:w-1/2 p-4 w-full mx-1 shadow-md hover:transition-shadow hover:shadow-lg"
+                    className="lg:w-1/5 md:w-1/2 p-4 w-full mx-1 shadow-md hover:transition-shadow hover:shadow-lg dark:bg-dark-secondaryBackground"
                   >
                     <>
                       <div className="block relative rounded overflow-hidden">
@@ -41,11 +41,11 @@ const SweatShirts = async () => {
                         />
                       </div>
                       <div className="mt-3 text-start">
-                        <h3 className="text-gray-500 text-xs tracking-widest title-font mb-[2px]">
+                        <h3 className="text-gray-500 text-xs tracking-widest title-font mb-[2px] dark:text-dark-secondaryText">
                           {item.category.charAt(0).toUpperCase() +
                             item.category.slice(1)}
                         </h3>
-                        <h2 className="text-gray-900 title-font text-lg font-medium">
+                        <h2 className="text-gray-900 dark:text-dark-primaryText title-font text-lg font-medium">
                           {item.title}
                         </h2>
                         <p className="mt-[2px]">Rs. {item.price}</p>
@@ -54,7 +54,7 @@ const SweatShirts = async () => {
                             return (
                               <span
                                 key={size}
-                                className="border px-1 py-[2px] text-xs mr-[1px] text-white bg-slate-400"
+                                className="border px-1 py-[2px] text-xs mr-[2px] dark:text-black text-white bg-slate-400 dark:bg-dark-fourthBackground"
                               >
                                 {size}
                               </span>

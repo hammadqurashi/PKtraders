@@ -84,8 +84,8 @@ const Signup = () => {
   return (
     <>
       <ToastContainer />
-      <div className="flex h-screen w-full items-center justify-center bg-gray-100">
-        <div className="w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-lg sm:flex">
+      <div className="flex h-screen w-full items-center justify-center bg-gray-100 dark:bg-dark-primaryBackground">
+        <div className="w-full max-w-3xl overflow-hidden rounded-lg bg-white dark:bg-dark-secondaryBackground shadow-lg sm:flex">
           <div
             className="m-2 w-full rounded-2xl bg-gray-400 bg-cover bg-center text-white sm:w-2/5"
             style={{
@@ -95,8 +95,10 @@ const Signup = () => {
           ></div>
           <div className="w-full sm:w-3/5">
             <div className="p-8">
-              <h1 className="text-3xl font-black text-slate-700">Sign up</h1>
-              <p className="mt-2 mb-5 text-base leading-tight text-gray-600">
+              <h1 className="text-3xl font-black text-slate-700 dark:text-dark-primaryText">
+                Sign up
+              </h1>
+              <p className="mt-2 mb-5 text-base leading-tight text-gray-600 dark:text-dark-primaryText">
                 Create an account and Trade World Wide
               </p>
               <form className="mt-8" onSubmit={handleFormSubmit} method="POST">
@@ -106,14 +108,14 @@ const Signup = () => {
                     name="name"
                     id="name"
                     required
-                    className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-[#ed1c24] focus:outline-none focus:ring-0"
+                    className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 dark:text-dark-primaryText focus:border-[#ed1c24] focus:outline-none focus:ring-0"
                     placeholder=" "
                     value={userDetails.name}
                     onChange={handleChange}
                   />
                   <label
                     htmlFor="name"
-                    className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[#ed1c24]"
+                    className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white dark:bg-dark-secondaryBackground px-2 text-sm text-gray-500 dark:text-dark-primaryText duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[#ed1c24]"
                   >
                     {" "}
                     Enter Your Name{" "}
@@ -125,14 +127,14 @@ const Signup = () => {
                     type="email"
                     id="email"
                     required
-                    className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-[#ed1c24] focus:outline-none focus:ring-0"
+                    className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 dark:text-dark-primaryText focus:border-[#ed1c24] focus:outline-none focus:ring-0"
                     placeholder=" "
                     value={userDetails.email}
                     onChange={handleChange}
                   />
                   <label
                     htmlFor="email"
-                    className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[#ed1c24]"
+                    className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white dark:bg-dark-secondaryBackground px-2 text-sm text-gray-500 dark:text-dark-primaryText duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[#ed1c24]"
                   >
                     {" "}
                     Enter Your Email{" "}
@@ -144,7 +146,7 @@ const Signup = () => {
                     type={showPassword ? "text" : "password"}
                     id="password"
                     required
-                    className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 focus:border-[#ed1c24] focus:outline-none focus:ring-0"
+                    className="border-1 peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pb-2.5 pt-4 text-sm text-gray-900 dark:text-dark-primaryText focus:border-[#ed1c24] focus:outline-none focus:ring-0"
                     placeholder=" "
                     value={userDetails.password}
                     onChange={handleChange}
@@ -152,7 +154,7 @@ const Signup = () => {
 
                   <label
                     htmlFor="password"
-                    className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm  text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[#ed1c24] "
+                    className="absolute top-2 left-1 z-10 origin-[0] -translate-y-4 scale-75 transform cursor-text select-none bg-white dark:bg-dark-secondaryBackground px-2 text-sm  text-gray-500 dark:text-dark-primaryText duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-[#ed1c24] "
                   >
                     {" "}
                     Enter Your Password
@@ -178,7 +180,7 @@ const Signup = () => {
                 </button>
               </form>
               <div className="mt-4 text-center">
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-gray-600 dark:text-dark-secondaryText">
                   Already have an account?{" "}
                   <Link
                     href="/login"

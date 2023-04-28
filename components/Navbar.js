@@ -13,10 +13,15 @@ import { BsFillCartCheckFill, BsSun, BsFillMoonFill } from "react-icons/bs";
 import { MdAccountCircle } from "react-icons/md";
 import { Roboto_Condensed } from "next/font/google";
 import ThemeSwitch from "./ThemeSwitch";
+import { useTheme } from "next-themes";
 
 const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 
 const Navbar = () => {
+  // Checking Current set Theme by user
+  const theme = useTheme();
+
+  // useContext hook
   const context = useContext(cartContext);
 
   // desturcturing context
@@ -60,17 +65,28 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`${roboto400.className} dark:bg-dark-background dark:text-dark-text font-medium p-4 flex flex-col md:flex-row justify-center md:justify-between items-center shadow-md`}
+        className={`${roboto400.className} dark:bg-dark-secondaryBackground dark:text-dark-primaryText font-medium p-4 flex flex-col md:flex-row justify-center md:justify-between items-center shadow-md`}
       >
         <Link href="/" className="logo ">
-          <Image
-            src="/logo.png"
-            alt="logo"
-            width={250}
-            height={50}
-            priority
-            className="w-auto h-auto"
-          />
+          {theme.theme === "dark" ? (
+            <Image
+              src="/logodark.png"
+              alt="logo"
+              width={250}
+              height={50}
+              priority
+              className="w-auto h-auto"
+            />
+          ) : (
+            <Image
+              src="/logo.png"
+              alt="logo"
+              width={250}
+              height={50}
+              priority
+              className="w-auto h-auto"
+            />
+          )}
         </Link>
         <div className={`nav md:text-lg`}>
           <ul className="flex md:space-x-5 space-x-2 justify-center mt-3 md:mt-0">
@@ -109,7 +125,7 @@ const Navbar = () => {
               {toggleDropDown && (
                 <div
                   onMouseLeave={toggleDropDownfunc}
-                  className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white dark:bg-dark-secondaryBackground shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"
@@ -118,7 +134,7 @@ const Navbar = () => {
                   <div className="py-1" role="none">
                     <Link
                       href="/myaccount"
-                      className="text-gray-700 block px-4 py-2 text-sm"
+                      className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-sm"
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-0"
@@ -127,7 +143,7 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href="/myorders"
-                      className="text-gray-700 block px-4 py-2 text-sm"
+                      className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-sm"
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-1"
@@ -136,7 +152,7 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href="/support"
-                      className="text-gray-700 block px-4 py-2 text-sm"
+                      className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-sm"
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-2"
@@ -145,7 +161,7 @@ const Navbar = () => {
                     </Link>
                     <button
                       onClick={logout}
-                      className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
+                      className="text-gray-700 dark:text-dark-primaryText block w-full px-4 py-2 text-left text-sm"
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-3"
@@ -173,8 +189,9 @@ const Navbar = () => {
             <AiOutlineShoppingCart className={`md:text-2xl text-white`} />
           </div>
         </div>
+        {/* SideCart Starts here */}
         <div
-          className="sidecart fixed top-0 overflow-y-scroll h-[100vh] right-0 bg-white border-l-2  border-[#ed1c24] md:w-[20vw] w-[50vw] z-40 p-4 transition-transform translate-x-full"
+          className="sidecart fixed top-0 overflow-y-scroll h-[100vh] right-0 bg-white dark:bg-dark-secondaryBackground border-l-2  border-[#ed1c24] md:w-[20vw] w-[50vw] z-40 p-4 transition-transform translate-x-full"
           ref={sideCartref}
         >
           <div className="flex justify-between my-1">

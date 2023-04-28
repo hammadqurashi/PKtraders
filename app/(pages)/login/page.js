@@ -106,7 +106,7 @@ const LoginPage = () => {
   return (
     <>
       <ToastContainer />
-      <div className="flex w-screen flex-wrap text-slate-800">
+      <div className="flex w-screen flex-wrap text-slate-800 dark:text-dark-primaryText">
         <div className="flex w-full flex-col md:w-1/2">
           <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
             <p className="text-center text-3xl font-bold md:leading-tight md:text-left md:text-5xl">
@@ -128,7 +128,7 @@ const LoginPage = () => {
                     type="email"
                     id="login-email"
                     required
-                    className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                    className="w-full flex-shrink appearance-none border-gray-300 bg-white dark:bg-dark-primaryBackground py-2 px-4 text-base text-gray-700 dark:text-dark-primaryText placeholder-gray-400 dark:placeholder-dark-secondaryText focus:outline-none"
                     placeholder="Email"
                     value={loginDetails.email}
                     onChange={handleChange}
@@ -142,7 +142,7 @@ const LoginPage = () => {
                     type={showPassword ? "text" : "password"}
                     id="login-password"
                     required
-                    className="w-full flex-shrink appearance-none border-gray-300 bg-white py-2 px-4 text-base text-gray-700 placeholder-gray-400 focus:outline-none"
+                    className="w-full flex-shrink appearance-none border-gray-300 bg-white dark:bg-dark-primaryBackground py-2 px-4 text-base text-gray-700 dark:text-dark-primaryText placeholder-gray-400 dark:placeholder-dark-secondaryText focus:outline-none"
                     placeholder="Password"
                     value={loginDetails.password}
                     onChange={handleChange}
@@ -162,7 +162,7 @@ const LoginPage = () => {
               </div>
               <Link
                 href="/forgotpassword"
-                className="mb-6 inline-flex w-max text-center text-sm font-medium text-gray-600 md:text-left"
+                className="mb-6 inline-flex w-max text-center text-sm font-medium text-gray-600 dark:text-dark-secondaryText md:text-left"
               >
                 Forgot password?
               </Link>
@@ -174,7 +174,7 @@ const LoginPage = () => {
               </button>
             </form>
             <div className="py-12 text-center">
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-dark-secondaryText">
                 Don't have an account?
                 <Link
                   href="/signup"
