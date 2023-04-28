@@ -1,9 +1,11 @@
+import React, { cache } from "react";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
 import CartState from "./context/cart/cartState";
 import TopLoadingBar from "@/components/TopLoadingBar";
+import ThemeWrapper from "@/components/ThemeWrapper";
 
 export const metadata = {
   title: "PKTraders - Trade With Pakistan",
@@ -19,15 +21,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
-        <CartState>
-          <TopLoadingBar />
-          <Navbar />
-          <ScrollToTop />
-          {children}
-          <Footer />
-        </CartState>
+        <ThemeWrapper>
+          <CartState>
+            <TopLoadingBar />
+            <Navbar />
+            <ScrollToTop />
+            {children}
+            <Footer />
+          </CartState>
+        </ThemeWrapper>
       </body>
     </html>
   );

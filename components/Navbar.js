@@ -9,9 +9,10 @@ import {
   AiOutlinePlusSquare,
   AiOutlineMinusSquare,
 } from "react-icons/ai";
-import { BsFillCartCheckFill } from "react-icons/bs";
+import { BsFillCartCheckFill, BsSun, BsFillMoonFill } from "react-icons/bs";
 import { MdAccountCircle } from "react-icons/md";
 import { Roboto_Condensed } from "next/font/google";
+import ThemeSwitch from "./ThemeSwitch";
 
 const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 
@@ -44,10 +45,22 @@ const Navbar = () => {
     settoggleDropDown(!toggleDropDown);
   };
 
+  // const getCookie = (name) => {
+  //   const cookies = document.cookie;
+  //   let cookie = cookies.split(`; ${name}=`);
+  //   return cookie[1];
+  // };
+
+  // const [theme, setTheme] = useState("");
+  // const toggleTheme = () => {
+  //   setTheme(theme == "" ? "dark" : "");
+  //   document.cookie = `theme=${theme};`;
+  // };
+
   return (
     <>
       <nav
-        className={`${roboto400.className} bg-white font-medium p-4 flex flex-col md:flex-row justify-center md:justify-between items-center shadow-md`}
+        className={`${roboto400.className} dark:bg-dark-background dark:text-dark-text font-medium p-4 flex flex-col md:flex-row justify-center md:justify-between items-center shadow-md`}
       >
         <Link href="/" className="logo ">
           <Image
@@ -76,6 +89,9 @@ const Navbar = () => {
           </ul>
         </div>
         <div className="flex items-center mt-3 md:mt-0">
+          {/* Dark Mode Toggle Button */}
+          <ThemeSwitch />
+          {/* Dark Mode Toggle Button End*/}
           {user.value ? (
             <div
               onMouseEnter={toggleDropDownfunc}
