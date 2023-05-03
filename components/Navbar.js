@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useContext, useEffect, useState } from "react";
+import React, { useRef, useContext, useState } from "react";
 import cartContext from "@/app/context/cart/cartContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +14,6 @@ import { MdAccountCircle } from "react-icons/md";
 import { Roboto_Condensed } from "next/font/google";
 import ThemeSwitch from "./ThemeSwitch";
 import { useTheme } from "next-themes";
-
 const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 
 const Navbar = () => {
@@ -50,17 +49,21 @@ const Navbar = () => {
     settoggleDropDown(!toggleDropDown);
   };
 
-  // const getCookie = (name) => {
-  //   const cookies = document.cookie;
-  //   let cookie = cookies.split(`; ${name}=`);
-  //   return cookie[1];
-  // };
+  // Checking Current set Theme by user and displaying logo accordingly
+  const { resolvedTheme } = useTheme();
+  let logoSrc;
 
-  // const [theme, setTheme] = useState("");
-  // const toggleTheme = () => {
-  //   setTheme(theme == "" ? "dark" : "");
-  //   document.cookie = `theme=${theme};`;
-  // };
+  switch (resolvedTheme) {
+    case "light":
+      logoSrc = "/logo.png";
+      break;
+    case "dark":
+      logoSrc = "/logodark.png";
+      break;
+    default:
+      logoSrc = "/logo.png";
+      break;
+  }
 
   return (
     <>
@@ -68,25 +71,14 @@ const Navbar = () => {
         className={`${roboto400.className} dark:bg-dark-secondaryBackground dark:text-dark-primaryText font-medium p-4 flex flex-col md:flex-row justify-center md:justify-between items-center shadow-md`}
       >
         <Link href="/" className="logo ">
-          {theme.theme === "dark" ? (
-            <Image
-              src="/logodark.png"
-              alt="logo"
-              width={250}
-              height={50}
-              priority
-              className="w-auto h-auto"
-            />
-          ) : (
-            <Image
-              src="/logo.png"
-              alt="logo"
-              width={250}
-              height={50}
-              priority
-              className="w-auto h-auto"
-            />
-          )}
+          <Image
+            src={logoSrc}
+            alt="logo"
+            width={250}
+            height={50}
+            priority
+            className="w-auto h-auto"
+          />
         </Link>
         <div className={`nav md:text-lg`}>
           <ul className="flex md:space-x-5 space-x-2 justify-center mt-3 md:mt-0">

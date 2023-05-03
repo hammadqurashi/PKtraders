@@ -6,8 +6,22 @@ const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 import { useTheme } from "next-themes";
 
 const Footer = () => {
-  // Checking Current set Theme by user
-  const theme = useTheme();
+  // Checking Current set Theme by user and displaying logo accordingly
+  const { resolvedTheme } = useTheme();
+  let logoSrc;
+
+  switch (resolvedTheme) {
+    case "light":
+      logoSrc = "/logo.png";
+      break;
+    case "dark":
+      logoSrc = "/logodark.png";
+      break;
+    default:
+      logoSrc = "/logo.png";
+      break;
+  }
+
   return (
     <footer
       className={`${roboto400.className} text-gray-600 dark:text-dark-secondaryText body-font border-t-2 border-slate-300 dark:border-t-black`}
@@ -18,25 +32,14 @@ const Footer = () => {
             href="/"
             className="flex title-font font-medium items-center md:justify-start justify-center"
           >
-            {theme.theme === "dark" ? (
-              <Image
-                src="/logodark.png"
-                alt="logo"
-                width={250}
-                height={50}
-                priority
-                className="w-auto h-auto"
-              />
-            ) : (
-              <Image
-                src="/logo.png"
-                alt="logo"
-                width={250}
-                height={50}
-                priority
-                className="w-auto h-auto"
-              />
-            )}
+            <Image
+              src={logoSrc}
+              alt="logo"
+              width={250}
+              height={50}
+              priority
+              className="w-auto h-auto"
+            />
           </Link>
           <p className="mt-2 px-4 text-sm dark:text-dark-primaryText">
             Trade around the World Safely With Pakistani Traders.

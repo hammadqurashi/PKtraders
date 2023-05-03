@@ -19,15 +19,23 @@ const ThemeSwitch = () => {
 
   return (
     <button className="mr-1">
-      {theme === "dark" ? (
+      {theme == "dark" ||
+      (theme == "system" &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches) ? (
         <BsFillSunFill
           className="text-3xl text-yellow-400"
-          onClick={() => setTheme("light")}
+          onClick={() => {
+            setTheme("light");
+            document.cookie = "theme=light;path=/";
+          }}
         />
       ) : (
         <BsFillMoonFill
           className="text-2xl text-slate-800"
-          onClick={() => setTheme("dark")}
+          onClick={() => {
+            setTheme("dark");
+            document.cookie = "theme=dark;path=/";
+          }}
         />
       )}
     </button>
