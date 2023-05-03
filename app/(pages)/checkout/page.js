@@ -18,62 +18,13 @@ const Checkout = () => {
   } = context;
 
   const shippingFee = subtotal != 0 ? 100 : 0;
-
-  // const initiatePayment = async () => {
-  //   let oid = Math.floor(Math.random() * Date.now()); // Generating OrderId
-
-  //   // Getting a transaction token
-  //   const data = { cart, subtotal, oid, email: "email" }; // Giving data
-  //   let res = await fetch(
-  //     `${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`,
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(data),
-  //     }
-  //   );
-  //   let txnToken = await res.json();
-  //   console.log(txnToken);
-
-  //   var config = {
-  //     root: "",
-  //     flow: "DEFAULT",
-  //     data: {
-  //       orderId: oid /* update order id */, // Order Id is set to oid generated above
-  //       token: txnToken /* update token value */,
-  //       tokenType: "TXN_TOKEN",
-  //       amount: subtotal /* update amount */, // Giving amount the subtotal
-  //     },
-  //     handler: {
-  //       notifyMerchant: function (eventName, data) {
-  //         console.log("notifyMerchant handler function called");
-  //         console.log("eventName => ", eventName);
-  //         console.log("data => ", data);
-  //       },
-  //     },
-  //   };
-  //   // initialze configuration using init method
-  //   window.Paytm.CheckoutJS.init(config)
-  //     .then(function onSuccess() {
-  //       // after successfully updating configuration, invoke JS Checkout
-  //       window.Paytm.CheckoutJS.invoke();
-  //     })
-  //     .catch(function onError(error) {
-  //       console.log("error => ", error);
-  //     });
-  // };
-
   return (
     <>
-      {/* <Script
-        type="application/javascript"
-        src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgpui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_MID}.js`}
-        crossorigin="anonymous"
-      ></Script> */}
-      <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
-        <a href="#" className="text-2xl font-bold text-gray-800">
+      <div className="flex flex-col items-center border-b py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
+        <a
+          href="#"
+          className="text-2xl font-bold text-gray-800 dark:text-dark-primaryText"
+        >
           Checkout
         </a>
       </div>
@@ -81,17 +32,14 @@ const Checkout = () => {
         {/* Order Summary */}
         <div className="px-4 pt-8">
           <p className="text-xl font-medium">Order Summary</p>
-          <p className="text-gray-400">
+          <p className="text-gray-400 dark:text-dark-secondaryText">
             Check your items. And select a suitable shipping method.
           </p>
-          <div className="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
+          <div className="mt-8 space-y-3 rounded-lg border bg-white dark:bg-dark-primaryBackground px-2 py-4 sm:px-6">
             {Object.keys(cart).length != 0 &&
               Object.keys(cart).map((k) => {
                 return (
-                  <div
-                    className="flex flex-col rounded-lg bg-white sm:flex-row"
-                    key={k}
-                  >
+                  <div className="flex flex-col rounded-lg sm:flex-row" key={k}>
                     <img
                       className="m-2 h-24 w-28 rounded-md border object-cover object-center"
                       src={cart[k].img}
@@ -99,10 +47,10 @@ const Checkout = () => {
                     />
                     <div className="flex w-full flex-col px-4 py-4">
                       <span className="font-semibold">{cart[k].name}</span>
-                      <span className="float-right text-gray-400">
+                      <span className="float-right text-gray-400 dark:text-dark-secondaryText">
                         {cart[k].size} - {cart[k].variant}
                       </span>
-                      <span className="float-right text-gray-400">
+                      <span className="float-right text-gray-400 dark:text-dark-secondaryText">
                         {cart[k].qty}
                       </span>
                       <p className="text-lg font-bold">Rs. {cart[k].price}</p>
@@ -113,7 +61,7 @@ const Checkout = () => {
           </div>
         </div>
 
-        <div className="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+        <div className="mt-10 bg-gray-50 dark:bg-dark-secondaryBackground px-4 pt-8 lg:mt-0">
           {/* Shipping Methods */}
           <p className="text-lg font-medium">Shipping Methods</p>
           <form className="mt-5 grid gap-6">
@@ -125,9 +73,9 @@ const Checkout = () => {
                 name="radio"
                 defaultChecked
               />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+              <span className="peer-checked:border-gray-700 dark:peer-checked:border-white absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white dark:bg-dark-secondaryBackground"></span>
               <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
                 htmlFor="radio_1"
               >
                 <img
@@ -137,7 +85,7 @@ const Checkout = () => {
                 />
                 <div className="ml-5">
                   <span className="mt-2 font-semibold">TCS Delivery</span>
-                  <p className="text-slate-500 text-sm leading-6">
+                  <p className="text-slate-500 dark:text-dark-secondaryText text-sm leading-6">
                     Delivery: 2-4 Days
                   </p>
                 </div>
@@ -151,9 +99,9 @@ const Checkout = () => {
                 name="radio"
                 defaultChecked
               />
-              <span className="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+              <span className="peer-checked:border-gray-700 dark:peer-checked:border-white absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white dark:bg-dark-primaryBackground"></span>
               <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
                 htmlFor="radio_2"
               >
                 <img
@@ -176,7 +124,7 @@ const Checkout = () => {
           {/* Payment Details */}
 
           <p className="mt-8 text-xl font-medium">Payment Details</p>
-          <p className="text-gray-400">
+          <p className="text-gray-400 dark:text-dark-secondaryText">
             Complete your order by providing your payment details.
           </p>
           <div className="">
@@ -197,7 +145,7 @@ const Checkout = () => {
               <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
+                  className="h-4 w-4 text-gray-400 dark:text-dark-secondaryText"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -228,7 +176,7 @@ const Checkout = () => {
               <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4 text-gray-400"
+                  className="h-4 w-4 text-gray-400 dark:text-dark-secondaryText"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -259,7 +207,7 @@ const Checkout = () => {
                 />
                 <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                   <svg
-                    className="h-4 w-4 text-gray-400"
+                    className="h-4 w-4 text-gray-400 dark:text-dark-secondaryText"
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
                     height="16"
@@ -328,26 +276,33 @@ const Checkout = () => {
             {/* <!-- Total --> */}
             <div className="mt-6 border-t border-b py-2">
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-gray-900">Subtotal</p>
-                <p className="font-semibold text-gray-900">Rs. {subtotal}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+                  Subtotal
+                </p>
+                <p className="font-semibold text-gray-900 dark:text-dark-primaryText">
+                  Rs. {subtotal}
+                </p>
               </div>
               <div className="flex items-center justify-between">
-                <p className="text-sm font-medium text-gray-900">Shipping</p>
-                <p className="font-semibold text-gray-900">Rs {shippingFee}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+                  Shipping
+                </p>
+                <p className="font-semibold text-gray-900 dark:text-dark-primaryText">
+                  Rs {shippingFee}
+                </p>
               </div>
             </div>
             <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-900">Total</p>
-              <p className="text-2xl font-semibold text-gray-900">
+              <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+                Total
+              </p>
+              <p className="text-2xl font-semibold text-gray-900 dark:text-dark-primaryText">
                 Rs. {subtotal + shippingFee}
               </p>
             </div>
           </div>
           <Link href="/order">
-            <button
-              className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white"
-              // onClick={initiatePayment}
-            >
+            <button className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white dark:bg-[#ed1c24]">
               Place Order
             </button>
           </Link>
