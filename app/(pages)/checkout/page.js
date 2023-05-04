@@ -73,9 +73,9 @@ const Checkout = () => {
                 name="radio"
                 defaultChecked
               />
-              <span className="peer-checked:border-gray-700 dark:peer-checked:border-white absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white dark:bg-dark-secondaryBackground"></span>
+              <span className="peer-checked:border-gray-700 dark:peer-checked:border-white absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 dark:border-gray-700 bg-white dark:bg-dark-secondaryBackground"></span>
               <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 dark:border-gray-700 p-4"
                 htmlFor="radio_1"
               >
                 <img
@@ -99,9 +99,9 @@ const Checkout = () => {
                 name="radio"
                 defaultChecked
               />
-              <span className="peer-checked:border-gray-700 dark:peer-checked:border-white absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white dark:bg-dark-primaryBackground"></span>
+              <span className="peer-checked:border-gray-700 dark:peer-checked:border-white absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 dark:border-gray-700 bg-white dark:bg-dark-primaryBackground"></span>
               <label
-                className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
+                className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 dark:border-gray-700 p-4"
                 htmlFor="radio_2"
               >
                 <img
