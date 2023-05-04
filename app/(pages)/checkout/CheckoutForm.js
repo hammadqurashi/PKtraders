@@ -1,13 +1,26 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   PaymentElement,
   LinkAuthenticationElement,
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import cartContext from "@/app/context/cart/cartContext";
 
 const CheckoutForm = () => {
+  const context = useContext(cartContext);
+
+  const {
+    cart,
+    subtotal,
+    addToCart,
+    removeFromCart,
+    clearCart,
+    addQuantity,
+    subtractQuantity,
+  } = context;
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -61,7 +74,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: "http://localhost:3000",
+        return_url: `${process.env.NEXT_PUBLIC_HOST}/order`,
       },
     });
 
@@ -83,16 +96,52 @@ const CheckoutForm = () => {
     layout: "tabs",
   };
 
+  const shippingFee = subtotal != 0 ? 100 : 0;
+
   return (
     <form id="payment-form" onSubmit={handleSubmit}>
       <LinkAuthenticationElement
         id="link-authentication-element"
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(value) => setEmail(value)}
       />
       <PaymentElement id="payment-element" options={paymentElementOptions} />
-      <button disabled={isLoading || !stripe || !elements} id="submit">
+      <div className="mt-6 border-t border-b py-2">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+            Subtotal
+          </p>
+          <p className="font-semibold text-gray-900 dark:text-dark-primaryText">
+            Rs. {subtotal}
+          </p>
+        </div>
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+            Shipping
+          </p>
+          <p className="font-semibold text-gray-900 dark:text-dark-primaryText">
+            Rs {shippingFee}
+          </p>
+        </div>
+      </div>
+      <div className="mt-6 flex items-center justify-between">
+        <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+          Total
+        </p>
+        <p className="text-2xl font-semibold text-gray-900 dark:text-dark-primaryText">
+          Rs. {subtotal + shippingFee}
+        </p>
+      </div>
+      <button
+        disabled={isLoading || !stripe || !elements}
+        id="submit"
+        className="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white dark:bg-[#ed1c24]"
+      >
         <span id="button-text">
-          {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+          {isLoading ? (
+            <div className="animate-spin rounded-full w-5 h-5 border-2 border-white border-t-gray-900 dark:border-t-[#ed1c24]"></div>
+          ) : (
+            "Pay now"
+          )}
         </span>
       </button>
       {/* Show any error or success messages */}

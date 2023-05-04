@@ -1,11 +1,25 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import cartContext from "@/app/context/cart/cartContext";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import {
+  AiOutlineShoppingCart,
+  AiFillCloseCircle,
+  AiOutlinePlusSquare,
+  AiOutlineMinusSquare,
+} from "react-icons/ai";
+import { BsFillCartCheckFill, BsSun, BsFillMoonFill } from "react-icons/bs";
+import { MdAccountCircle } from "react-icons/md";
+import { Roboto_Condensed } from "next/font/google";
 import ThemeSwitch from "./ThemeSwitch";
+import { useTheme } from "next-themes";
+const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 
 const TestNavbar = () => {
+  // Checking Current set Theme by user
+  const theme = useTheme();
+
   // useContext hook
   const context = useContext(cartContext);
 
@@ -22,73 +36,88 @@ const TestNavbar = () => {
     subtractQuantity,
   } = context;
 
+  const sideCartref = useRef();
+
+  // Show / hide cart on click
+  const toggleCart = () => {
+    sideCartref.current.classList.toggle("translate-x-full");
+  };
+
   const [toggleDropDown, settoggleDropDown] = useState(false);
-  const [collectionDropDown, setcollectionDropDown] = useState(false);
 
   const toggleDropDownfunc = () => {
     settoggleDropDown(!toggleDropDown);
   };
+
+  // Checking Current set Theme by user and displaying logo accordingly
+  const { resolvedTheme } = useTheme();
+  let logoSrc;
+
+  switch (resolvedTheme) {
+    case "light":
+      logoSrc = "/logo.png";
+      break;
+    case "dark":
+      logoSrc = "/logodark.png";
+      break;
+    default:
+      logoSrc = "/logo.png";
+      break;
+  }
+
   return (
     <>
-      <header className="mb-8 border-b dark:bg-dark-secondaryBackground">
-        <div className="mx-auto flex max-w-screen-2xl items-center justify-between px-4 md:px-8">
-          {/* <!-- logo - start --> */}
-          <a
-            href="/"
-            className="inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl"
-            aria-label="logo"
-          >
-            {/* <svg
-              width="95"
-              height="94"
-              viewBox="0 0 95 94"
-              className="h-auto w-6 text-[#ed1c24]"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M96 0V47L48 94H0V47L48 0H96Z" />
-            </svg> */}
-            <Image
-              src={"/brandlogo.png"}
-              width={50}
-              height={50}
-              priority
-              alt="brandlogo"
-            />
-            PKTraders
-          </a>
-          {/* <!-- logo - end --> */}
-
-          {/* <!-- nav - start --> */}
-          <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-            <Link href="/" className="text-lg font-semibold text-[#ed1c24]">
-              Home
+      <nav
+        className={`${roboto400.className} dark:bg-dark-secondaryBackground dark:text-dark-primaryText font-medium p-4 flex flex-col md:flex-row justify-center md:justify-between items-center shadow-md`}
+      >
+        <Link href="/" className="logo ">
+          <Image
+            src={logoSrc}
+            alt="logo"
+            width={250}
+            height={50}
+            priority
+            className="w-auto h-auto"
+          />
+        </Link>
+        <div className={`nav md:text-lg`}>
+          <ul className="flex md:space-x-5 space-x-2 justify-center mt-3 md:mt-0">
+            <Link href="/tshirts">
+              <li>Tshirts</li>
             </Link>
+            <Link href="/hoodies">
+              <li>Hoodies</li>
+            </Link>
+            <Link href="/sweatshirts">
+              <li>SweatShirts</li>
+            </Link>
+            <Link href="/caps">
+              <li>Caps</li>
+            </Link>
+          </ul>
+        </div>
+        <div className="flex items-center mt-3 md:mt-0">
+          {/* Dark Mode Toggle Button */}
+          <ThemeSwitch />
+          {/* Dark Mode Toggle Button End*/}
+          {user.value ? (
             <div
-              onMouseEnter={() => setcollectionDropDown(!collectionDropDown)}
-              onMouseLeave={() => setcollectionDropDown(!collectionDropDown)}
-              onClick={() => setcollectionDropDown(!collectionDropDown)}
-              className="cursor-pointer relative flex items-center text-lg font-semibold text-gray-600 dark:text-dark-primaryText transition duration-100 active:text-[#ed1c24]"
+              onMouseEnter={toggleDropDownfunc}
+              onMouseLeave={toggleDropDownfunc}
+              onClick={toggleDropDownfunc}
+              className="relative inline-block text-left"
             >
-              Collections
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-800 dark:text-dark-primaryText"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              {collectionDropDown && (
+              <MdAccountCircle
+                title="Account"
+                className={`text-4xl md-full rounded-full mr-1 cursor-pointer`}
+              />
+
+              {/* DropDown Menu Of Account */}
+
+              {toggleDropDown && (
                 <div
-                  onMouseLeave={() =>
-                    setcollectionDropDown(!collectionDropDown)
-                  }
-                  className="absolute top-[100%] left-[50%] -ml-[50px] z-50 w-56 origin-top-right rounded-md bg-white dark:bg-dark-secondaryBackground shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  onMouseLeave={toggleDropDownfunc}
+                  className="absolute right-0 z-10 w-56 origin-top-right rounded-md bg-white dark:bg-dark-secondaryBackground shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="menu-button"
@@ -102,7 +131,7 @@ const TestNavbar = () => {
                       tabIndex="-1"
                       id="menu-item-0"
                     >
-                      Tshirts
+                      My Account
                     </Link>
                     <Link
                       href="/myorders"
@@ -111,7 +140,7 @@ const TestNavbar = () => {
                       tabIndex="-1"
                       id="menu-item-1"
                     >
-                      Hoodies
+                      Orders
                     </Link>
                     <Link
                       href="/support"
@@ -120,7 +149,7 @@ const TestNavbar = () => {
                       tabIndex="-1"
                       id="menu-item-2"
                     >
-                      SweatShirts
+                      Support
                     </Link>
                     <button
                       onClick={logout}
@@ -129,169 +158,92 @@ const TestNavbar = () => {
                       tabIndex="-1"
                       id="menu-item-3"
                     >
-                      Caps
+                      Sign out
                     </button>
                   </div>
                 </div>
               )}
             </div>
-
-            <a
-              href="#"
-              className="text-lg font-semibold text-gray-600 dark:text-dark-primaryText transition duration-100 active:text-[#ed1c24]"
-            >
-              Sale
-            </a>
-            <a
-              href="#"
-              className="text-lg font-semibold text-gray-600 dark:text-dark-primaryText transition duration-100 active:text-[#ed1c24]"
-            >
-              About
-            </a>
-          </nav>
-          {/* <!-- nav - end --> */}
-
-          {/* <!-- buttons - start --> */}
-          <div className="flex">
-            <ThemeSwitch />
-            <Link
-              href="/cart"
-              className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-800 dark:text-dark-primaryText"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+          ) : (
+            <Link href="/login">
+              <button
+                className={`text-lg mr-1 bg-[#ed1c24] text-white py-1 font-semibold px-4 rounded-lg`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                />
-              </svg>
-
-              <span className="hidden text-xs font-semibold text-gray-500 dark:text-dark-primaryText sm:block">
-                Cart
-              </span>
+                Log In
+              </button>
             </Link>
-            {user.value ? (
-              <div
-                onMouseEnter={toggleDropDownfunc}
-                onMouseLeave={toggleDropDownfunc}
-                onClick={toggleDropDownfunc}
-                className="cursor-pointer flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 text-gray-800 dark:text-dark-primaryText"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-
-                <span className="text-xs font-semibold text-gray-500 dark:text-dark-primaryText sm:block">
-                  Account
-                </span>
-                <div className="relative">
-                  {toggleDropDown && (
-                    <div
-                      onMouseLeave={toggleDropDownfunc}
-                      className="absolute top-0 right-2 z-50 w-56 origin-top-right rounded-md bg-white dark:bg-dark-secondaryBackground shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-                      role="menu"
-                      aria-orientation="vertical"
-                      aria-labelledby="menu-button"
-                      tabIndex="-1"
-                    >
-                      <div className="py-1" role="none">
-                        <Link
-                          href="/myaccount"
-                          className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-sm"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="menu-item-0"
-                        >
-                          My Account
-                        </Link>
-                        <Link
-                          href="/myorders"
-                          className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-sm"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="menu-item-1"
-                        >
-                          Orders
-                        </Link>
-                        <Link
-                          href="/support"
-                          className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-sm"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="menu-item-2"
-                        >
-                          Support
-                        </Link>
-                        <button
-                          onClick={logout}
-                          className="text-gray-700 dark:text-dark-primaryText block w-full px-4 py-2 text-left text-sm"
-                          role="menuitem"
-                          tabIndex="-1"
-                          id="menu-item-3"
-                        >
-                          Sign out
-                        </button>
+          )}
+          <div
+            className="bg-[#ED1C24] hover:bg-[#ed262d] rounded-sm p-2 cart cursor-pointer"
+            title="Cart"
+            onClick={toggleCart}
+          >
+            <AiOutlineShoppingCart className={`md:text-2xl text-white`} />
+          </div>
+        </div>
+        {/* SideCart Starts here */}
+        <div
+          className="sidecart fixed top-0 overflow-y-scroll h-[100vh] right-0 bg-white dark:bg-dark-secondaryBackground border-l-2  border-[#ed1c24] md:w-[20vw] w-[50vw] z-40 p-4 transition-transform translate-x-full"
+          ref={sideCartref}
+        >
+          <div className="flex justify-between my-1">
+            <h2 className="text-xl font-bold">Shopping Cart</h2>
+            <span className="cursor-pointer">
+              <AiFillCloseCircle
+                className="text-xl text-[#ed1c24]"
+                onClick={toggleCart}
+              />
+            </span>
+          </div>
+          <ul>
+            {Object.keys(cart) != 0 ? (
+              Object.keys(cart).map((k) => {
+                return (
+                  <li className="list-decimal list-inside my-2" key={k}>
+                    <div className="item flex items-center">
+                      <div className="w-2/3 font-semibold ">{cart[k].name}</div>
+                      <div className="w-1/3 flex items-center justify-center">
+                        <AiOutlineMinusSquare
+                          onClick={() => {
+                            subtractQuantity(k);
+                          }}
+                          className="cursor-pointer text-xl"
+                        />
+                        <div className="mx-1 ">{cart[k].qty}</div>
+                        <AiOutlinePlusSquare
+                          onClick={() => {
+                            addQuantity(k);
+                          }}
+                          className="cursor-pointer text-xl"
+                        />
                       </div>
                     </div>
-                  )}
-                </div>
-              </div>
+                  </li>
+                );
+              })
             ) : (
-              <Link
-                href="/login"
-                className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24"
-              >
-                <button
-                  className={`text-lg mr-1 bg-[#ed1c24] text-white py-1 font-semibold px-4 rounded-lg`}
-                >
-                  Log In
-                </button>
-              </Link>
+              <div className="my-4">There Are No Items In Cart</div>
             )}
-
-            <button
-              type="button"
-              className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:hidden"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-gray-800 dark:text-dark-primaryText"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+          </ul>
+          {cart.length !== 0 && (
+            <div className="flex mt-10">
+              <Link
+                href="/checkout"
+                className="sm:w-1/2 mr-1 flex items-center sm:px-2 sm:py-1 md:px-4 md:py-2 text-sm bg-[#ed1c24] text-white rounded"
               >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-
-              <span className="hidden text-xs font-semibold text-gray-500 dark:text-dark-primaryText sm:block">
-                Menu
-              </span>
-            </button>
-          </div>
-          {/* <!-- buttons - end --> */}
+                <BsFillCartCheckFill className="mx-1" />
+                Checkout
+              </Link>
+              <button
+                className="sm:w-1/2 flex items-center sm:px-2 sm:py-1 md:px-4 md:py-2 sm:text-sm bg-[#ed1c24] text-white rounded"
+                onClick={clearCart}
+              >
+                Clear Cart
+              </button>
+            </div>
+          )}
         </div>
-      </header>
+      </nav>
     </>
   );
 };

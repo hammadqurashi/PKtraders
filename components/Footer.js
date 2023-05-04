@@ -3,44 +3,30 @@ import Link from "next/link";
 import Image from "next/image";
 import { Roboto_Condensed } from "next/font/google";
 const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
-import { useTheme } from "next-themes";
 
 const Footer = () => {
-  // Checking Current set Theme by user and displaying logo accordingly
-  const { resolvedTheme } = useTheme();
-  let logoSrc;
-
-  switch (resolvedTheme) {
-    case "light":
-      logoSrc = "/logo.png";
-      break;
-    case "dark":
-      logoSrc = "/logodark.png";
-      break;
-    default:
-      logoSrc = "/logo.png";
-      break;
-  }
-
   return (
     <footer
       className={`${roboto400.className} text-gray-600 dark:text-dark-secondaryText body-font border-t-2 border-slate-300 dark:border-t-black`}
     >
       <div className="dark:bg-dark-primaryBackground container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+          {/* <!-- logo - start --> */}
           <Link
             href="/"
-            className="flex title-font font-medium items-center md:justify-start justify-center"
+            className="inline-flex items-center gap-2.5 text-2xl font-bold md:text-3xl dark:text-dark-primaryText text-black"
+            aria-label="logo"
           >
             <Image
-              src={logoSrc}
-              alt="logo"
-              width={250}
+              src={"/brandlogo.png"}
+              width={50}
               height={50}
               priority
-              className="w-auto h-auto"
+              alt="brandlogo"
             />
+            PKTraders
           </Link>
+          {/* <!-- logo - end --> */}
           <p className="mt-2 px-4 text-sm dark:text-dark-primaryText">
             Trade around the World Safely With Pakistani Traders.
           </p>

@@ -41,6 +41,7 @@ const CartState = (props) => {
       subt += cart[keys[i]]["price"] * cart[keys[i]].qty; // setting subtotal of cart items
     }
     setsubTotal(subt);
+    document.cookie = `cart=${JSON.stringify(cart)};path=/`;
   };
 
   // Logout Function

@@ -5,26 +5,31 @@ import stripePackage from "stripe";
 
 const stripe = stripePackage(process.env.STRIPE_SECRET_KEY);
 
-const calculateOrderAmount = (items) => {
-  // Replace this constant with a calculation of the order's amount
-  // Calculate the order total on the server to prevent
-  // people from directly manipulating the amount on the client
-  return 1400;
-};
+export async function POST(request) {
+  const res = await request.json();
 
-export async function POST(req) {
-  const { items } = req.body;
+  const calculateOrderAmount = (items) => {
+    // Replace this constant with a calculation of the order's amount
+    // Calculate the order total on the server to prevent
+    // people from directly manipulating the amount on the client
+    let subt = 0;
+    let keys = Object.keys(items);
+    for (let i = 0; i < keys.length; i++) {
+      subt += items[keys[i]].price * items[keys[i]].qty; // setting subtotal of cart items
+    }
+    return subt;
+  };
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: calculateOrderAmount(items),
+    amount: calculateOrderAmount(res.items), //calculateOrderAmount(items)
     currency: "eur",
     automatic_payment_methods: {
       enabled: true,
     },
   });
-  res.send({
-    clientSecret: paymentIntent.client_secret,
-  });
+  // res.send({
+  //   clientSecret: paymentIntent.client_secret,
+  // });
   return NextResponse.json({ clientSecret: paymentIntent.client_secret });
 }
