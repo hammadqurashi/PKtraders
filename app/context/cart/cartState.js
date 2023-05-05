@@ -4,6 +4,7 @@ import CartContext from "./cartContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { NextResponse } from "next/server";
+import { ToastContainer, toast } from "react-toastify";
 
 const CartState = (props) => {
   const [cart, setcart] = useState({});
@@ -61,6 +62,7 @@ const CartState = (props) => {
     }
     setcart(newCart); // setting cart
     saveCart(newCart); // saving cart
+    toast.success("Added To Cart Successfully!");
   };
 
   // removes the item from cart
