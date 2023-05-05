@@ -27,7 +27,7 @@ const Checkout = () => {
   const [clientSecret, setClientSecret] = useState("");
 
   const getCartItems = () => {
-    let cookie = document.cookie.split(`; cart=`)[1];
+    let cookie = document.cookie.split(`; cart=`).pop().split(";").shift();
     let cart = JSON.parse(cookie);
     return cart;
   };

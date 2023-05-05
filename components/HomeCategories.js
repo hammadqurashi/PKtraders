@@ -1,16 +1,16 @@
 import React from "react";
 import Link from "next/link";
 
-const HomeCollection = () => {
+const HomeCategories = () => {
   return (
     // <><!-- collections - start -->
     <div className="bg-white dark:bg-dark-primaryBackground py-6 sm:py-8 lg:py-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
         <h2 className="mb-8 text-center text-2xl font-bold text-gray-800 dark:text-dark-primaryText  md:mb-12 lg:text-3xl">
-          Collections
+          Categories
         </h2>
 
-        <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-2 xl:grid-cols-2">
           {/* <!-- product - start --> */}
           <div>
             <Link
@@ -105,4 +105,4 @@ const HomeCollection = () => {
   );
 };
 
-export default HomeCollection;
+export default HomeCategories;

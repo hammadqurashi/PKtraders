@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
-const ThemeSwitch = () => {
+const ThemeSwitch = (props) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -18,7 +18,9 @@ const ThemeSwitch = () => {
   }
 
   return (
-    <button className="mr-1">
+    <button
+      className={`mr-1 ${props.smallDevice == "hidden" && "hidden md:block"}`}
+    >
       {theme == "dark" ||
       (theme == "system" &&
         window.matchMedia("(prefers-color-scheme: dark)").matches) ? (

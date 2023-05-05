@@ -1,14 +1,35 @@
 import Image from "next/image";
 import { Roboto_Condensed } from "next/font/google";
-import HomeCollection from "@/components/HomeCollection";
+import HomeCategories from "@/components/HomeCategories";
 import HomeHero from "@/components/HomeHero";
+import HomeProductGrid from "@/components/HomeProductGrid";
+import NewsLetter from "@/components/NewsLetter";
 const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 
-export default function Home() {
+const getCollection = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getproducts`, {
+    cache: "no-store",
+  });
+  return res.json();
+};
+
+export default async function Home() {
+  let collection = await getCollection();
+  let latestCollection = collection.slice(
+    collection.length - 6,
+    collection.length
+  );
+
   return (
     <>
       <HomeHero />
-      <HomeCollection />
+      <HomeCategories />
+      <HomeProductGrid
+        title="Our Latest Collections"
+        description="Get Our Latest Collections Before They Are Stocked Out!"
+        collection={latestCollection}
+      />
+      <NewsLetter />
     </>
   );
 }
