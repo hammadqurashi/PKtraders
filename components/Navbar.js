@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import cartContext from "@/app/context/cart/cartContext";
 import Link from "next/link";
 import Image from "next/image";
 import ThemeSwitch from "./ThemeSwitch";
-
+import { usePathname } from "next/navigation";
 const Navbar = () => {
   // useContext hook
   const context = useContext(cartContext);
@@ -28,6 +28,9 @@ const Navbar = () => {
   const toggleDropDownfunc = () => {
     settoggleDropDown(!toggleDropDown);
   };
+
+  const pathName = usePathname();
+
   return (
     <>
       <header className="mb-8 border-b dark:bg-dark-secondaryBackground">
@@ -51,14 +54,21 @@ const Navbar = () => {
 
           {/* <!-- nav - start --> */}
           <nav className="hidden gap-12 lg:flex 2xl:ml-16">
-            <Link href="/" className="text-lg font-semibold text-[#ed1c24]">
+            <Link
+              href="/"
+              className={`${
+                pathName == "/"
+                  ? "text-[#ed1c24]"
+                  : "text-gray-600 dark:text-dark-primaryText"
+              } text-lg font-semibold`}
+            >
               Home
             </Link>
             <div
               onMouseEnter={() => setcollectionDropDown(!collectionDropDown)}
               onMouseLeave={() => setcollectionDropDown(!collectionDropDown)}
               onClick={() => setcollectionDropDown(!collectionDropDown)}
-              className="cursor-pointer relative flex items-center text-lg font-semibold text-gray-600 dark:text-dark-primaryText transition duration-100 active:text-[#ed1c24]"
+              className="cursor-pointer relative flex items-center text-lg font-semibold text-gray-600 dark:text-dark-primaryText transition duration-100"
             >
               Collections
               <svg
@@ -87,7 +97,11 @@ const Navbar = () => {
                   <div className="py-1" role="none">
                     <Link
                       href="/tshirts"
-                      className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground"
+                      className={`${
+                        pathName == "/tshirts"
+                          ? "text-[#ed1c24]"
+                          : "text-gray-700 dark:text-dark-primaryText"
+                      } block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground`}
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-0"
@@ -96,7 +110,11 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href="/hoodies"
-                      className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground"
+                      className={`${
+                        pathName == "/hoodies"
+                          ? "text-[#ed1c24]"
+                          : "text-gray-700 dark:text-dark-primaryText"
+                      } block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground`}
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-1"
@@ -105,7 +123,11 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href="/sweatshirts"
-                      className="text-gray-700 dark:text-dark-primaryText block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground"
+                      className={`${
+                        pathName == "/sweatshirts"
+                          ? "text-[#ed1c24]"
+                          : "text-gray-700 dark:text-dark-primaryText"
+                      } block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground`}
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-2"
@@ -114,7 +136,11 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href="/caps"
-                      className="text-gray-700 dark:text-dark-primaryText block w-full px-4 py-2 text-left text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground"
+                      className={`${
+                        pathName == "/caps"
+                          ? "text-[#ed1c24]"
+                          : "text-gray-700 dark:text-dark-primaryText"
+                      } block px-4 py-2 text-base hover:bg-gray-100 dark:hover:bg-dark-primaryBackground`}
                       role="menuitem"
                       tabIndex="-1"
                       id="menu-item-3"
@@ -134,7 +160,11 @@ const Navbar = () => {
             </a>
             <Link
               href="/about"
-              className="text-lg font-semibold text-gray-600 dark:text-dark-primaryText transition duration-100 active:text-[#ed1c24]"
+              className={`text-lg font-semibold ${
+                pathName == "/about"
+                  ? "text-[#ed1c24]"
+                  : " text-gray-600 dark:text-dark-primaryText "
+              } transition duration-100`}
             >
               About
             </Link>

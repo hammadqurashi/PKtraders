@@ -20,6 +20,8 @@ const Cart = () => {
     subtractQuantity,
   } = context;
 
+  // Calulating Shipping Fee
+  const shippingFee = subtotal != 0 ? 100 : 0;
   return (
     <>
       <div className="bg-white dark:bg-dark-primaryBackground py-6 sm:py-8 lg:py-12">
@@ -132,7 +134,7 @@ const Cart = () => {
 
                 <div className="flex justify-between gap-4 text-gray-500 dark:text-dark-primaryText">
                   <span>Shipping</span>
-                  <span>Rs. 100</span>
+                  <span>{shippingFee}</span>
                 </div>
               </div>
 
@@ -142,7 +144,7 @@ const Cart = () => {
 
                   <span className="flex flex-col items-end">
                     <span className="text-lg font-bold">
-                      Rs. {subtotal + 100}
+                      Rs. {subtotal + shippingFee}
                     </span>
                     <span className="text-sm text-gray-500 dark:text-dark-secondaryText">
                       including VAT
@@ -152,12 +154,14 @@ const Cart = () => {
               </div>
             </div>
 
-            <Link
-              href="/checkout"
-              className="inline-block rounded-lg bg-[#ed1c24] px-8 py-3 text-center text-sm font-semibold text-white outline-none transition duration-100 focus-visible:ring md:text-base"
-            >
-              Check out
-            </Link>
+            {subtotal >= 1 && (
+              <Link
+                href="/checkout"
+                className="inline-block rounded-lg bg-[#ed1c24] px-8 py-3 text-center text-sm font-semibold text-white outline-none transition duration-100 focus-visible:ring md:text-base"
+              >
+                Check out
+              </Link>
+            )}
           </div>
           {/* <!-- totals - end --> */}
         </div>
