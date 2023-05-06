@@ -1,26 +1,22 @@
 import Link from "next/link";
 
-const getSweatShirts = async () => {
-  const sweatshirts = await fetch(`${process.env.HOST}/api/getproducts`, {
+const allCollections = async () => {
+  const collections = await fetch(`${process.env.HOST}/api/getproducts`, {
     cache: "no-store",
   });
-  const json = await sweatshirts.json();
-
-  const res = Object.values(json).filter((e) => {
-    return e.category === "sweatshirt";
-  });
-
+  const res = await collections.json();
+  res.reverse();
   return res;
 };
 
-const SweatShirts = async () => {
-  const sweatshirts = await getSweatShirts();
+const Hoodies = async () => {
+  const collections = await allCollections();
   return (
     <>
       <section className=" text-gray-600 dark:text-dark-primaryText body-font my-5">
         <div className="container mx-auto">
           <div className="grid gap-x-4 gap-y-8 sm:grid-cols-2 md:gap-x-6 lg:grid-cols-3 xl:grid-cols-5">
-            {sweatshirts.map((item) => {
+            {collections.map((item) => {
               return (
                 <Link
                   key={item._id}
@@ -86,4 +82,4 @@ const SweatShirts = async () => {
   );
 };
 
-export default SweatShirts;
+export default Hoodies;

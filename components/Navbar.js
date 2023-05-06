@@ -116,7 +116,7 @@ const Navbar = () => {
             <Link
               href="/allcollections"
               className={`text-lg font-semibold ${
-                pathName == "/caps"
+                pathName == "/allcollections"
                   ? "text-[#ed1c24]"
                   : " text-gray-600 dark:text-dark-primaryText "
               } transition duration-100`}
