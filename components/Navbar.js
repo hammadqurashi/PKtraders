@@ -10,17 +10,7 @@ const Navbar = () => {
   const context = useContext(cartContext);
 
   // desturcturing context
-  const {
-    user,
-    logout,
-    cart,
-    subtotal,
-    addToCart,
-    removeFromCart,
-    clearCart,
-    addQuantity,
-    subtractQuantity,
-  } = context;
+  const { user, logout, cart } = context;
 
   const [toggleDropDown, settoggleDropDown] = useState(false);
   const [collectionDropDown, setcollectionDropDown] = useState(false);
@@ -32,6 +22,7 @@ const Navbar = () => {
   const togglemobileNavOpen = () => {
     setmobileNavOpen(!mobileNavOpen);
   };
+
   const toggleDropDownfunc = () => {
     settoggleDropDown(!toggleDropDown);
   };
@@ -45,6 +36,8 @@ const Navbar = () => {
 
   return (
     <>
+      {/* Top Navbar Starts */}
+
       <header className="mb-8 border-b dark:bg-dark-secondaryBackground">
         <div className="mx-auto flex max-w-screen-2xl items-center py-2 justify-between md:px-8">
           {/* <!-- logo - start --> */}
@@ -289,6 +282,7 @@ const Navbar = () => {
           {/* <!-- buttons - end --> */}
         </div>
       </header>
+      {/* Top Navbar Ends */}
 
       {/* <!-- Mobile Floating Nav - start --> */}
 
@@ -332,7 +326,7 @@ const Navbar = () => {
               <span>Home</span>
             </Link>
 
-            <div className="mr-4 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600 sm:mr-8">
+            <div className="mr-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:mr-8">
               <ThemeSwitch />
 
               <span>Theme</span>
@@ -340,7 +334,7 @@ const Navbar = () => {
 
             <a
               href="#"
-              className="ml-4 flex flex-col items-center gap-1 text-gray-400 transition duration-100 hover:text-gray-500 active:text-gray-600 sm:ml-8"
+              className="ml-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:ml-8"
             >
               <svg
                 className="h-6 w-6"
