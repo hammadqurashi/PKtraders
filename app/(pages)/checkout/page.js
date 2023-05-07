@@ -38,18 +38,18 @@ const Checkout = () => {
 
   const [clientSecret, setClientSecret] = useState("");
 
-  const getCartItems = () => {
-    let cookie = document.cookie.split(`; cart=`).pop().split(";").shift();
-    let cart = JSON.parse(cookie);
-    return cart;
-  };
+  // const getCartItems = () => {
+  //   let cookie = document.cookie.split(`; cart=`).pop().split(";").shift();
+  //   let cart = JSON.parse(cookie);
+  //   return cart;
+  // };
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
     fetch(`${process.env.NEXT_PUBLIC_HOST}/api/create-payment-intent`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ items: getCartItems() }),
+      body: JSON.stringify({ items: JSON.parse(localStorage.getItem("cart")) }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));

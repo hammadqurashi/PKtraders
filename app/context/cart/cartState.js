@@ -41,12 +41,12 @@ const CartState = (props) => {
       subt += cart[keys[i]]["price"] * cart[keys[i]].qty; // setting subtotal of cart items
     }
     setsubTotal(subt);
-    document.cookie = `cart=${JSON.stringify(cart)};path=/`;
+    // document.cookie = `cart=${JSON.stringify(cart)};path=/`;
   };
 
   // Logout Function
   const logout = () => {
-    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`; // Deleting Cookie Cookie
+    document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`; // Deleting Token Cookie
     localStorage.removeItem("token");
     router.push(`${process.env.NEXT_PUBLIC_HOST}/login`);
   };
