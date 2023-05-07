@@ -243,7 +243,7 @@ const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <div className="hidden md:flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 active:bg-gray-200 md:h-24 md:w-24">
+              <div className="hidden md:flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 md:h-24 md:w-24">
                 <Link
                   href="/login"
                   className={`text-lg mr-1 bg-[#ed1c24] text-white py-1 font-semibold px-4 rounded-lg`}
@@ -258,7 +258,7 @@ const Navbar = () => {
             <button
               onClick={togglemobileNavOpen}
               type="button"
-              className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:hidden"
+              className="flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground sm:h-20 sm:w-20 md:h-24 md:w-24 lg:hidden"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

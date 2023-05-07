@@ -37,7 +37,6 @@ const ClientLogin = (props) => {
     try {
       // Logging In On Server Side and Passing Func As a Prop TO CLient Side
       let data = await props.userLogin(loginDetails);
-      console.log(data);
 
       // Setting Login Details of Form to initial
       setloginDetails({
@@ -78,7 +77,6 @@ const ClientLogin = (props) => {
         });
       }
     } catch (error) {
-      console.log(error);
       // Handling ERROR
       setloginDetails({
         email: "",
