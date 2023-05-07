@@ -112,7 +112,7 @@ const Checkout = () => {
       );
       const order = await res.json();
       if (payMethod == "cod") {
-        router.push(`${process.env.NEXT_PUBLIC_HOST}/order?id:${order._id}`);
+        router.push(`${process.env.NEXT_PUBLIC_HOST}/order?id=${order._id}`);
       }
     }
   };
@@ -155,6 +155,33 @@ const Checkout = () => {
                   </div>
                 );
               })}
+          </div>
+          {/* Total Amount Calculation */}
+          <div className="mt-6 border-t border-b py-2">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+                Subtotal
+              </p>
+              <p className="font-semibold text-gray-900 dark:text-dark-primaryText">
+                Rs. {subtotal}
+              </p>
+            </div>
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+                Shipping
+              </p>
+              <p className="font-semibold text-gray-900 dark:text-dark-primaryText">
+                Rs {shippingFee}
+              </p>
+            </div>
+          </div>
+          <div className="mt-6 flex items-center justify-between">
+            <p className="text-sm font-medium text-gray-900 dark:text-dark-primaryText">
+              Total
+            </p>
+            <p className="text-2xl font-semibold text-gray-900 dark:text-dark-primaryText">
+              Rs. {subtotal + shippingFee}
+            </p>
           </div>
           {/* Payment Methods */}
           <p className="text-lg font-medium my-5">Payment Methods</p>
