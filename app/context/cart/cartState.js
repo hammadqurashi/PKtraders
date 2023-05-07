@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import CartContext from "./cartContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { NextResponse } from "next/server";
 import { ToastContainer, toast } from "react-toastify";
 
 const CartState = (props) => {

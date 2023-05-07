@@ -15,10 +15,7 @@ const getCollection = async () => {
 
 export default async function Home() {
   let collection = await getCollection();
-  let latestCollection = collection.slice(
-    collection.length - 6,
-    collection.length
-  );
+  let latestCollection = collection.reverse().slice(0, 6);
 
   return (
     <>

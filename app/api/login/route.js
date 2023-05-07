@@ -16,7 +16,7 @@ export async function POST(request) {
     let user = await User.findOne({ email: email }); // finding user with email from request
 
     if (user) {
-      var bytes = CryptoJS.AES.decrypt(user.password, "secret123"); // decrypting the user.password with the secret key used in encryption
+      var bytes = CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET); // decrypting the user.password with the secret key used in encryption
       let decryptedPassword = bytes.toString(CryptoJS.enc.Utf8); // getting the decrypted password
 
       // matching the decryptedPassword with password input in request
@@ -24,7 +24,7 @@ export async function POST(request) {
         // If correct / Matched
         var token = jwt.sign(
           { user: user.name, email: user.email },
-          "mysecret"
+          process.env.JWT_SECRET
         );
         return NextResponse.json(
           { message: "Success", token },

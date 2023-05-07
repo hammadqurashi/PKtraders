@@ -6,6 +6,7 @@ import ScrollToTop from "@/components/ScrollToTop";
 import CartState from "./context/cart/cartState";
 import TopLoadingBar from "@/components/TopLoadingBar";
 import ThemeWrapper from "@/components/ThemeWrapper";
+import { Roboto_Condensed } from "next/font/google";
 
 export const metadata = {
   title: "PKTraders - Trade With Pakistan",
@@ -19,10 +20,12 @@ export const metadata = {
   },
 };
 
+const roboto = Roboto_Condensed({ subsets: ["latin"], weight: "300" });
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body>
+      <body className={roboto.className}>
         <ThemeWrapper>
           <CartState>
             <TopLoadingBar />

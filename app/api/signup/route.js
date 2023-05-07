@@ -12,7 +12,7 @@ export async function POST(request) {
   let user = new User({
     name: name,
     email: email,
-    password: CryptoJS.AES.encrypt(password, "secret123").toString(),
+    password: CryptoJS.AES.encrypt(password, process.env.AES_SECRET).toString(),
   });
   await user.save();
   return NextResponse.json("Success", { status: 200 });
