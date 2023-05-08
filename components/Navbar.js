@@ -170,7 +170,7 @@ const Navbar = () => {
                 onMouseEnter={toggleDropDownfunc}
                 onMouseLeave={toggleDropDownfunc}
                 onClick={toggleDropDownfunc}
-                className="hidden md:flex cursor-pointer h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 md:h-24 md:w-24"
+                className="hidden md:flex cursor-pointer h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 dark:hover:bg-dark-primaryBackground md:h-24 md:w-24"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
