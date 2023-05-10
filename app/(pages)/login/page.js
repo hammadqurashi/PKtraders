@@ -1,25 +1,21 @@
 import React from "react";
 import ClientLogin from "./ClientLogin";
 
-const loginFunc = async (loginDetails) => {
+const loginFunc = async (e, p) => {
+  "use server";
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(loginDetails),
+    body: JSON.stringify({ email: e, password: p }),
+    cache: "no-cache",
   });
-  return res.json();
+  return await res.json();
 };
 
-const userLogin = async (loginDetails) => {
-  "use server";
-  let user = await loginFunc(loginDetails);
-  return user;
-};
-
-const LoginPage = () => {
-  return <ClientLogin userLogin={userLogin} />;
+const LoginPage = async () => {
+  return <ClientLogin userLogin={loginFunc} />;
 };
 
 export default LoginPage;

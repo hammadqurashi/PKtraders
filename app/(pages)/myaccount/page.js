@@ -41,6 +41,34 @@ const updateUserDetails = async (name, phone, address, city, country, zip) => {
   }
 };
 
+const changePassword = async (currentpassword, newpassword) => {
+  "use server";
+  try {
+    // Getting Token From Cookies
+    const cookieStore = cookies();
+    const token = cookieStore.get("token");
+
+    let res = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/changepassword`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token: token.value,
+          currentpassword,
+          newpassword,
+        }),
+        cache: "no-cache",
+      }
+    );
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 const MyAccount = async () => {
   // Getting Token From Cookies
   const cookieStore = cookies();
@@ -53,6 +81,7 @@ const MyAccount = async () => {
       <MyAccountClient
         userDetails={userDetails}
         updateUserDetails={updateUserDetails}
+        changePassword={changePassword}
       />
     </>
   );

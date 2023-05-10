@@ -33,10 +33,14 @@ const ClientLogin = (props) => {
   const handleFormSubmit = async (e) => {
     // Preventing From Reload
     e.preventDefault();
+
     // Fetching User Details Based On Login
     try {
-      // Logging In On Server Side and Passing Func As a Prop TO CLient Side
-      let data = await props.userLogin(loginDetails);
+      // Logging In On Server Side and Passing Func As a Prop To CLient Side
+      const data = await props.userLogin(
+        loginDetails.email,
+        loginDetails.password
+      );
 
       // Setting Login Details of Form to initial
       setloginDetails({
@@ -45,9 +49,11 @@ const ClientLogin = (props) => {
       });
 
       // If SUCCESS then showing success toast
-      if (data.message === "Success") {
+      if (data.success == true) {
         localStorage.setItem("token", data.token); // If success set token in LOCAL STORAGE
+
         document.cookie = `token=${data.token}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/;`; // Set Cookie
+
         toast.success("Login Successfully", {
           position: "bottom-left",
           autoClose: 1000,
@@ -63,8 +69,7 @@ const ClientLogin = (props) => {
         setTimeout(() => {
           router.push(`${process.env.NEXT_PUBLIC_HOST}`);
         }, 1000);
-      } else {
-        // If ERROR then showing ERROR toast
+      } else if (data.success == false) {
         toast.error(data.message, {
           position: "bottom-left",
           autoClose: 3000,

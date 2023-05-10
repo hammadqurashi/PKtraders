@@ -8,9 +8,12 @@ const ConfirmationPopup = (props) => {
   // modal ref
   const modalRef = useRef();
 
+  // When user click on NO button the prop.NoFunc will run
   const NoFunction = () => {
     NoFunc();
   };
+
+  // When user click on YES button the prop.YesFunc will run
   const YesFunction = () => {
     YesFunc();
   };

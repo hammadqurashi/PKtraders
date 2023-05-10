@@ -77,7 +77,7 @@ const MyAccountClient = (props) => {
           updateUserDetails={props.updateUserDetails}
         />
         {/* Security Details */}
-        <SecurityDetails />
+        <SecurityDetails changePassword={props.changePassword} />
         {/* Alerts Form */}
         <AlertsForm />
       </div>
