@@ -47,7 +47,7 @@ const ClientLogin = (props) => {
       // If SUCCESS then showing success toast
       if (data.message === "Success") {
         localStorage.setItem("token", data.token); // If success set token in LOCAL STORAGE
-        document.cookie = `token=${data.token}`; // Set Cookie
+        document.cookie = `token=${data.token}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/;`; // Set Cookie
         toast.success("Login Successfully", {
           position: "bottom-left",
           autoClose: 1000,
