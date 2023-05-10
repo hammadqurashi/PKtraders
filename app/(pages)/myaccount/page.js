@@ -16,25 +16,29 @@ const getUserDetails = async (token) => {
 
 const updateUserDetails = async (name, phone, address, city, country, zip) => {
   "use server";
-  const cookieStore = cookies();
-  const token = cookieStore.get("token");
+  try {
+    const cookieStore = cookies();
+    const token = cookieStore.get("token");
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({
-      token: token.value,
-      name,
-      address,
-      city,
-      country,
-      phone: phone.toString(),
-      zip: zip.toString(),
-    }),
-  });
-  return await res.json();
+    const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        token: token.value,
+        name,
+        address,
+        city,
+        country,
+        phone: phone.toString(),
+        zip: zip.toString(),
+      }),
+    });
+    return await res.json();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 const MyAccount = async () => {

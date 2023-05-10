@@ -3,7 +3,7 @@ import React from "react";
 import PersonalInformation from "./PersonalInformation";
 import SecurityDetails from "./SecurityDetails";
 import AlertsForm from "./AlertsForm";
-import { ToastContainer, toast } from "react-toastify";
+
 const MyAccountClient = (props) => {
   return (
     <>
