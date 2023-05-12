@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 const SecurityDetails = (props) => {
   // state for showing confirmation popup
   const [showConfirmation, setshowConfirmation] = useState(false);
+  // state for loading of confirmation popup
+  const [loading, setLoading] = useState(false);
 
   const [securityDetails, setsecurityDetails] = useState({
     currentpassword: "",
@@ -32,14 +34,16 @@ const SecurityDetails = (props) => {
 
   // this runs when user confirms yes from confirmation popup and then form will submit
   const submitChangePassword = async () => {
+    setLoading(true);
+
     await props
       .changePassword(
         securityDetails.currentpassword,
         securityDetails.newpassword
       )
       .then((data) => {
-        console.log(data);
         setshowConfirmation(false);
+        setLoading(false);
         if (data.success) {
           toast.success(data.message, {
             position: "bottom-left",
@@ -85,24 +89,14 @@ const SecurityDetails = (props) => {
 
   return (
     <>
-      <ToastContainer
-        position="bottom-left"
-        autoClose={1500}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer />
       <ConfirmationPopup
         functionality="save"
         NoFunc={() => setshowConfirmation(false)}
         YesFunc={submitChangePassword}
         msg="Change Password"
         showConfirmation={showConfirmation}
+        loading={loading}
       />
       <form
         onSubmit={handleFormSubmit}

@@ -11,10 +11,11 @@ export async function POST(request) {
     let data = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ email: data.email });
 
-    const { name, email, phone, address, city, country, zip } = user;
+    const { name, email, phone, address, city, country, zip, profilepic } =
+      user;
 
     return NextResponse.json(
-      { name, email, phone, address, city, country, zip },
+      { name, email, phone, address, city, country, zip, profilepic },
       { status: 200 }
     );
   } catch (error) {

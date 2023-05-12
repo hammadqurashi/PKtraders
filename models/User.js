@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema(
     city: { type: String },
     country: { type: String },
     zip: { type: Number },
+    profilepic: { type: String },
   },
   { timestamps: true }
 );

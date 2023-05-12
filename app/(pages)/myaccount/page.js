@@ -9,12 +9,21 @@ const getUserDetails = async (token) => {
       "Content-type": "application/json",
     },
     body: JSON.stringify({ token: token }),
+    cache: "no-cache",
   });
   const data = await res.json();
   return data;
 };
 
-const updateUserDetails = async (name, phone, address, city, country, zip) => {
+const updateUserDetails = async (
+  name,
+  phone,
+  address,
+  city,
+  country,
+  zip,
+  profilepic
+) => {
   "use server";
   try {
     const cookieStore = cookies();
@@ -33,7 +42,9 @@ const updateUserDetails = async (name, phone, address, city, country, zip) => {
         country,
         phone: phone.toString(),
         zip: zip.toString(),
+        profilepic,
       }),
+      cache: "no-cache",
     });
     return await res.json();
   } catch (error) {
