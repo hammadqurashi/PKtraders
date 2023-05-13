@@ -1,4 +1,4 @@
-import connectDb from "../../../middleware/mongoose";
+import connectDb from "../../../dbconnection/mongoose";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 var CryptoJS = require("crypto-js");

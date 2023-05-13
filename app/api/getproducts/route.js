@@ -1,4 +1,4 @@
-import connectDb from "../../../middleware/mongoose";
+import connectDb from "../../../dbconnection/mongoose";
 import User from "@/models/User";
 import Product from "@/models/Product";
 import { NextResponse } from "next/server";
