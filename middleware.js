@@ -25,4 +25,16 @@ export default middleware = (request) => {
   ) {
     return NextResponse.redirect(`${process.env.HOST}`);
   }
+  // if (
+  //   request.nextUrl.pathname.startsWith("/admin/dashboard") &&
+  //   !request.cookies.has("adminsecret")
+  // ) {
+  //   return NextResponse.redirect(`${process.env.HOST}/admin/securelogin`);
+  // }
+  // if (
+  //   request.nextUrl.pathname.startsWith("/admin/securelogin") &&
+  //   request.cookies.has("adminsecret")
+  // ) {
+  //   return NextResponse.redirect(`${process.env.HOST}/admin/dashboard`);
+  // }
 };

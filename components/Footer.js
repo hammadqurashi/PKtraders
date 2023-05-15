@@ -1,13 +1,11 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { Roboto_Condensed } from "next/font/google";
-const roboto400 = Roboto_Condensed({ subsets: ["latin"], weight: "400" });
 
 const Footer = () => {
   return (
     <footer
-      className={`${roboto400.className} text-gray-600 dark:text-dark-secondaryText body-font border-t-2 border-slate-300 dark:border-t-black`}
+      className={`text-gray-600 mt-20 dark:text-dark-secondaryText body-font dark:border-t-black`}
     >
       <div className="dark:bg-dark-primaryBackground container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">

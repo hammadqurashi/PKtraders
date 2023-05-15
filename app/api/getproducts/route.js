@@ -3,37 +3,48 @@ import User from "@/models/User";
 import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
-// export function connectDb
-
 export async function GET(request) {
   await connectDb();
   let products = await Product.find();
+
+  const category = request.nextUrl.searchParams.get("category");
+  const page = request.nextUrl.searchParams.get("page")
+    ? request.nextUrl.searchParams.get("page")
+    : 1;
+  const itemsLimitPerPage = request.nextUrl.searchParams.get("items")
+    ? request.nextUrl.searchParams.get("items")
+    : 10;
+
   let allItems = {};
-  // for (let item of products) {
-  //   if (item.title in allItems) {
-  //     if (
-  //       !allItems[item.title].color.includes(item.color) &&
-  //       item.availableQty > 0
-  //     ) {
-  //       allItems[item.title].color.push(item.color);
-  //     }
-  //     if (
-  //       !allItems[item.title].size.includes(item.size) &&
-  //       item.availableQty > 0
-  //     ) {
-  //       allItems[item.title].size.push(item.size);
-  //     }
-  //   } else {
-  //     allItems[item.title] = JSON.parse(JSON.stringify(item));
-  //     if (item.availableQty > 0) {
-  //       allItems[item.title].color = [item.color];
-  //       allItems[item.title].size = [item.size];
-  //     }
-  //   }
-  // }
-  allItems = products.filter((item) => {
-    return (item = item.availableQty !== 0);
+
+  // filtering the products and returning those only with available qty greater than 1
+  // and matches the category with the given category in query
+  // reversing the array to show the recent products first
+  allItems = products.reverse().filter((item) => {
+    return (item =
+      item.availableQty !== 0 && category == "all"
+        ? item
+        : item.category == category);
   });
 
-  return NextResponse.json(allItems);
+  // calculating total products on behalf after above filteration
+  const totalProducts = allItems.length;
+
+  // calculating total pages on behalf after above filteration
+  const totalPages = Math.ceil(
+    totalProducts / Number.parseInt(itemsLimitPerPage)
+  );
+
+  // calculating the start and end index based on page and itemsLimitPerPage
+  const startIndex = (page - 1) * itemsLimitPerPage;
+  const endIndex = page * itemsLimitPerPage;
+
+  // slicing the products with calculated startIndex and endIndex
+  const fetchedProducts = allItems.slice(startIndex, endIndex);
+
+  return NextResponse.json({
+    products: fetchedProducts,
+    totalProducts,
+    totalPages,
+  });
 }

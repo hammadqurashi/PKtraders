@@ -11,18 +11,18 @@ const getCollection = async () => {
 };
 
 export default async function Home() {
-  let collection = await getCollection();
-  let latestCollection = collection.reverse().slice(0, 6);
+  // let collection = await getCollection();
+  // let latestCollection = collection.reverse().slice(0, 6);
 
   return (
     <>
       <HomeHero />
-      <HomeCategories />
-      <HomeProductGrid
+      {/* <HomeCategories /> */}
+      {/* <HomeProductGrid
         title="Our Latest Collections"
         description="Get Our Latest Collections Before They Are Stocked Out!"
         collection={latestCollection}
-      />
+      /> */}
       <NewsLetter />
     </>
   );
