@@ -13,7 +13,6 @@ const Navbar = () => {
   const { user, logout, cart } = context;
 
   const [toggleDropDown, settoggleDropDown] = useState(false);
-  const [collectionDropDown, setcollectionDropDown] = useState(false);
 
   // Mobile NavBar Toggle
 
@@ -29,8 +28,18 @@ const Navbar = () => {
 
   const pathName = usePathname();
 
-  // closing mobile nav on Path Change
+  const [categories, setCategories] = useState();
   useEffect(() => {
+    const getCategories = async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/getcategories`
+      );
+      const json = await res.json();
+
+      setCategories(json);
+    };
+    getCategories();
+    // closing mobile nav on Path Change
     setmobileNavOpen(false);
   }, [pathName]);
 
@@ -73,48 +82,25 @@ const Navbar = () => {
             >
               Home
             </Link>
+            {categories &&
+              categories.map((category) => {
+                return (
+                  <Link
+                    key={category.slug}
+                    href={`/category/${category.slug}`}
+                    className={`capitalize text-lg font-semibold ${
+                      pathName == `/category/${category.slug}`
+                        ? "text-[#ed1c24]"
+                        : " text-gray-600 dark:text-dark-primaryText "
+                    } transition duration-100`}
+                  >
+                    {category.name}
+                  </Link>
+                );
+              })}
+
             <Link
-              href="/tshirts"
-              className={`text-lg font-semibold ${
-                pathName == "/tshirts"
-                  ? "text-[#ed1c24]"
-                  : " text-gray-600 dark:text-dark-primaryText "
-              } transition duration-100`}
-            >
-              Tshirts
-            </Link>
-            <Link
-              href="/hoodies"
-              className={`text-lg font-semibold ${
-                pathName == "/hoodies"
-                  ? "text-[#ed1c24]"
-                  : " text-gray-600 dark:text-dark-primaryText "
-              } transition duration-100`}
-            >
-              Hoodies
-            </Link>
-            <Link
-              href="/sweatshirts"
-              className={`text-lg font-semibold ${
-                pathName == "/sweatshirts"
-                  ? "text-[#ed1c24]"
-                  : " text-gray-600 dark:text-dark-primaryText "
-              } transition duration-100`}
-            >
-              Sweatshirts
-            </Link>
-            <Link
-              href="/caps"
-              className={`text-lg font-semibold ${
-                pathName == "/caps"
-                  ? "text-[#ed1c24]"
-                  : " text-gray-600 dark:text-dark-primaryText "
-              } transition duration-100`}
-            >
-              Caps
-            </Link>
-            <Link
-              href="/allcollections"
+              href="/category/all"
               className={`text-lg font-semibold ${
                 pathName == "/allcollections"
                   ? "text-[#ed1c24]"

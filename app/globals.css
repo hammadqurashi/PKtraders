@@ -5,6 +5,7 @@
 body {
   overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 @layer base {

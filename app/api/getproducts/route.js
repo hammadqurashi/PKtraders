@@ -3,6 +3,9 @@ import User from "@/models/User";
 import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
+// api url eg: http://localhost:3000/api/getproducts?category=${category}&page=${page}&items=${items}
+// category is mandatory if want to get all products set category to all
+// page and items are optional but there default value will be then set to page=1 and items=10
 export async function GET(request) {
   await connectDb();
   let products = await Product.find();

@@ -3,26 +3,29 @@ import HomeHero from "@/components/HomeHero";
 import HomeProductGrid from "@/components/HomeProductGrid";
 import NewsLetter from "@/components/NewsLetter";
 
-const getCollection = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getproducts`, {
-    cache: "no-store",
-  });
+const getCollection = async (category, page, items) => {
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_HOST}/api/getproducts?category=${category}&page=${page}&items=${items}`,
+    {
+      cache: "no-store",
+    }
+  );
   return res.json();
 };
 
 export default async function Home() {
-  // let collection = await getCollection();
-  // let latestCollection = collection.reverse().slice(0, 6);
+  const res = await getCollection("all", 1, 10);
+  const latestCollection = res.products;
 
   return (
     <>
       <HomeHero />
-      {/* <HomeCategories /> */}
-      {/* <HomeProductGrid
+      <HomeCategories />
+      <HomeProductGrid
         title="Our Latest Collections"
         description="Get Our Latest Collections Before They Are Stocked Out!"
         collection={latestCollection}
-      /> */}
+      />
       <NewsLetter />
     </>
   );

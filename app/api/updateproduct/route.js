@@ -2,8 +2,6 @@ import connectDb from "../../../dbconnection/mongoose";
 import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
-// export function connectDb
-
 export async function POST(request) {
   await connectDb();
   try {

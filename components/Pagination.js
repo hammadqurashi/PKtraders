@@ -1,19 +1,32 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Pagination = (props) => {
-  const { currentPage, totalPages, nextPage, prevPage } = props;
+  // destructuting props
+  const { currentPage, totalPages, nextPage, prevPage, specificPage } = props;
+
+  // state for pages shown
+  const [pages, setpages] = useState([]);
+
+  useEffect(() => {
+    // making an array of pages from total pages and setting it to pages state
+    let newArray = [];
+    for (let i = 1; i <= totalPages; i++) {
+      newArray.push(i);
+    }
+    setpages(newArray);
+  }, []);
 
   return (
     <nav
       aria-label="Page Navigation"
-      className="mx-auto my-10 flex max-w-md justify-between space-x-2 rounded-md bg-white py-2 text-gray-700"
+      className="mx-auto my-10 flex max-w-md justify-between space-x-2 rounded-md bg-white dark:bg-dark-primaryBackground py-2 text-gray-700"
     >
       <span
         className={`${
           currentPage == 1
             ? "pointer-events-none text-gray-400"
-            : " cursor-pointer text-gray-800"
+            : " cursor-pointer text-gray-800 dark:text-dark-primaryText"
         }  flex items-center space-x-1 font-medium`}
         aria-label="Previous Page"
         tabIndex="-1"
@@ -33,42 +46,49 @@ const Pagination = (props) => {
         </svg>
       </span>
       <ul className="flex">
-        {totalPages != 1 && (
-          <li className="cursor-pointer px-2 text-lg font-medium sm:px-3 hover:text-blue-600">
-            {totalPages - (totalPages - 1)}
-          </li>
+        {/* Slicing top 3 pages from total pages and then showing it in pagination */}
+        {pages.slice(0, 3).map((pageNo) => {
+          return (
+            <li
+              key={pageNo}
+              className={`cursor-pointer px-2 text-lg font-medium sm:px-3 hover:text-[#ed1c24] ${
+                currentPage == pageNo
+                  ? " text-[#ed1c24] "
+                  : " text-gray-800 dark:text-dark-primaryText"
+              }`}
+              onClick={() => specificPage(pageNo)}
+            >
+              {pageNo}
+            </li>
+          );
+        })}
+        {/* Showing ... and last page no in pagination when total pages are greater then 3 because we already showed top 3 pages above */}
+        {totalPages > 3 && (
+          <>
+            <li
+              className={`cursor-default px-2 text-lg font-medium sm:px-3 text-gray-800 dark:text-dark-primaryText`}
+            >
+              ...
+            </li>
+
+            <li
+              className={`cursor-pointer px-2 text-lg font-medium sm:px-3 hover:text-[#ed1c24] ${
+                currentPage == totalPages
+                  ? " text-[#ed1c24] "
+                  : " text-gray-800 dark:text-dark-primaryText"
+              }`}
+              onClick={() => specificPage(totalPages)}
+            >
+              {totalPages}
+            </li>
+          </>
         )}
-        {/* <li>
-          <a
-            href="#"
-            className="px-2 text-lg font-medium sm:px-3 hover:text-blue-600"
-          >
-            2
-          </a>
-        </li>
-        <li>
-          <span className="text-gray-400" aria-hidden="true">
-            ...
-          </span>
-          <span className="sr-only">Skipping Pages</span>
-        </li>
-        <li>
-          <a
-            href="#"
-            className="px-2 text-lg font-medium sm:px-3 hover:text-blue-600"
-          >
-            22
-          </a>
-        </li> */}
-        <li className="cursor-pointer px-2 text-lg font-medium sm:px-3 hover:text-blue-600">
-          {totalPages}
-        </li>
       </ul>
       <span
         className={`${
           currentPage == totalPages
             ? "pointer-events-none text-gray-400"
-            : " cursor-pointer text-gray-800"
+            : " cursor-pointer text-gray-800 dark:text-dark-primaryText "
         }  flex items-center space-x-1 font-medium`}
         aria-label="Next Page"
         onClick={() => nextPage()}
