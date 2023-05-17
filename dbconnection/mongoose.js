@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 mongoose.set("strictQuery", true);
 
-const connectToMongo = async () => {
+const connectDb = async () => {
   if (mongoose.connections[0].readyState) {
     return console.log("MongoDb Already Connected");
   } else {
@@ -12,4 +12,4 @@ const connectToMongo = async () => {
   }
 };
 
-module.exports = connectToMongo;
+module.exports = connectDb;

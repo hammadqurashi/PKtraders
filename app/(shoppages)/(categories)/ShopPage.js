@@ -132,7 +132,10 @@ const ShopPage = (props) => {
           />
         </section>
       ) : (
-        <LoadingSpinner /> // displaying loading on until products state is set
+        <div className="fixed top-[50%] right-[50%] z-[99999] ">
+          {/* Displaying Loading Spinner until products are set into state */}
+          <LoadingSpinner color="[#ed1c24]" />{" "}
+        </div>
       )}
     </>
   );

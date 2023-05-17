@@ -5,10 +5,15 @@ import { useRouter } from "next/navigation";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingSpinner from "@/components/LoadingSpinner";
 
 const ClientLogin = (props) => {
   // Initializing useRouter hook
   const router = useRouter();
+
+  // state for loading shown when user submits sign in form
+
+  const [loading, setLoading] = useState(false);
 
   // State for passwordshow button On/Off
   const [showPassword, setshowPassword] = useState(false);
@@ -34,13 +39,19 @@ const ClientLogin = (props) => {
     // Preventing From Reload
     e.preventDefault();
 
-    // Fetching User Details Based On Login
+    // setting loading state true on form submit
+    setLoading(true);
+
     try {
       // Logging In On Server Side and Passing Func As a Prop To CLient Side
+      // Fetching User Details Based On Login
       const data = await props.userLogin(
         loginDetails.email,
         loginDetails.password
       );
+
+      // setting loading state false on when promise resolve
+      setLoading(false);
 
       // Setting Login Details of Form to initial
       setloginDetails({
@@ -167,7 +178,11 @@ const ClientLogin = (props) => {
                 type="submit"
                 className="rounded-lg bg-[#ed1c24] px-4 py-2 text-center text-base font-semibold text-white shadow-md outline-none ring-offset-2 transition  focus:ring-2 md:w-32"
               >
-                Sign in
+                {loading ? (
+                  <LoadingSpinner color="white" size="4" thickness="2" />
+                ) : (
+                  "Sign in"
+                )}
               </button>
             </form>
             <div className="py-12 text-center">

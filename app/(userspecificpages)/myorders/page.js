@@ -1,8 +1,8 @@
 import React from "react";
 import MyOrdersClient from "./MyOrdersClient";
+import { cookies } from "next/headers";
 
 const fetchOrders = async (t) => {
-  "use server";
   const res = await fetch(`${process.env.HOST}/api/myorders`, {
     method: "POST",
     headers: {
@@ -15,11 +15,15 @@ const fetchOrders = async (t) => {
 };
 
 const MyOrders = async () => {
-  // const res = await fetchOrders(
-  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiSGFtbWFkIFF1cmFzaGkiLCJlbWFpbCI6ImRlbW91c2VyMTJAZ21haWwuY29tIiwiaWF0IjoxNjgzMzgxMDY1fQ.4HT9MYvFaneDuQa3msjrYG_o6UgDDN_7zaGfn_Z3dtg"
-  // );
-  // console.log(res);
-  return <MyOrdersClient fetchOrders={fetchOrders} />; //
+  const cookieStore = cookies();
+
+  // fetching token from cookies
+  const token = cookieStore.get("token").value;
+
+  // fetching orders and then passing it through props
+  const orders = await fetchOrders(token);
+
+  return <MyOrdersClient myOrders={orders} />;
 };
 
 export default MyOrders;

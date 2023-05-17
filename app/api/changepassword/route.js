@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import connectDb from "../../../dbconnection/mongoose";
+import connectDb from "@/dbconnection/mongoose";
 import User from "@/models/User";
 import CryptoJS from "crypto-js";
 var jwt = require("jsonwebtoken");

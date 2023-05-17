@@ -1,10 +1,10 @@
 import React from "react";
 
-const LoadingSpinner = () => {
+const LoadingSpinner = ({ color, size = 10, thickness = 4 }) => {
   return (
-    <div className="fixed top-[50%] right-[50%] z-[99999] ">
-      <div className=" animate-[spin_0.5s_ease-in-out_infinite] w-10 h-10 rounded-full border-4 border-[#ed1c24] border-t-transparent"></div>
-    </div>
+    <div
+      className={`animate-[spin_0.5s_ease-in-out_infinite] w-${size} h-${size} rounded-full border-${thickness} border-${color} border-t-transparent m-auto`}
+    ></div>
   );
 };
 
