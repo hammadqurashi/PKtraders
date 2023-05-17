@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
-const ThemeSwitch = (props) => {
+const ThemeSwitch = ({ smallDeviceVisiblity = true }) => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -18,9 +18,7 @@ const ThemeSwitch = (props) => {
   }
 
   return (
-    <button
-      className={`mr-1 ${props.smallDevice == "hidden" && "hidden md:block"}`}
-    >
+    <button className={`mr-1 ${!smallDeviceVisiblity && "hidden md:block"}`}>
       {theme == "dark" ||
       (theme == "system" &&
         window.matchMedia("(prefers-color-scheme: dark)").matches) ? (
@@ -30,7 +28,7 @@ const ThemeSwitch = (props) => {
         />
       ) : (
         <BsFillMoonFill
-          className="text-2xl text-slate-800"
+          className="text-2xl text-gray-400"
           onClick={() => setTheme("dark")}
         />
       )}
