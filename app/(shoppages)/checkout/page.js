@@ -15,7 +15,6 @@ const stripePromise = loadStripe(
 
 const Checkout = () => {
   // useRouter hook
-
   const router = useRouter();
 
   // Context
@@ -53,6 +52,25 @@ const Checkout = () => {
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
+
+    // fetching user set details on page load and initially setting it on user details value
+    fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "applicaion/json",
+      },
+      body: JSON.stringify({ token: localStorage.getItem("token") }),
+    })
+      .then((res) => res.json())
+      .then((user) => {
+        setuserDetails({
+          name: user.name,
+          email: user.email,
+          phone: user.phone,
+          address: user.address,
+          city: user.city,
+        });
+      });
   }, []);
 
   const appearance = {
@@ -67,6 +85,7 @@ const Checkout = () => {
   };
   const shippingFee = subtotal != 0 ? 100 : 0;
 
+  // state for user details
   const [userDetails, setuserDetails] = useState({
     name: "",
     email: "",
@@ -82,41 +101,51 @@ const Checkout = () => {
 
   const [orderDetailsLock, setorderDetailsLock] = useState(false);
 
+  // state to show the loading
+  const [loading, setloading] = useState(false);
+
   // form submit function of user details
+
+  const initiateOrder = async () => {
+    const data = {
+      name: userDetails.name,
+      email: userDetails.email,
+      phone: userDetails.phone,
+      payMethod: payMethod,
+      products: cart,
+      address: userDetails.address,
+      amount: subtotal + shippingFee,
+      city: userDetails.city,
+    };
+
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/initiateorder`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+    return await res.json();
+  };
+
   const userDetailsFormSubmit = async (e) => {
     e.preventDefault();
+
+    // loading set to true until order is initiated
+    setloading(true);
 
     if (Object.values(userDetails).every((value) => value !== "")) {
       setorderDetailsLock(true);
 
-      const data = {
-        name: userDetails.name,
-        email: userDetails.email,
-        phone: userDetails.phone,
-        payMethod: payMethod,
-        products: cart,
-        address: userDetails.address,
-        amount: subtotal + shippingFee,
-        city: userDetails.city,
-      };
-
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_HOST}/api/initiateorder`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(data),
-        }
-      );
-      const order = await res.json();
       if (payMethod == "cod") {
+        const order = await initiateOrder();
         router.push(`${process.env.NEXT_PUBLIC_HOST}/order?id=${order._id}`);
       }
     }
   };
-
   return (
     <>
       <div className="flex flex-col items-center border-b py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
@@ -242,6 +271,7 @@ const Checkout = () => {
         <div className="mt-10 bg-gray-50 dark:bg-dark-secondaryBackground px-4 pt-8 lg:mt-0">
           {/* User Details */}
           <UserDetailsComponent
+            loading={loading}
             btnText={payMethod === "cod" ? "Place Order" : "Proceed To Pay"} // Displaying Button Text on the basis of users payment method
             email={userDetails.email}
             name={userDetails.name}
@@ -252,7 +282,8 @@ const Checkout = () => {
             userDetailsFormSubmit={userDetailsFormSubmit}
             orderDetailsLock={orderDetailsLock}
           />
-          {/* Payment Details */}
+          {/*  Payment Details */}
+          {/*Show Payment Details when user clicks on online pay button */}
           {payMethod === "onlinepay" && orderDetailsLock && (
             <>
               <p className="mt-8 text-xl font-medium">Payment Details</p>
@@ -263,7 +294,7 @@ const Checkout = () => {
                 {/* Stripe Checkout Starts */}
                 {clientSecret && (
                   <Elements options={options} stripe={stripePromise}>
-                    <CheckoutForm />
+                    <CheckoutForm initiateOrder={initiateOrder} />
                   </Elements>
                 )}
                 {/* Stripe Checkout Ends */}

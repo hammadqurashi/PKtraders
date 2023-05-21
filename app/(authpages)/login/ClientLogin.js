@@ -179,7 +179,7 @@ const ClientLogin = (props) => {
                 className="rounded-lg bg-[#ed1c24] px-4 py-2 text-center text-base font-semibold text-white shadow-md outline-none ring-offset-2 transition  focus:ring-2 md:w-32"
               >
                 {loading ? (
-                  <LoadingSpinner color="white" size="4" thickness="2" />
+                  <LoadingSpinner color="white" size={20} thickness="2" />
                 ) : (
                   "Sign in"
                 )}

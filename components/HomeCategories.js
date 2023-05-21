@@ -1,14 +1,7 @@
 import React from "react";
 import Link from "next/link";
 
-const getCategories = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getcategories`);
-  return await res.json();
-};
-
-const HomeCategories = async () => {
-  const categories = await getCategories();
-
+const HomeCategories = async ({ categories }) => {
   return (
     <div className="bg-white dark:bg-dark-primaryBackground py-6 sm:py-8 lg:py-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">

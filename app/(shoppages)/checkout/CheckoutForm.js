@@ -6,8 +6,12 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import { useRouter } from "next/navigation";
 
-const CheckoutForm = () => {
+const CheckoutForm = (props) => {
+  // useRouter hook
+  const router = useRouter();
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -19,32 +23,9 @@ const CheckoutForm = () => {
     if (!stripe) {
       return;
     }
-    const clientSecret = new URLSearchParams(window.location.search).get(
-      "payment_intent_client_secret"
-    );
-
-    if (!clientSecret) {
-      return;
-    }
-
-    stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
-        case "succeeded":
-          setMessage("Payment succeeded!");
-          break;
-        case "processing":
-          setMessage("Your payment is processing.");
-          break;
-        case "requires_payment_method":
-          setMessage("Your payment was not successful, please try again.");
-          break;
-        default:
-          setMessage("Something went wrong.");
-          break;
-      }
-    });
   }, [stripe]);
 
+  // online payment form submit function
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -60,23 +41,49 @@ const CheckoutForm = () => {
       .confirmPayment({
         elements,
         confirmParams: {
-          // Make sure to change this to your payment completion page
-          return_url: `${process.env.NEXT_PUBLIC_HOST}/order`,
+          return_url: `${process.env.NEXT_PUBLIC_HOST}/checkout`,
         },
       })
-      .then((result) => {
-        let error = result.error;
-        // This point will only be reached if there is an immediate error when
-        // confirming the payment. Otherwise, your customer will be redirected to
-        // your `return_url`. For some payment methods like iDEAL, your customer will
-        // be redirected to an intermediate site first to authorize the payment, then
-        // redirected to the `return_url`.
-        if (error.type === "card_error" || error.type === "validation_error") {
-          setMessage(error.message);
+      .then(async (result) => {
+        if (result.error) {
+          let error = result.error;
+          // This point will only be reached if there is an immediate error when
+          // confirming the payment. Otherwise, your customer will be redirected to
+          // your `return_url`. For some payment methods like iDEAL, your customer will
+          // be redirected to an intermediate site first to authorize the payment, then
+          // redirected to the `return_url`.
+          if (
+            error.type === "card_error" ||
+            error.type === "validation_error"
+          ) {
+            setMessage(error.message);
+          } else {
+            setMessage("An unexpected error occurred.");
+          }
         } else {
-          setMessage("An unexpected error occurred.");
-        }
+          if (!stripe) {
+            return;
+          }
 
+          const clientSecret = new URLSearchParams(window.location.search).get(
+            "payment_intent_client_secret"
+          );
+
+          if (!clientSecret) {
+            return;
+          }
+
+          stripe
+            .retrievePaymentIntent(clientSecret)
+            .then(async ({ paymentIntent }) => {
+              if (paymentIntent.status == "succeeded") {
+                const order = await props.initiateOrder();
+                router.push(
+                  `${process.env.NEXT_PUBLIC_HOST}/order?id=${order._id}`
+                );
+              }
+            });
+        }
         setIsLoading(false);
       });
   };

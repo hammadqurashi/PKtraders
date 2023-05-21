@@ -18,7 +18,7 @@ export async function POST(request) {
     if (user) {
       var bytes = CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET); // decrypting the user.password with the secret key used in encryption
       let decryptedPassword = bytes.toString(CryptoJS.enc.Utf8); // getting the decrypted password
-      console.log(decryptedPassword);
+
       // matching the decryptedPassword with password input in request
       if (user.email == email && decryptedPassword == password) {
         // If correct / Matched
