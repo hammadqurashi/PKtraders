@@ -2,6 +2,7 @@ import React from "react";
 import ClientSignUp from "./ClientSignUp";
 
 const createAccount = async (userDetails) => {
+  "use server";
   // SigningUp User Based On Details
   const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
     method: "POST",
@@ -9,18 +10,19 @@ const createAccount = async (userDetails) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userDetails),
+    cache: "no-store",
   });
   return await res.json();
 };
 
-const handleSignUp = async (userDetails) => {
-  "use server";
-  const userAccount = await createAccount(userDetails);
-  return userAccount;
-};
+// const handleSignUp = async (userDetails) => {
+
+//   const userAccount = await createAccount(userDetails);
+//   return userAccount;
+// };
 
 const Signup = async () => {
-  return <ClientSignUp userSignup={handleSignUp} />;
+  return <ClientSignUp userSignup={createAccount} />;
 };
 
 export default Signup;

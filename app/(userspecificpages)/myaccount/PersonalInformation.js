@@ -171,33 +171,6 @@ const PersonalInformation = (props) => {
     }
   };
 
-  function roughSizeOfObject(object) {
-    var objectList = [];
-    var stack = [object];
-    var bytes = 0;
-
-    while (stack.length) {
-      var value = stack.pop();
-
-      if (typeof value === "boolean") {
-        bytes += 4;
-      } else if (typeof value === "string") {
-        bytes += value.length * 2;
-      } else if (typeof value === "number") {
-        bytes += 8;
-      } else if (
-        typeof value === "object" &&
-        objectList.indexOf(value) === -1
-      ) {
-        objectList.push(value);
-
-        for (var i in value) {
-          stack.push(value[i]);
-        }
-      }
-    }
-    return bytes;
-  }
   // On submit form function
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -272,7 +245,7 @@ const PersonalInformation = (props) => {
               <p className="text-lg text-gray-800 dark:text-dark-primaryText font-bold">
                 Profile
               </p>
-              <div className="ml-2 cursor-pointer text-gray-600 dark:text-dark-secondaryText">
+              <div className="group relative ml-2 cursor-pointer text-gray-600 dark:text-dark-secondaryText">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -285,6 +258,16 @@ const PersonalInformation = (props) => {
                     fill="currentColor"
                   />
                 </svg>
+                <div className="group-hover:flex absolute top-0 left-full z-10 hidden h-full items-center justify-center pl-4">
+                  <div
+                    className="shrink-0 inline-block w-32 rounded-md bg-gray-700 px-1 py-1 font-normal shadow"
+                    role="tooltip"
+                  >
+                    <p className="text-xs text-gray-100">
+                      Update your Personal information
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -497,7 +480,6 @@ const PersonalInformation = (props) => {
                 name="phone"
                 value={userDetails.phone}
                 onChange={handleChange}
-                required
                 className="border border-gray-300 dark:border-dark-secondaryText pl-3 py-3 shadow-sm bg-transparent rounded text-sm focus:outline-none placeholder-gray-500 text-gray-500 dark:text-dark-primaryText"
                 placeholder="Your Phone Number"
               />
@@ -607,7 +589,6 @@ const PersonalInformation = (props) => {
               <input
                 type="text"
                 name="zip"
-                required
                 id="ZIP"
                 className="border bg-transparent border-gray-300 dark:border-dark-secondaryText pl-3 py-3 shadow-sm rounded text-sm focus:outline-none placeholder-gray-500 text-gray-500 dark:text-dark-primaryText"
                 placeholder={86745}

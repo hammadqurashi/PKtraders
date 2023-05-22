@@ -10,43 +10,7 @@ const ClientComponent = (props) => {
   const { params, title, category, img, otherimgs, price, desc, color, size } =
     props;
 
-  const [pin, setPin] = useState("");
-  const [service, setservice] = useState();
   const context = useContext(cartContext);
-
-  const checkService = async () => {
-    let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`);
-    let pins = await res.json();
-    if (pins.includes(Number.parseInt(pin))) {
-      setservice(true);
-      toast.success("Congratulations! Your Pincode is serviceable", {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    } else {
-      toast.error("Your Pincode is NOT serviceable", {
-        position: "bottom-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-      setservice(false);
-    }
-  };
-
-  const pinChange = (e) => {
-    setPin(e.target.value);
-  };
 
   const [colorVariant, setcolorVariant] = useState("");
   const [sizeVariant, setsizeVariant] = useState("");
@@ -289,38 +253,8 @@ const ClientComponent = (props) => {
               >
                 Buy now
               </button>
-              {/* Check Pincode */}
-              <div className="">
-                <input
-                  type="text"
-                  className="outline-none border py-2 px-3  rounded border-[#ed1c24] mr-2"
-                  onChange={pinChange}
-                  value={pin}
-                  placeholder="Enter PinCode"
-                />
-                <button
-                  className="bg-[#ed1c24] py-2 px-3 text-white rounded"
-                  onClick={checkService}
-                >
-                  Check
-                </button>
-              </div>
             </div>
             {/* <!-- buttons - end --> */}
-            <div>
-              {/* if  Service is Not Operatable*/}
-              {!service && service != null && (
-                <span className="text-red-500 text-sm">
-                  Sorry! This Pin Code is not in our Service Area
-                </span>
-              )}
-              {/* if  Service is Operatable*/}
-              {service && service != null && (
-                <span className="text-green-500 text-sm">
-                  Congratulations! This Pin Code is in our Service Area
-                </span>
-              )}
-            </div>
           </div>
           {/* <!-- content - end --> */}
         </div>

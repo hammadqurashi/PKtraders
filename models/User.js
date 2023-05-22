@@ -6,12 +6,12 @@ const UserSchema = new mongoose.Schema(
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    phone: { type: Number },
-    address: { type: String },
-    city: { type: String },
-    country: { type: String },
-    zip: { type: Number },
-    profilepic: { type: String },
+    phone: { type: Number, default: 0 },
+    address: { type: String, default: "" },
+    city: { type: String, default: "" },
+    country: { type: String, default: "" },
+    zip: { type: Number, default: 0 },
+    profilepic: { type: String, default: "" },
   },
   { timestamps: true }
 );

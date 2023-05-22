@@ -7,13 +7,26 @@ var CryptoJS = require("crypto-js");
 
 export async function POST(request) {
   await connectDb();
-  const res = await request.json();
-  const { name, email, password } = res;
-  let user = new User({
-    name: name,
-    email: email,
-    password: CryptoJS.AES.encrypt(password, process.env.AES_SECRET).toString(),
-  });
-  await user.save();
-  return NextResponse.json("Success", { status: 200 });
+  try {
+    const res = await request.json();
+    const { name, email, password } = res;
+    let user = new User({
+      name: name,
+      email: email,
+      password: CryptoJS.AES.encrypt(
+        password,
+        process.env.AES_SECRET
+      ).toString(),
+    });
+    await user.save();
+    return NextResponse.json(
+      { success: true, message: "Account has been created" },
+      { status: 200 }
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { success: false, message: "Something Went Wrong!" },
+      { status: 500 }
+    );
+  }
 }

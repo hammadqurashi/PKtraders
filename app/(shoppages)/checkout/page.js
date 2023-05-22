@@ -37,11 +37,23 @@ const Checkout = () => {
 
   const [clientSecret, setClientSecret] = useState("");
 
-  // const getCartItems = () => {
-  //   let cookie = document.cookie.split(`; cart=`).pop().split(";").shift();
-  //   let cart = JSON.parse(cookie);
-  //   return cart;
-  // };
+  // state for initial details set by user
+  const [userSetInitialDetails, setuserSetInitialDetails] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+  });
+
+  // state for user details
+  const [userDetails, setuserDetails] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+  });
 
   useEffect(() => {
     // Create PaymentIntent as soon as the page loads
@@ -60,16 +72,38 @@ const Checkout = () => {
         "Content-Type": "applicaion/json",
       },
       body: JSON.stringify({ token: localStorage.getItem("token") }),
+      cache: "no-store",
     })
       .then((res) => res.json())
       .then((user) => {
-        setuserDetails({
-          name: user.name,
-          email: user.email,
-          phone: user.phone,
-          address: user.address,
-          city: user.city,
-        });
+        // if user is logged in then in response success will true
+        if (user.success == true) {
+          setuserSetInitialDetails({
+            name: user.name, // if user has name (not name possibility occurs when guest tries to order) then set initial name to user's name
+            email: user.email, // if user has email (not email possibility occurs when guest tries to order) then set initial email to user's email
+            phone: user.phone ? user.phone : "", // if user has set phone then set initial phone to user's phone
+            address: user.address ? user.address : "", // if user has set address then set initial address to user's address
+            city: user.city ? user.city : "", // if user has set city then set initial address to user's city
+          });
+
+          // then also setting userDetails to show immediately so user can see it
+          setuserDetails({
+            name: user.name,
+            email: user.email,
+            phone: user.phone ? user.phone : "",
+            address: user.address ? user.address : "",
+            city: user.city ? user.city : "",
+          });
+        } else {
+          // else user is as guest then in response success will false
+          setuserSetInitialDetails({
+            name: "",
+            email: "",
+            phone: "",
+            address: "",
+            city: "",
+          });
+        }
       });
   }, []);
 
@@ -85,15 +119,6 @@ const Checkout = () => {
   };
   const shippingFee = subtotal != 0 ? 100 : 0;
 
-  // state for user details
-  const [userDetails, setuserDetails] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-  });
-
   // handle change functions for input of userdetails
   const handleChange = (e) => {
     setuserDetails({ ...userDetails, [e.target.name]: e.target.value });
@@ -108,8 +133,15 @@ const Checkout = () => {
 
   const initiateOrder = async () => {
     const data = {
-      name: userDetails.name,
-      email: userDetails.email,
+      name:
+        userSetInitialDetails.name == ""
+          ? userDetails.name
+          : userSetInitialDetails.name,
+      email:
+        userSetInitialDetails.email == ""
+          ? userDetails.email
+          : userSetInitialDetails.email,
+      // email: userDetails.email,
       phone: userDetails.phone,
       payMethod: payMethod,
       products: cart,
@@ -273,6 +305,7 @@ const Checkout = () => {
           <UserDetailsComponent
             loading={loading}
             btnText={payMethod === "cod" ? "Place Order" : "Proceed To Pay"} // Displaying Button Text on the basis of users payment method
+            userSetInitialDetails={userSetInitialDetails}
             email={userDetails.email}
             name={userDetails.name}
             phone={userDetails.phone}

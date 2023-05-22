@@ -4,7 +4,6 @@ import CartState from "./context/cart/cartState";
 import TopLoadingBar from "@/components/TopLoadingBar";
 import ThemeWrapper from "@/components/ThemeWrapper";
 import { Roboto } from "next/font/google";
-import AdminAuth from "./AdminAuth";
 import Navbar from "@/components/Navbar";
 import ScrollToTop from "@/components/ScrollToTop";
 import Footer from "@/components/Footer";
@@ -29,16 +28,11 @@ export default function RootLayout({ children }) {
         <ThemeWrapper>
           <CartState>
             <TopLoadingBar />
-            {/* If user navigates to admin side the defalt navbar, footer and scroll to top will be hidden by admin auth  */}
-            <AdminAuth>
-              <Navbar />
-              <ScrollToTop />
-            </AdminAuth>
+            <Navbar />
+            <ScrollToTop />
             <main className="min-h-[100vh]">{children}</main>
           </CartState>
-          <AdminAuth>
-            <Footer />
-          </AdminAuth>
+          <Footer />
         </ThemeWrapper>
       </body>
     </html>

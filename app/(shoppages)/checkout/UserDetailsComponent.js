@@ -3,6 +3,7 @@ import React from "react";
 
 const UserDetailsComponent = (props) => {
   const {
+    userSetInitialDetails,
     loading,
     btnText,
     email,
@@ -36,6 +37,7 @@ const UserDetailsComponent = (props) => {
               value={email}
               onChange={handleChange}
               required
+              readOnly={userSetInitialDetails.email != "" && true} // if user is logged in then user's original email is used user can't change it
               className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
               placeholder="your.email@gmail.com"
             />
@@ -66,6 +68,7 @@ const UserDetailsComponent = (props) => {
               name="name"
               value={name}
               onChange={handleChange}
+              readOnly={userSetInitialDetails.name != "" && true} // if user is logged in then user's original name is used user can't change it
               required
               className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
               placeholder="Your full name here"

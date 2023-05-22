@@ -4,8 +4,15 @@ import Link from "next/link";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { useRouter } from "next/navigation";
 const ClientSignUp = (props) => {
+  // use Router function from next
+  const router = useRouter();
+
+  // state for loading
+  const [loading, setLoading] = useState();
+
   // State for passwordshow button On/Off
   const [showPassword, setshowPassword] = useState(false);
 
@@ -30,8 +37,9 @@ const ClientSignUp = (props) => {
   const handleFormSubmit = async (e) => {
     // Preventing From Reload
     e.preventDefault();
+    setLoading(true);
     try {
-      await props.userSignup(userDetails);
+      const res = await props.userSignup(userDetails);
 
       // Setting Signup Details of Form to initial
       setUserDetails({
@@ -41,16 +49,13 @@ const ClientSignUp = (props) => {
       });
 
       // If SUCCESS then showing success toast
-      toast.success("Your Account has been Created", {
-        position: "bottom-left",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      if (res.success == true) {
+        toast.success(res.message);
+        router.push("/login");
+      } else {
+        toast.error(res.message);
+      }
+      // if api doesnt hit correctly then catching error
     } catch (error) {
       // Setting Signup Details of Form to initial
       setUserDetails({
@@ -60,22 +65,25 @@ const ClientSignUp = (props) => {
       });
 
       // If ERROR then showing ERROR toast
-      toast.error(error, {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      toast.error("Try Again Later!");
     }
+    setLoading(false);
   };
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="flex h-screen w-full items-center justify-center bg-gray-100 dark:bg-dark-primaryBackground">
         <div className="w-full max-w-3xl overflow-hidden rounded-lg bg-white dark:bg-dark-secondaryBackground shadow-lg sm:flex">
           <div
@@ -168,7 +176,11 @@ const ClientSignUp = (props) => {
                   className="mt-4 w-full cursor-pointer rounded-lg bg-[#ed1c24] pt-3 pb-3 text-white shadow-lg"
                   type="submit"
                 >
-                  Create account
+                  {!loading ? (
+                    "Create account"
+                  ) : (
+                    <LoadingSpinner size={15} thickness="2" color="white" />
+                  )}
                 </button>
               </form>
               <div className="mt-4 text-center">

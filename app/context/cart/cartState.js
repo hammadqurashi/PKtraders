@@ -4,10 +4,11 @@ import CartContext from "./cartContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
+import { redirect } from "next/navigation";
 
 const CartState = (props) => {
   const [cart, setcart] = useState(
-    localStorage.getItem("cart") ? localStorage.getItem("cart") : { " ": " " }
+    localStorage.getItem("cart") ? localStorage.getItem("cart") : {}
   );
   const [subtotal, setsubTotal] = useState(0);
   const [user, setUser] = useState({ value: null });
@@ -50,13 +51,14 @@ const CartState = (props) => {
   const logout = () => {
     document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`; // Deleting Token Cookie
     localStorage.removeItem("token");
+    localStorage.removeItem("cart");
     router.push(`${process.env.NEXT_PUBLIC_HOST}/login`);
   };
 
   // adds the item to cart
   const addToCart = (itemCode, qty, price, name, size, variant, img) => {
     let newCart = cart;
-    if (itemCode in cart) {
+    if (cart && itemCode in cart) {
       newCart[itemCode].qty = newCart[itemCode].qty + qty; // if item present in cart then add quantity to its quantity
     } else {
       newCart[itemCode] = { qty: 1, price, name, size, variant, img }; // if not add in cart with parameters

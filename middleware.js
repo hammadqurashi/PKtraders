@@ -8,7 +8,19 @@ export default middleware = async (request) => {
     return NextResponse.redirect(`${process.env.HOST}`);
   }
   if (
+    request.nextUrl.pathname.startsWith("/signup") &&
+    request.cookies.has("token")
+  ) {
+    return NextResponse.redirect(`${process.env.HOST}`);
+  }
+  if (
     request.nextUrl.pathname.startsWith("/forgotpassword") &&
+    request.cookies.has("token")
+  ) {
+    return NextResponse.redirect(`${process.env.HOST}`);
+  }
+  if (
+    request.nextUrl.pathname.startsWith("/resetpassword") &&
     request.cookies.has("token")
   ) {
     return NextResponse.redirect(`${process.env.HOST}`);
@@ -19,16 +31,4 @@ export default middleware = async (request) => {
   ) {
     return NextResponse.redirect(`${process.env.HOST}`);
   }
-  if (
-    request.nextUrl.pathname.startsWith("/orders") &&
-    !request.cookies.has("token")
-  ) {
-    return NextResponse.redirect(`${process.env.HOST}`);
-  }
-  // if (
-  //   request.nextUrl.pathname.startsWith("/admin/securelogin") &&
-  //   request.cookies.has("adminsecret")
-  // ) {
-  //   return NextResponse.redirect(`${process.env.HOST}/admin/dashboard`);
-  // }
 };

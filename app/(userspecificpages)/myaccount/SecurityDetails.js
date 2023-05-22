@@ -107,7 +107,7 @@ const SecurityDetails = (props) => {
             <p className="text-lg text-gray-800 dark:text-dark-primaryText font-bold">
               Security Details
             </p>
-            <div className="ml-2 cursor-pointer text-gray-600 dark:text-dark-secondaryText">
+            <div className="group relative ml-2 cursor-pointer text-gray-600 dark:text-dark-secondaryText">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -120,6 +120,14 @@ const SecurityDetails = (props) => {
                   fill="currentColor"
                 />
               </svg>
+              <div className="group-hover:flex absolute top-0 left-full z-10 hidden h-full items-center justify-center pl-4">
+                <div
+                  className="shrink-0 inline-block w-36 rounded-md bg-gray-700 px-1 py-1 font-normal shadow"
+                  role="tooltip"
+                >
+                  <p className="text-xs text-gray-100">Change your Password</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -133,10 +141,6 @@ const SecurityDetails = (props) => {
                 >
                   Current Password
                 </label>
-                {/* Forgot Password Todo  */}
-                <Link href="/forgotpassword" className="text-red-500 text-xs">
-                  Forgot Password?
-                </Link>
               </div>
               <input
                 type="password"

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const MyOrdersClient = ({ myOrders }) => {
   return myOrders ? (
@@ -9,7 +10,7 @@ const MyOrdersClient = ({ myOrders }) => {
             My Orders
           </p>
 
-          <div className="mt-4 sm:mt-0">
+          {/* <div className="mt-4 sm:mt-0">
             <div className="flex items-center justify-start sm:justify-end">
               <div className="flex items-center">
                 <label
@@ -27,7 +28,7 @@ const MyOrdersClient = ({ myOrders }) => {
                 </select>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="mt-6 overflow-hidden rounded-xl border shadow dark:bg-dark-secondaryBackground">
@@ -64,11 +65,15 @@ const MyOrdersClient = ({ myOrders }) => {
                         width="50%"
                         className="whitespace-no-wrap py-4 text-sm font-bold text-gray-900 dark:text-dark-primaryText sm:px-6"
                       >
-                        <div className="mt-1">
-                          <p className="font-normal text-gray-500 dark:text-dark-primaryText">
-                            {item.orderId}
-                          </p>
-                        </div>
+                        <Link
+                          href={`${process.env.NEXT_PUBLIC_HOST}/order?id=${item._id}`}
+                        >
+                          <div className="mt-1">
+                            <p className="hover:underline  font-normal text-gray-500 dark:text-dark-primaryText">
+                              {item.orderId}
+                            </p>
+                          </div>
+                        </Link>
                       </td>
 
                       <td className="whitespace-no-wrap py-4 text-sm font-normal text-gray-500 dark:text-dark-primaryText sm:px-6 lg:table-cell">
