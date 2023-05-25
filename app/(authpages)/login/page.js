@@ -1,5 +1,6 @@
 import React from "react";
 import ClientLogin from "./ClientLogin";
+import { headers } from "next/headers";
 
 const loginFunc = async (email, password) => {
   "use server";

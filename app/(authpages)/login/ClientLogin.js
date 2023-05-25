@@ -6,6 +6,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "@/components/LoadingSpinner";
+import { redirect } from "next/navigation";
 
 const ClientLogin = (props) => {
   // Initializing useRouter hook
@@ -42,78 +43,69 @@ const ClientLogin = (props) => {
     // setting loading state true on form submit
     setLoading(true);
 
-    try {
-      // Logging In On Server Side and Passing Func As a Prop To CLient Side
-      // Fetching User Details Based On Login
-      const data = await props.userLogin(
-        loginDetails.email,
-        loginDetails.password
-      );
+    // Logging In On Server Side and Passing Func As a Prop To CLient Side
+    // Fetching User Details Based On Login
+    props
+      .userLogin(loginDetails.email, loginDetails.password)
+      .then((data) => {
+        // setting loading state false on when promise resolve
+        setLoading(false);
 
-      // setting loading state false on when promise resolve
-      setLoading(false);
-
-      // Setting Login Details of Form to initial
-      setloginDetails({
-        email: "",
-        password: "",
-      });
-
-      // If SUCCESS then showing success toast
-      if (data.success == true) {
-        localStorage.setItem("token", data.token); // If success set token in LOCAL STORAGE
-
-        document.cookie = `token=${data.token}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/;`; // Set Cookie
-
-        toast.success("Login Successfully", {
-          position: "bottom-left",
-          autoClose: 1000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+        // Setting Login Details of Form to initial
+        setloginDetails({
+          email: "",
+          password: "",
         });
 
-        // if user successfully login then push to following link after 1 second in order to also show success toast
-        setTimeout(() => {
-          router.push(`${process.env.NEXT_PUBLIC_HOST}`);
-        }, 1000);
-      } else if (data.success == false) {
-        toast.error(data.message, {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
+        // If SUCCESS then showing success toast
+        if (data.success == true) {
+          localStorage.setItem("token", data.token); // If success set token in LOCAL STORAGE
+
+          document.cookie = `token=${data.token}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/;`; // Set Cookie
+
+          toast.success("Login Successfully");
+
+          // if user successfully login then push to following link after 1 second in order to also show success toast
+          setTimeout(() => {
+            router.push(`${process.env.NEXT_PUBLIC_HOST}`);
+          }, 1000);
+        } else if (data.adminSuccess == true) {
+          // checking if the admin success is true then
+          toast.success(data.message);
+          window.location.href = data.redirectUrl; // redirecting admin to admin dashboard by redirecting url
+        } else {
+          toast.error(data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+
+        // setting loading state false on when promise resolve
+        setLoading(false);
+
+        // Handling ERROR
+        setloginDetails({
+          email: "",
+          password: "",
         });
-      }
-    } catch (error) {
-      // Handling ERROR
-      setloginDetails({
-        email: "",
-        password: "",
+        toast.error("Some Error Occurred");
       });
-      toast.error("Some Error Occurred", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
   };
 
   return (
     <>
-      <ToastContainer />
+      <ToastContainer
+        position="bottom-left"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <div className="flex w-screen flex-wrap text-slate-800 dark:text-dark-primaryText">
         <div className="flex w-full flex-col md:w-1/2">
           <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">

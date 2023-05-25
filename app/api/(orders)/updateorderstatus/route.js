@@ -1,6 +1,8 @@
 import connectDb from "@/dbconnection/mongoose";
 import Order from "@/models/Order";
 import { NextResponse } from "next/server";
+import Admin from "@/models/Admin";
+const jwt = require("jsonwebtoken");
 
 export async function POST(request) {
   await connectDb();
@@ -10,14 +12,32 @@ export async function POST(request) {
     const body = await request.json();
 
     // destructuring id and status from body
-    const { _id, status } = body;
+    const { token, _id, status } = body;
 
-    // updating order status by finding it by its id provided by body
-    await Order.findByIdAndUpdate(_id, {
-      status: status,
-    });
+    // verifying details from token in request
+    const verifyDetails = jwt.verify(token, process.env.ADMIN_JWT_SECRET);
 
-    return NextResponse.json({ success: true }, { status: 200 });
+    // finding if admin with token details email exists in our database
+    const adminDetails = await Admin.findOne({ email: verifyDetails.email });
+
+    // if admin email and name in database matches with the jwt email and name(admin) then
+    if (
+      adminDetails.name == verifyDetails.admin &&
+      adminDetails.email == verifyDetails.email
+    ) {
+      // updating order status by finding it by its id provided by body
+      await Order.findByIdAndUpdate(_id, {
+        status: status,
+      });
+
+      return NextResponse.json({ success: true }, { status: 200 });
+    } else {
+      // if admin email and name in database DOESN'T matches with the jwt email and name(admin) then
+      return NextResponse.json(
+        { success: false, message: "UnAuthorized Access" },
+        { status: 401 }
+      );
+    }
   } catch (error) {
     return NextResponse.json({ success: false, error }, { status: 500 });
   }

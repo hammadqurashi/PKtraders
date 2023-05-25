@@ -1,19 +1,19 @@
-import connectDb from "@/dbconnection/mongoose";
-import Order from "@/models/Order";
-import { NextResponse } from "next/server";
+import connectDb from "@/dbconnection/mongoose.js";
 import Admin from "@/models/Admin";
+import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 
-export async function GET(request) {
+export async function POST(request) {
   await connectDb();
+
   try {
-    // getting token from searchParams
+    // getting token from search params
     const token = await request.nextUrl.searchParams.get("token");
 
-    // verifying details from token in request
+    // verifying details from token
     const verifyDetails = jwt.verify(token, process.env.ADMIN_JWT_SECRET);
 
-    // finding if admin with token details email exists in our database
+    // getting admin from json web token email
     const adminDetails = await Admin.findOne({ email: verifyDetails.email });
 
     // if admin email and name in database matches with the jwt email and name(admin) then
@@ -21,19 +21,30 @@ export async function GET(request) {
       adminDetails.name == verifyDetails.admin &&
       adminDetails.email == verifyDetails.email
     ) {
-      const allOrders = await Order.find();
-      return NextResponse.json(allOrders, { status: 200 });
+      return NextResponse.json(
+        {
+          success: true,
+          message: "Welcome Admin!",
+        },
+        { status: 200 }
+      );
     } else {
       // if admin email and name in database DOESN'T matches with the jwt email and name(admin) then
       return NextResponse.json(
-        { success: false, message: "UnAuthorized Access" },
-        { status: 401 }
+        {
+          success: false,
+          message: "UnAuthorized Access!",
+        },
+        { status: 403 }
       );
     }
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { success: false, message: "Something Went Wrong!" },
+      {
+        success: false,
+        message: "Something Went Wrong!",
+      },
       { status: 500 }
     );
   }
