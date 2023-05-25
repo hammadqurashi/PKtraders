@@ -3,6 +3,7 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 const nodemailer = require("nodemailer");
 const fs = require("fs");
+const jwt = require("jsonwebtoken");
 
 export async function POST(request) {
   await connectDb();
@@ -14,8 +15,14 @@ export async function POST(request) {
     let user = await User.findOne({ email: email }); // finding user with email from request
 
     if (user) {
-      // Getting ID From user
-      const userId = user._id;
+      // signing userid with jwt and will send in reset password link
+      const userId = jwt.sign(
+        {
+          id: user._id,
+        },
+        process.env.JWT_SECRET
+      );
+
       try {
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({

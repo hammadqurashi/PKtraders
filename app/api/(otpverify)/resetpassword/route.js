@@ -2,7 +2,7 @@ import connectDb from "@/dbconnection/mongoose";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 import CryptoJS from "crypto-js";
-
+const jwt = require("jsonwebtoken");
 export async function POST(request) {
   await connectDb();
 
@@ -13,16 +13,19 @@ export async function POST(request) {
     const { newPassword } = body;
 
     // destructuring userId and otp from request body
-    // have given uI_V (userId) to provide security that anyone can't know its a id of user in our data base
+    // have given uI_V (userId) and the value of user id is json web token of user
     const userId = request.nextUrl.searchParams.get("uI_V");
 
+    // verifying the details of user from user json web token
+    const userDetails = jwt.verify(userId, process.env.JWT_SECRET);
+
     // finding user by the id saved in the database
-    const user = await User.findById(userId);
+    const user = await User.findById(userDetails.id);
 
     // user is in the database then
     if (user) {
       // finding user by id and updating its new password by encrypting it with cryptojs
-      await User.findByIdAndUpdate(userId, {
+      await User.findByIdAndUpdate(userDetails.id, {
         password: CryptoJS.AES.encrypt(
           newPassword,
           process.env.AES_SECRET
