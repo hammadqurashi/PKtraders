@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 const MyOrdersClient = ({ myOrders }) => {
-  return myOrders ? (
+  return (
     <div className="w-screen">
       <div className="mx-auto mt-8 max-w-screen-lg px-2">
         <div className="sm:flex sm:items-center sm:justify-between flex-col sm:flex-row">
@@ -118,10 +118,6 @@ const MyOrdersClient = ({ myOrders }) => {
           </table>
         </div>
       </div>
-    </div>
-  ) : (
-    <div className="my-6 text-lg container text-center">
-      You haven't Place Any Order Yet!
     </div>
   );
 };

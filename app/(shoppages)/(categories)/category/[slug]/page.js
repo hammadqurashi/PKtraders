@@ -1,9 +1,7 @@
 import React from "react";
 import ShopPage from "../../ShopPage";
-import Pagination from "@/components/Pagination";
 
 const getProducts = async (category, page, items) => {
-  // "use server";
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_HOST}/api/getproducts?category=${category}&page=${page}&items=${items}`,
     { cache: "no-store" }

@@ -23,7 +23,13 @@ const MyOrders = async () => {
   // fetching orders and then passing it through props
   const orders = await fetchOrders(token);
 
-  return <MyOrdersClient myOrders={orders} />;
+  return orders.length != 0 ? (
+    <MyOrdersClient myOrders={orders} />
+  ) : (
+    <div className="my-6 text-lg container text-center">
+      You haven't Placed Any Order Yet!
+    </div>
+  );
 };
 
 export default MyOrders;
