@@ -18,7 +18,7 @@ export async function GET(request) {
 
     // if admin email and name in database matches with the jwt email and name(admin) then
     if (
-      adminDetails.name == verifyDetails.admin &&
+      adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
       const allOrders = await Order.find();

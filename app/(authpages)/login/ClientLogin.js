@@ -6,7 +6,6 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "@/components/LoadingSpinner";
-import { redirect } from "next/navigation";
 
 const ClientLogin = (props) => {
   // Initializing useRouter hook
@@ -69,10 +68,6 @@ const ClientLogin = (props) => {
           setTimeout(() => {
             router.push(`${process.env.NEXT_PUBLIC_HOST}`);
           }, 1000);
-        } else if (data.adminSuccess == true) {
-          // checking if the admin success is true then
-          toast.success(data.message);
-          window.location.href = data.redirectUrl; // redirecting admin to admin dashboard by redirecting url
         } else {
           toast.error(data.message);
         }

@@ -1,6 +1,5 @@
 import connectDb from "@/dbconnection/mongoose";
 import User from "@/models/User";
-import Admin from "@/models/Admin";
 import { NextResponse } from "next/server";
 var CryptoJS = require("crypto-js");
 var jwt = require("jsonwebtoken");
@@ -15,8 +14,6 @@ export async function POST(request) {
     const { email, password } = req; // destructuring email and password from request
 
     let user = await User.findOne({ email: email }); // finding user with email from request
-
-    const admin = await Admin.findOne({ email: email }); // finding admin with email from request
 
     // if user with requested email occurs in database if not then check admin
     if (user) {
@@ -40,35 +37,6 @@ export async function POST(request) {
         return NextResponse.json(
           { success: false, message: "Email Or Password Incorrect" },
           { status: 403 }
-        );
-      }
-    } else if (admin) {
-      // if admin with the request email occurs in the database
-      // Decrypting Admin Password
-      var adminBytes = CryptoJS.AES.decrypt(
-        admin.password,
-        process.env.ADMIN_AES_SECRET
-      );
-      const decryptedAdminPassword = adminBytes.toString(CryptoJS.enc.Utf8);
-
-      // checking if decrypted password of admin matches with the one entered in request body
-      if (email == admin.email && password == decryptedAdminPassword) {
-        const adminToken = jwt.sign(
-          {
-            admin: admin.name,
-            email: admin.email,
-          },
-          process.env.ADMIN_JWT_SECRET
-        );
-
-        // giving success true with redirect url
-        return NextResponse.json(
-          {
-            adminSuccess: true,
-            message: "Admin Logged In Successfully",
-            redirectUrl: `${process.env.ADMIN_DASHBOARD_URL}/redirect/${adminToken}`,
-          },
-          { status: 200 }
         );
       } else {
         return NextResponse.json(

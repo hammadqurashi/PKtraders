@@ -22,7 +22,7 @@ export async function POST(request) {
 
     // if admin email and name in database matches with the jwt email and name(admin) then
     if (
-      adminDetails.name == verifyDetails.admin &&
+      adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
       // finding Product by its id and deleting it
@@ -43,7 +43,7 @@ export async function POST(request) {
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { success: false, message: "Something Went Wrong!" },
+      { success: false, message: "Something Went Wrong!", error },
       { status: 500 }
     );
   }

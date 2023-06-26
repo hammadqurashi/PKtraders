@@ -23,8 +23,8 @@ export async function POST(request) {
     if (adminDetails) {
       // checking if token name and email both are same with our database email and name then
       if (
-        verifyDetails.admin == adminDetails.name &&
-        verifyDetails.email == adminDetails.email
+        adminDetails._id == verifyDetails.id &&
+        adminDetails.email == verifyDetails.email
       ) {
         // then finding Admin with email and changing password by hashing it
         await Admin.findOneAndUpdate(

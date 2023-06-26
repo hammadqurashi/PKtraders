@@ -21,8 +21,6 @@ const getUser = async (token) => {
 };
 
 const Order = async ({ searchParams }) => {
-  // TODO
-  // To Change the profile image of user
   // getting token of user from cookies
   const cookieStore = cookies();
   const hasToken = cookieStore.has("token");

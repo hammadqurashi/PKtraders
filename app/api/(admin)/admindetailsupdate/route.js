@@ -24,8 +24,8 @@ export async function POST(request) {
       // checking if details from jwt is equal to admin details of database
       // we are checking verifyDetails.admin because we have signed admin name as admin when logging in
       if (
-        verifyDetails.admin == adminDetails.name &&
-        verifyDetails.email == adminDetails.email
+        adminDetails._id == verifyDetails.id &&
+        adminDetails.email == verifyDetails.email
       ) {
         // if details are verified then update according to request
         await Admin.findOneAndUpdate(

@@ -92,7 +92,7 @@ const TopNavbar = ({ categories }) => {
           <Link
             href="/category/all"
             className={`text-lg font-semibold ${
-              pathName == "/allcollections"
+              pathName == "/category/all"
                 ? "text-[#ed1c24]"
                 : " text-gray-600 dark:text-dark-primaryText "
             } transition duration-100`}
