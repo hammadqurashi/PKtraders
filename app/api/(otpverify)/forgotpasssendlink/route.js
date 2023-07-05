@@ -39,6 +39,7 @@ export async function POST(request) {
           .readFile("components/EmailTemplate.html", "utf8")
           .then((data) => {
             data = data.replace("{userID}", userId);
+            data = data.replace("{HOST}", process.env.HOST);
             return data;
           });
 
