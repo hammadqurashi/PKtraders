@@ -22,9 +22,12 @@ export async function GET(request) {
       adminDetails.email == verifyDetails.email
     ) {
       // finding all users
-      const user = await User.find();
+      const users = await User.find();
 
-      return NextResponse.json({ success: true, user }, { status: 200 });
+      // reversing array to get latest users first
+      const allUsers = users.reverse();
+
+      return NextResponse.json({ success: true, allUsers }, { status: 200 });
     } else {
       // if admin email and name in database DOESN'T matches with the jwt email and name(admin) then
       return NextResponse.json(

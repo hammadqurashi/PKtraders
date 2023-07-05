@@ -13,7 +13,7 @@ export async function PUT(request) {
     const body = await request.json();
 
     // destructuring name,slug,metadesc from body
-    const { token, _id, name, slug, metaDesc } = body;
+    const { token, _id, name, slug, pic, metaDesc } = body;
 
     // verifying details from token in request
     const verifyDetails = jwt.verify(token, process.env.ADMIN_JWT_SECRET);
@@ -30,11 +30,15 @@ export async function PUT(request) {
       await Category.findByIdAndUpdate(_id, {
         name: name,
         slug: slug,
+        pic: pic,
         metaDesc: metaDesc,
       });
 
       // if category is updated giving response true with status 200
-      return NextResponse.json({ success: true }, { status: 200 });
+      return NextResponse.json(
+        { success: true, message: "Changes Saved Successfully!" },
+        { status: 200 }
+      );
     } else {
       // if admin email and name in database DOESN'T matches with the jwt email and name(admin) then
       return NextResponse.json(

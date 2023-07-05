@@ -3,7 +3,8 @@ import Admin from "@/models/Admin";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 import CryptoJS from "crypto-js";
-export async function POST(request) {
+
+export async function PUT(request) {
   await connectDb();
 
   try {

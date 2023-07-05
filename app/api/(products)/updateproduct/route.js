@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 import Admin from "@/models/Admin";
 const jwt = require("jsonwebtoken");
 
-export async function POST(request) {
+export async function PUT(request) {
   await connectDb();
   try {
     // getting body from request

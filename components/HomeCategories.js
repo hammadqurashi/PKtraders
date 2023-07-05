@@ -17,13 +17,13 @@ const HomeCategories = async ({ categories }) => {
                 <Link
                   key={category.slug}
                   href={`/category/${category.slug}`}
-                  className="group relative flex h-96 items-end overflow-hidden rounded-lg bg-gray-100 dark:bg-dark-primaryBackground p-4 shadow-lg"
+                  className="group relative flex h-56 items-end overflow-hidden rounded-lg bg-gray-100 dark:bg-dark-primaryBackground p-4 shadow-lg"
                 >
                   <img
                     src={category.pic}
                     loading="lazy"
-                    alt="Photo by Austin Wade"
-                    className="absolute inset-0 h-full w-full object-cover object-center transition duration-200 group-hover:scale-110"
+                    alt={category.name}
+                    className="absolute inset-0 h-auto w-auto object-cover object-center transition duration-200 group-hover:scale-110"
                   />
 
                   <div className="relative flex w-full flex-col rounded-lg bg-white dark:bg-dark-secondaryBackground p-4 text-center">

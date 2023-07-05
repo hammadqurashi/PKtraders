@@ -22,7 +22,7 @@ export async function POST(request) {
 
     // if admin email and name in database matches with the jwt email and name(admin) then
     if (
-      adminDetails.name == verifyDetails.admin &&
+      adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
       // updating order status by finding it by its id provided by body
@@ -39,6 +39,9 @@ export async function POST(request) {
       );
     }
   } catch (error) {
-    return NextResponse.json({ success: false, error }, { status: 500 });
+    return NextResponse.json(
+      { success: false, message: "Something Went Wrong!", error },
+      { status: 500 }
+    );
   }
 }

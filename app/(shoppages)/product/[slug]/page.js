@@ -1,5 +1,6 @@
 import React from "react";
 import ClientComponent from "./ClientComponent";
+import { notFound } from "next/navigation";
 
 const getProduct = async (slugParameter) => {
   const res = await fetch(
@@ -16,6 +17,10 @@ export async function generateMetadata({ params }) {
   // fetch data
   const product = await getProduct(slug);
 
+  if (!product) {
+    return notFound();
+  }
+
   return {
     title: `${product.title} | PKTraders`,
     description: `${product.desc.slice(0, 155)}...`,
@@ -25,6 +30,10 @@ export async function generateMetadata({ params }) {
 
 const Product = async ({ params }) => {
   const product = await getProduct(params.slug);
+
+  if (!product) {
+    return notFound();
+  }
 
   return (
     <ClientComponent

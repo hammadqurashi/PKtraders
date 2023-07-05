@@ -43,47 +43,28 @@ const ClientComponent = (props) => {
           {/* <!-- images - start --> */}
           <div className="grid gap-4 lg:grid-cols-5">
             <div className="order-last flex gap-4 lg:order-none lg:flex-col">
-              {otherimgs.map((key) => {
-                return (
-                  <div key={key} className="overflow-hidden rounded-lg">
-                    <img
-                      src={key}
-                      loading="lazy"
-                      alt={title + "img1"}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
-                );
-              })}
+              {otherimgs &&
+                otherimgs.map((key) => {
+                  return (
+                    <div key={key} className="overflow-hidden rounded-lg">
+                      <img
+                        src={key}
+                        loading="lazy"
+                        alt={title + "img1"}
+                        className="h-full w-full object-cover object-center"
+                      />
+                    </div>
+                  );
+                })}
             </div>
 
             <div className="relative overflow-hidden rounded-lg lg:col-span-4">
               <img
                 src={img}
                 loading="lazy"
-                alt="Photo by Himanshu Dewangan"
+                alt={title}
                 className="h-full w-full object-cover object-center"
               />
-
-              <a
-                href="#"
-                className="absolute right-4 top-4 inline-block rounded-lg border bg-white px-3.5 py-3 text-center text-sm font-semibold text-gray-500 outline-none ring-indigo-300 transition duration-100 hover:bg-gray-100 focus-visible:ring active:text-gray-700 md:text-base"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                  />
-                </svg>
-              </a>
             </div>
           </div>
           {/* <!-- images - end --> */}

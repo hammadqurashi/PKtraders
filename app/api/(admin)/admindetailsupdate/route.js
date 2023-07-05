@@ -3,7 +3,7 @@ import Admin from "@/models/Admin";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 
-export async function POST(request) {
+export async function PUT(request) {
   await connectDb();
 
   try {
@@ -39,7 +39,7 @@ export async function POST(request) {
 
         const newToken = jwt.sign(
           {
-            admin: name,
+            id: adminDetails._id,
             email: email,
           },
           process.env.ADMIN_JWT_SECRET

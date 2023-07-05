@@ -6,6 +6,8 @@ import cartContext from "@/app/context/cart/cartContext";
 import CheckoutForm from "./CheckoutForm";
 import UserDetailsComponent from "./UserDetailsComponent";
 import { useRouter } from "next/navigation";
+import codImg from "@/assets/codImg.jpg";
+import Image from "next/image";
 // Make sure to call loadStripe outside of a component’s render to avoid
 // recreating the Stripe object on every render.
 // This is your test publishable API key.
@@ -287,9 +289,11 @@ const Checkout = () => {
                 className="peer-checked:border-2 peer-checked:border-gray-700 dark:peer-checked:border-white peer-checked:bg-gray-50 dark:peer-checked:bg-black flex cursor-pointer select-none rounded-lg border border-gray-300 dark:border-gray-700 p-4"
                 htmlFor="radio_2"
               >
-                <img
+                <Image
                   className="w-14 object-contain"
-                  src="https://www.farmers4u.pk/wp-content/uploads/2022/05/cash-on-delivery-icon-14.png"
+                  src={codImg}
+                  width={100}
+                  height={100}
                   alt=""
                 />
                 <div className="ml-5">

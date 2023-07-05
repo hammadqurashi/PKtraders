@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import { useRouter } from "next/navigation";
+
 const ClientSignUp = (props) => {
   // use Router function from next
   const router = useRouter();
@@ -89,8 +90,7 @@ const ClientSignUp = (props) => {
           <div
             className="m-2 w-full rounded-2xl bg-gray-400 bg-cover bg-center text-white sm:w-2/5"
             style={{
-              backgroundImage:
-                "url(https://www.apptus.com/static/images/resources/guides/b2b-ecommerce-10-tips/b2b-ecommerce-10-tips-hero.jpg)",
+              backgroundImage: `url(https://blog-frontend.envato.com/cdn-cgi/image/width=1200,quality=85,format=auto/uploads/2022/04/E-commerce-App-JPG-File-scaled.jpg)`,
             }}
           ></div>
           <div className="w-full sm:w-3/5">

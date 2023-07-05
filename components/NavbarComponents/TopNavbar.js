@@ -88,17 +88,6 @@ const TopNavbar = ({ categories }) => {
                 </Link>
               );
             })}
-
-          <Link
-            href="/category/all"
-            className={`text-lg font-semibold ${
-              pathName == "/category/all"
-                ? "text-[#ed1c24]"
-                : " text-gray-600 dark:text-dark-primaryText "
-            } transition duration-100`}
-          >
-            All Collections
-          </Link>
         </nav>
         {/* <!-- nav - end --> */}
 

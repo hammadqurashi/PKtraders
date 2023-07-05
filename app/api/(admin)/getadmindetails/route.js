@@ -5,9 +5,9 @@ import Admin from "@/models/Admin";
 const jwt = require("jsonwebtoken");
 
 export async function GET(request) {
-  await connectDb();
   try {
-    // getting token from searchParams
+    await connectDb();
+
     const token = await request.nextUrl.searchParams.get("token");
 
     // verifying details from token in request
@@ -21,12 +21,17 @@ export async function GET(request) {
       adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
-      const orders = await Order.find();
+      // finding admin from database
+      const admin = await Admin.find();
 
-      // reversing array to get latest orders first
-      const allOrders = orders.reverse();
+      // getting name, email and profile pic from admin
+      const { name, email, profilePic } = admin[0];
 
-      return NextResponse.json(allOrders, { status: 200 });
+      // giving response
+      return NextResponse.json(
+        { success: true, name, email, profilePic },
+        { status: 200 }
+      );
     } else {
       // if admin email and name in database DOESN'T matches with the jwt email and name(admin) then
       return NextResponse.json(
@@ -35,9 +40,8 @@ export async function GET(request) {
       );
     }
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
-      { success: false, message: "Something Went Wrong!" },
+      { success: false, message: "something Went Wrong!", error },
       { status: 500 }
     );
   }
