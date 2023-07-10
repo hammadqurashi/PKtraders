@@ -1,3 +1,4 @@
+import React from "react";
 import HomeCategories from "@/components/HomeCategories";
 import HomeHero from "@/components/HomeHero";
 import HomeProductGrid from "@/components/HomeProductGrid";
@@ -14,9 +15,7 @@ const getCollection = async (category, page, items) => {
 };
 
 const getCategories = async () => {
-  const res = await fetch(`${process.env.HOST}/api/getcategories`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${process.env.HOST}/api/getcategories`);
   return await res.json();
 };
 

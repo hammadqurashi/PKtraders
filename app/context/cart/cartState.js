@@ -7,9 +7,7 @@ import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 
 const CartState = (props) => {
-  const [cart, setcart] = useState(
-    localStorage.getItem("cart") ? localStorage.getItem("cart") : {}
-  );
+  const [cart, setcart] = useState({});
   const [subtotal, setsubTotal] = useState(0);
   const [user, setUser] = useState({ value: null });
 

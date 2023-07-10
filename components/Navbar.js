@@ -3,9 +3,7 @@ import TopNavbar from "./NavbarComponents/TopNavbar";
 import FloatingNavBar from "./NavbarComponents/FloatingNavBar";
 
 const getCategories = async () => {
-  const res = await fetch(`${process.env.HOST}/api/getcategories`, {
-    cache: "no-store",
-  });
+  const res = await fetch(`${process.env.HOST}/api/getcategories`);
   return await res.json();
 };
 
