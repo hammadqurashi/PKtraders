@@ -1,19 +1,7 @@
 import React from "react";
 import MyAccountClient from "./MyAccountClient";
 import { cookies } from "next/headers";
-
-const getUserDetails = async (token) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify({ token: token }),
-    cache: "no-cache",
-  });
-  const data = await res.json();
-  return data;
-};
+import getUser from "@/functions/getUser";
 
 const MyAccount = async () => {
   const updateUserDetails = async (
@@ -85,10 +73,10 @@ const MyAccount = async () => {
   };
   // Getting Token From Cookies
   const cookieStore = cookies();
-  const token = cookieStore.get("token");
+  const token = cookieStore.get("token").value;
 
   // Getting UserDetails and passing it through props to client
-  const userDetails = await getUserDetails(token.value);
+  const userDetails = await getUser(token);
   return (
     <>
       <MyAccountClient

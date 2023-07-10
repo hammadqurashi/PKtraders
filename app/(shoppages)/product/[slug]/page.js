@@ -1,21 +1,14 @@
 import React from "react";
 import ClientComponent from "./ClientComponent";
 import { notFound } from "next/navigation";
-
-const getProduct = async (slugParameter) => {
-  const res = await fetch(
-    `${process.env.HOST}/api/product?product=${slugParameter}`,
-    { cache: "no-store" }
-  );
-  return await res.json();
-};
+import getProductDetails from "@/functions/getProductDetails";
 
 export async function generateMetadata({ params }) {
   // read route params
   const slug = params.slug;
 
   // fetch data
-  const product = await getProduct(slug);
+  const product = await getProductDetails(slug);
 
   if (!product) {
     return notFound();
@@ -29,7 +22,7 @@ export async function generateMetadata({ params }) {
 }
 
 const Product = async ({ params }) => {
-  const product = await getProduct(params.slug);
+  const product = await getProductDetails(params.slug);
 
   if (!product) {
     return notFound();

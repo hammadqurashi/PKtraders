@@ -1,8 +1,14 @@
-"use client";
 import Link from "next/link";
 import Image from "next/image";
 
-const Footer = () => {
+const getCategories = async () => {
+  const res = await fetch(`${process.env.HOST}/api/getcategories`);
+  return await res.json();
+};
+
+const Footer = async () => {
+  const categories = await getCategories();
+
   return (
     <footer
       className={`text-gray-600 mt-20 dark:text-dark-secondaryText body-font dark:border-t-black`}
@@ -22,7 +28,7 @@ const Footer = () => {
               priority
               alt="brandlogo"
             />
-            PKTraders
+            {process.env.NEXT_PUBLIC_SITE_TITLE}
           </Link>
           {/* <!-- logo - end --> */}
           <p className="mt-2 px-4 text-sm dark:text-dark-primaryText">
@@ -35,38 +41,19 @@ const Footer = () => {
               SHOP
             </h2>
             <nav className="list-none mb-10">
-              <li>
-                <Link
-                  href="/tshirts"
-                  className="hover:text-gray-800 dark:hover:text-dark-primaryText"
-                >
-                  T-shirts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/hoodies"
-                  className="hover:text-gray-800 dark:hover:text-dark-primaryText"
-                >
-                  Hoodies
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/sweatshirts"
-                  className=" dark:hover:text-dark-primaryText hover:text-gray-800"
-                >
-                  Sweatshirts
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/caps"
-                  className="dark:hover:text-dark-primaryText hover:text-gray-800"
-                >
-                  Caps
-                </Link>
-              </li>
+              {categories &&
+                categories.map((category) => {
+                  return (
+                    <li key={category._id}>
+                      <Link
+                        href={`/category/${category.slug}`}
+                        className="hover:text-gray-800 dark:hover:text-dark-primaryText capitalize"
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  );
+                })}
             </nav>
           </div>
           <div className="lg:w-1/4 md:w-1/2 w-full px-4">
@@ -81,7 +68,7 @@ const Footer = () => {
               </li>
               <li>
                 <a className="dark:hover:text-dark-primaryText hover:text-gray-800">
-                  About PKTraders
+                  About {process.env.NEXT_PUBLIC_SITE_TITLE}
                 </a>
               </li>
               <li>
@@ -155,7 +142,7 @@ const Footer = () => {
       <div className="bg-gray-100 dark:bg-dark-secondaryBackground ">
         <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
           <p className="text-gray-500 text-sm text-center sm:text-left">
-            © 2023 PKTraders
+            © {new Date().getFullYear()} {process.env.NEXT_PUBLIC_SITE_TITLE}
           </p>
           <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
             <a className="text-gray-500">

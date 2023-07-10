@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Pagination from "@/components/Pagination";
 import Hero from "@/components/Hero";
-import Filters from "@/components/Filters";
 
 const ShopPage = (props) => {
   // destructuring props
@@ -55,7 +54,7 @@ const ShopPage = (props) => {
 
   // useeffect runs the function which we get as a prop
   useEffect(() => {
-    getProducts(category, currentPage).then((res) => {
+    getProducts(currentPage).then((res) => {
       // setotalPages(res.totalPages); //setting total pages state from res
       const fetchedProducts = res.products;
       setProducts(fetchedProducts); // setting products state from res

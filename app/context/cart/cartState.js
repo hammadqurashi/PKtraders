@@ -1,10 +1,10 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import CartContext from "./cartContext";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { redirect } from "next/navigation";
 
 const CartState = (props) => {
   const [cart, setcart] = useState(

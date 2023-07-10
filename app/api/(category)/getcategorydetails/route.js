@@ -11,10 +11,25 @@ export async function GET(request) {
 
     if (id) {
       const category = await Category.findById(id);
-      return NextResponse.json({ success: true, category }, { status: 200 });
-    } else {
+      if (category) {
+        return NextResponse.json({ success: true, category }, { status: 200 });
+      } else {
+        return NextResponse.json(
+          { success: false, message: "NOT FOUND" },
+          { status: 404 }
+        );
+      }
+    }
+    if (slug) {
       const category = await Category.findOne({ slug: slug });
-      return NextResponse.json({ success: true, category }, { status: 200 });
+      if (category) {
+        return NextResponse.json({ success: true, category }, { status: 200 });
+      } else {
+        return NextResponse.json(
+          { success: false, message: "NOT FOUND" },
+          { status: 404 }
+        );
+      }
     }
   } catch (error) {
     return NextResponse.json(

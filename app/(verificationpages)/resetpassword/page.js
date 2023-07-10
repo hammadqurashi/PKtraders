@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import React from "react";
 import ForgotResetPass from "../ForgotResetPass";
-const jwt = require("jsonwebtoken");
 
 const ResetPassword = async ({ searchParams }) => {
   const resetPass = async (userId, newPassword) => {

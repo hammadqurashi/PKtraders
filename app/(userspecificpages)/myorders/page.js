@@ -1,18 +1,7 @@
 import React from "react";
 import MyOrdersClient from "./MyOrdersClient";
 import { cookies } from "next/headers";
-
-const fetchOrders = async (t) => {
-  const res = await fetch(`${process.env.HOST}/api/myorders`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token: t }),
-    cache: "no-store",
-  });
-  return await res.json();
-};
+import fetchMyOrders from "@/functions/fetchMyOrders";
 
 const MyOrders = async () => {
   const cookieStore = cookies();
@@ -21,7 +10,7 @@ const MyOrders = async () => {
   const token = cookieStore.get("token").value;
 
   // fetching orders and then passing it through props
-  const orders = await fetchOrders(token);
+  const orders = await fetchMyOrders(token);
 
   return orders.length != 0 ? (
     <MyOrdersClient myOrders={orders} />

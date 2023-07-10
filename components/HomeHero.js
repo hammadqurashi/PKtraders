@@ -1,5 +1,3 @@
-import React from "react";
-
 const HomeHero = () => {
   return (
     <>
@@ -11,7 +9,7 @@ const HomeHero = () => {
               <h1 className="text-black-800 dark:text-dark-primaryText mb-4 text-4xl font-bold sm:text-5xl md:mb-8 md:text-6xl">
                 Trade With
                 <br />
-                PKTraders
+                {process.env.NEXT_PUBLIC_SITE_TITLE}
               </h1>
 
               <p className="max-w-md leading-relaxed text-gray-500 dark:text-dark-secondaryText xl:text-lg">
@@ -24,7 +22,7 @@ const HomeHero = () => {
                 <img
                   src="https://images.unsplash.com/photo-1622519407650-3df9883f76a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
                   loading="lazy"
-                  alt="Photo by Kaung Htet"
+                  alt="hero photo"
                   className="h-full w-full object-cover object-center"
                 />
               </div>
@@ -33,7 +31,7 @@ const HomeHero = () => {
                 <img
                   src="https://images.unsplash.com/photo-1617114919297-3c8ddb01f599?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
                   loading="lazy"
-                  alt="Photo by Manny Moreno"
+                  alt="hero photo"
                   className="h-full w-full object-cover object-center"
                 />
               </div>

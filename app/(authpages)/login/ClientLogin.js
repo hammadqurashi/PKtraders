@@ -106,7 +106,10 @@ const ClientLogin = (props) => {
           <div className="my-auto mx-auto flex flex-col justify-center px-6 pt-8 md:justify-start lg:w-[28rem]">
             <p className="text-center text-3xl font-bold md:leading-tight md:text-left md:text-5xl">
               Welcome back <br />
-              to <span className="text-[#ed1c24]">PkTraders</span>
+              to{" "}
+              <span className="text-[#ed1c24]">
+                {process.env.NEXT_PUBLIC_SITE_TITLE}
+              </span>
             </p>
             <p className="mt-6 text-center font-medium md:text-left">
               Sign in to your account below.
@@ -193,7 +196,7 @@ const ClientLogin = (props) => {
               features.
             </p>
             <p className="mb-4 text-3xl font-semibold">Hammad Qurashi</p>
-            <p className="">Founder, PKTraders</p>
+            <p className="">Founder, {process.env.NEXT_PUBLIC_SITE_TITLE}</p>
             <p className="mb-7 text-sm opacity-70">Trading WorldWide</p>
           </div>
           <img

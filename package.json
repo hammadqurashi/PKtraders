@@ -15,7 +15,7 @@
     "crypto-js": "^4.1.1",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "6.10.3",
-    "next": "^13.4.4",
+    "next": "^13.4.9",
     "next-themes": "^0.2.1",
     "nodemailer": "^6.9.2",
     "postcss": "8.4.21",
@@ -27,5 +27,6 @@
     "stripe": "^12.3.0",
     "styled-components": "^6.0.0-rc.1",
     "tailwindcss": "3.3.1"
-  }
+  },
+  "devDependencies": {}
 }

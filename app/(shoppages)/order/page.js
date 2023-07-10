@@ -1,24 +1,8 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
-const orderDetails = async (id) => {
-  const res = await fetch(`${process.env.HOST}/api/orderdetails?id=${id}`, {
-    cache: "no-store",
-  });
-  return res.json();
-};
-
-const getUser = async (token) => {
-  const res = await fetch(`${process.env.HOST}/api/getuser`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ token: token }),
-    cache: "no-store",
-  });
-  return await res.json();
-};
+import orderDetails from "@/functions/orderDetails";
+import getUser from "@/functions/getUser";
 
 const Order = async ({ searchParams }) => {
   // getting token of user from cookies

@@ -52,7 +52,7 @@ const TopNavbar = ({ categories }) => {
             priority
             alt="brandlogo"
           />
-          PKTraders
+          {process.env.NEXT_PUBLIC_SITE_TITLE}
         </Link>
         {/* <!-- logo - end --> */}
 
