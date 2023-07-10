@@ -2,6 +2,8 @@ import connectDb from "@/dbconnection/mongoose";
 import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 // api url eg: http://localhost:3000/api/getproducts?category=${category}&page=${page}&items=${items}
 // category is mandatory if want to get all products set category to all
 // page and items are optional but there default value will be then set to page=1 and items=10

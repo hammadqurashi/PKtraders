@@ -3,6 +3,9 @@ import User from "@/models/User";
 import { NextResponse } from "next/server";
 import CryptoJS from "crypto-js";
 const jwt = require("jsonwebtoken");
+
+export const dynamic = "force-dynamic";
+
 export async function POST(request) {
   await connectDb();
 

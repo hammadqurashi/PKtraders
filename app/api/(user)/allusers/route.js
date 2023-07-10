@@ -4,6 +4,8 @@ import User from "@/models/User";
 import Admin from "@/models/Admin";
 const jwt = require("jsonwebtoken");
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   await connectDb();
   try {

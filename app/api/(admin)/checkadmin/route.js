@@ -3,6 +3,8 @@ import Admin from "@/models/Admin";
 import { NextResponse } from "next/server";
 const jwt = require("jsonwebtoken");
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   await connectDb();
 
