@@ -23,7 +23,7 @@ const MyAccount = async () => {
         {
           method: "POST",
           headers: {
-            "Content-type": "application/json",
+            "content-type": "application/json",
           },
           body: JSON.stringify({
             token: token.value,
@@ -56,7 +56,7 @@ const MyAccount = async () => {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "content-type": "application/json",
           },
           body: JSON.stringify({
             token: token.value,

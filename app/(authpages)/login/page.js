@@ -7,7 +7,7 @@ const LoginPage = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify({ email: email, password: password }),
       cache: "no-cache",

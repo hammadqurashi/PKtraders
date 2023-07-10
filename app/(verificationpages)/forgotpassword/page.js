@@ -7,7 +7,7 @@ const ForgotPassword = async () => {
     const res = await fetch(`${process.env.HOST}/api/forgotpasssendlink`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "content-type": "application/json",
       },
       body: JSON.stringify({ email: email }),
       cache: "no-store",

@@ -61,7 +61,7 @@ const Checkout = () => {
     // Create PaymentIntent as soon as the page loads
     fetch(`${process.env.NEXT_PUBLIC_HOST}/api/create-payment-intent`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify({ items: JSON.parse(localStorage.getItem("cart")) }),
     })
       .then((res) => res.json())
@@ -71,7 +71,7 @@ const Checkout = () => {
     fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
       method: "POST",
       headers: {
-        "Content-Type": "applicaion/json",
+        "content-type": "applicaion/json",
       },
       body: JSON.stringify({ token: localStorage.getItem("token") }),
       cache: "no-store",
@@ -157,7 +157,7 @@ const Checkout = () => {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "application/json",
         },
         body: JSON.stringify(data),
       }

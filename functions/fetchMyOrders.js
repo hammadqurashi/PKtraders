@@ -2,7 +2,7 @@ const fetchMyOrders = async (token) => {
   const res = await fetch(`${process.env.HOST}/api/myorders`, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "content-type": "application/json",
     },
     body: JSON.stringify({ token: token }),
     cache: "no-store",

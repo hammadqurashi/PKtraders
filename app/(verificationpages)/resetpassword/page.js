@@ -10,7 +10,7 @@ const ResetPassword = async ({ searchParams }) => {
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "application/json",
         },
         body: JSON.stringify({ newPassword: newPassword }),
       }
