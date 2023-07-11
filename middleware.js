@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-export default middleware = async (request) => {
+export function middleware(request) {
   if (
     request.nextUrl.pathname.startsWith("/login") &&
     request.cookies.has("token")
@@ -31,4 +31,4 @@ export default middleware = async (request) => {
   ) {
     return NextResponse.redirect(`${process.env.HOST}`);
   }
-};
+}
