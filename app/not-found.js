@@ -14,7 +14,7 @@ export default function NotFound() {
             href="/"
             className="rounded-md bg-[#ed1c24] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
-            Go back Home
+            Go Back Home
           </a>
         </div>
       </div>

@@ -1,6 +1,5 @@
 const getCategories = async () => {
-  // const res = await fetch(`${process.env.HOST}/api/getcategories`);
-  const res = await fetch("https://fakestoreapi.com/products/categories");
+  const res = await fetch(`${process.env.HOST}/api/getcategories`);
   return await res.json();
 };
 

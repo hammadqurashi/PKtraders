@@ -9,26 +9,6 @@ const MyOrdersClient = ({ myOrders }) => {
           <p className="flex-1 text-base font-bold text-gray-900 dark:text-dark-primaryText">
             My Orders
           </p>
-
-          {/* <div className="mt-4 sm:mt-0">
-            <div className="flex items-center justify-start sm:justify-end">
-              <div className="flex items-center">
-                <label
-                  htmlFor=""
-                  className="mr-2 flex-shrink-0 text-sm font-medium text-gray-900 dark:text-dark-primaryText"
-                >
-                  {" "}
-                  Sort by:{" "}
-                </label>
-                <select
-                  name=""
-                  className="sm: mr-4 block w-full whitespace-pre rounded-lg border p-1 pr-10 text-base outline-none focus:shadow sm:text-sm"
-                >
-                  <option className="whitespace-no-wrap text-sm">Recent</option>
-                </select>
-              </div>
-            </div>
-          </div> */}
         </div>
 
         <div className="mt-6 overflow-hidden rounded-xl border shadow dark:bg-dark-secondaryBackground">
@@ -82,7 +62,6 @@ const MyOrdersClient = ({ myOrders }) => {
 
                       <td className="whitespace-no-wrap py-4 px-6 text-right text-sm text-gray-600 dark:text-dark-primaryText lg:text-left">
                         Rs. {item.amount}
-                        {item.status.toLowerCase() == "delivered" && "true"}
                         <div
                           className={`flex mt-1 capitalize ml-auto w-fit items-center rounded-full ${
                             (item.status.toLowerCase() == "pending" &&
