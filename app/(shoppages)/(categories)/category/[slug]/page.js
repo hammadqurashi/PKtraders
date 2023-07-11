@@ -5,43 +5,38 @@ import { notFound } from "next/navigation";
 import getCategoryDetails from "@/functions/getCategoryDetails";
 import getProducts from "@/functions/getProducts";
 
-// export async function generateMetadata({ params }) {
-//   try {
-//     // fetch data
-//     const category = await getCategoryDetails(params.slug);
-
-//     return {
-//       title: category.category.name.toUpperCase(),
-//       description: category.category.metaDesc,
-//       images: [
-//         {
-//           url: category.category.pic,
-//           width: 800,
-//           height: 600,
-//         },
-//       ],
-//       keyword: category.category.name,
-//     };
-//   } catch (error) {
-//     console.error(error);
-//     return {
-//       title: "Error in the page",
-//       description: "The page you are looking for does not exist.",
-//     };
-//   }
-// }
 export async function generateMetadata({ params }) {
-  return {
-    title: params.slug,
-  };
+  try {
+    // fetch data
+    const category = await getCategoryDetails(params.slug);
+
+    return {
+      title: category.category.name.toUpperCase(),
+      description: category.category.metaDesc,
+      images: [
+        {
+          url: category.category.pic,
+          width: 800,
+          height: 600,
+        },
+      ],
+      keyword: category.category.name,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      title: "Error in the page",
+      description: "The page you are looking for does not exist.",
+    };
+  }
 }
 
 const Category = async ({ params }) => {
-  // const categoryDetails = await getCategoryDetails(params.slug);
+  const categoryDetails = await getCategoryDetails(params.slug);
 
-  // if (categoryDetails.success == false) {
-  //   return notFound();
-  // }
+  if (categoryDetails.success == false) {
+    return notFound();
+  }
 
   const fetchedProducts = async (page) => {
     "use server";
@@ -53,20 +48,18 @@ const Category = async ({ params }) => {
 
   return (
     <>
-      {/* {products.products.length > 0 ? ( */}
-      <ShopPage
-        getProducts={fetchedProducts}
-        // firstPageProducts={products.products}
-        firstPageProducts={products}
-        // totalPages={products.totalPages}
-        totalPages={1}
-        // categoryDetails={categoryDetails.category}
-      />
-      {/* ) : (
+      {products.products.length > 0 ? (
+        <ShopPage
+          getProducts={fetchedProducts}
+          firstPageProducts={products.products}
+          totalPages={products.totalPages}
+          categoryDetails={categoryDetails.category}
+        />
+      ) : (
         <div className="flex justify-center items-center font-bold text-2xl">
           <Image src={soldoutImg} width={500} height={500} />
         </div>
-      )} */}
+      )}
     </>
   );
 };
