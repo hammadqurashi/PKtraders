@@ -7,8 +7,9 @@ import getCategories from "@/functions/getCategories";
 import getProducts from "@/functions/getProducts";
 
 export default async function Home() {
-  const res = await getProducts("all", 1, 10);
-  const latestCollection = res.products;
+  // const res = await getProducts("all", 1, 10);
+  // const latestCollection = res.products;
+  const latestCollection = await getProducts("electronics", 1, 10);
 
   const categories = await getCategories();
   return (
