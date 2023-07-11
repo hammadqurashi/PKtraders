@@ -2,6 +2,8 @@ import connectDb from "@/dbconnection/mongoose";
 import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 // api url eg: http://localhost:3000/api/allproducts
 export async function GET(request) {
   await connectDb();
