@@ -3,25 +3,13 @@ import HomeCategories from "@/components/HomeCategories";
 import HomeHero from "@/components/HomeHero";
 import HomeProductGrid from "@/components/HomeProductGrid";
 import NewsLetter from "@/components/NewsLetter";
-
-const getCollection = async (category, page, items) => {
-  const res = await fetch(
-    `${process.env.HOST}/api/getproducts?category=${category}&page=${page}&items=${items}`,
-    {
-      cache: "no-store",
-    }
-  );
-  return await res.json();
-};
-
-const getCategories = async () => {
-  const res = await fetch(`${process.env.HOST}/api/getcategories`);
-  return await res.json();
-};
+import getCategories from "@/functions/getCategories";
+import getProducts from "@/functions/getProducts";
 
 export default async function Home() {
-  const res = await getCollection("all", 1, 10);
-  const latestCollection = res.products;
+  // const res = await getProducts("all", 1, 10);
+  // const latestCollection = res.products;
+  const latestCollection = await getProducts("electronics", 1, 10);
 
   const categories = await getCategories();
   return (

@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import React from "react";
 import ForgotResetPass from "../ForgotResetPass";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import { Suspense } from "react";
 
 const ResetPassword = async ({ searchParams }) => {
   const resetPass = async (userId, newPassword) => {
@@ -24,7 +26,11 @@ const ResetPassword = async ({ searchParams }) => {
     return notFound();
   }
 
-  return <ForgotResetPass resetPass={resetPass} />;
+  return (
+    <Suspense fallback={<LoadingSpinner color="red" size={50} thickness={4} />}>
+      <ForgotResetPass resetPass={resetPass} />
+    </Suspense>
+  );
 };
 
 export default ResetPassword;

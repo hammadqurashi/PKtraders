@@ -12,7 +12,7 @@ const MyOrders = async () => {
   // fetching orders and then passing it through props
   const orders = await fetchMyOrders(token);
 
-  return orders.length != 0 ? (
+  return orders && orders.length > 0 ? (
     <MyOrdersClient myOrders={orders} />
   ) : (
     <div className="my-6 text-lg container text-center">

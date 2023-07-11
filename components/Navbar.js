@@ -1,11 +1,7 @@
 import React from "react";
 import TopNavbar from "./NavbarComponents/TopNavbar";
 import FloatingNavBar from "./NavbarComponents/FloatingNavBar";
-
-const getCategories = async () => {
-  const res = await fetch(`${process.env.HOST}/api/getcategories`);
-  return await res.json();
-};
+import getCategories from "@/functions/getCategories";
 
 const Navbar = async () => {
   const categories = await getCategories();

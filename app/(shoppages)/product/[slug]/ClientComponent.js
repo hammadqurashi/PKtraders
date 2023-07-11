@@ -106,23 +106,24 @@ const ClientComponent = (props) => {
               </span>
 
               <div className="flex flex-wrap gap-2">
-                {color.map((key) => {
-                  return (
-                    <button
-                      value={key}
-                      onClick={onClickSetVariant}
-                      name="color"
-                      key={key}
-                      type="button"
-                      className={`h-8 w-8 rounded-full border bg-gray-500 ${
-                        colorVariant === key
-                          ? "ring-gray-800 dark:ring-dark-primaryText ring-2"
-                          : "ring-transparent hover:ring-gray-200 dark:hover:bg-dark-tertiaryBackground"
-                      } ring-offset-1 transition duration-100`}
-                      style={{ backgroundColor: key }}
-                    ></button>
-                  );
-                })}
+                {color &&
+                  color.map((key) => {
+                    return (
+                      <button
+                        value={key}
+                        onClick={onClickSetVariant}
+                        name="color"
+                        key={key}
+                        type="button"
+                        className={`h-8 w-8 rounded-full border bg-gray-500 ${
+                          colorVariant === key
+                            ? "ring-gray-800 dark:ring-dark-primaryText ring-2"
+                            : "ring-transparent hover:ring-gray-200 dark:hover:bg-dark-tertiaryBackground"
+                        } ring-offset-1 transition duration-100`}
+                        style={{ backgroundColor: key }}
+                      ></button>
+                    );
+                  })}
               </div>
             </div>
             {/* <!-- color - end --> */}
@@ -134,24 +135,25 @@ const ClientComponent = (props) => {
               </span>
 
               <div className="flex flex-wrap gap-3">
-                {size.map((key) => {
-                  return (
-                    <button
-                      onClick={onClickSetVariant}
-                      name="size"
-                      key={key}
-                      value={key}
-                      type="button"
-                      className={`flex h-8 w-12 items-center justify-center rounded-md border dark:border-none ${
-                        sizeVariant === key
-                          ? "bg-[#ed1c24] text-white"
-                          : "bg-white dark:bg-dark-fourthBackground dark:hover:bg-white hover:bg-gray-100 text-gray-800"
-                      } text-center text-sm font-semibold transition duration-100 active:bg-gray-200`}
-                    >
-                      {key}
-                    </button>
-                  );
-                })}
+                {size &&
+                  size.map((key) => {
+                    return (
+                      <button
+                        onClick={onClickSetVariant}
+                        name="size"
+                        key={key}
+                        value={key}
+                        type="button"
+                        className={`flex h-8 w-12 items-center justify-center rounded-md border dark:border-none ${
+                          sizeVariant === key
+                            ? "bg-[#ed1c24] text-white"
+                            : "bg-white dark:bg-dark-fourthBackground dark:hover:bg-white hover:bg-gray-100 text-gray-800"
+                        } text-center text-sm font-semibold transition duration-100 active:bg-gray-200`}
+                      >
+                        {key}
+                      </button>
+                    );
+                  })}
               </div>
             </div>
             {/* <!-- size - end --> */}

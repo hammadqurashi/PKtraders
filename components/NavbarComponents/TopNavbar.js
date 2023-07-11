@@ -72,7 +72,7 @@ const TopNavbar = ({ categories }) => {
           >
             Home
           </Link>
-          {categories &&
+          {/* {categories &&
             categories.map((category) => {
               return (
                 <Link
@@ -85,6 +85,22 @@ const TopNavbar = ({ categories }) => {
                   } transition duration-100`}
                 >
                   {category.name}
+                </Link>
+              );
+            })} */}
+          {categories &&
+            categories.map((category) => {
+              return (
+                <Link
+                  key={category}
+                  href={`/category/${category}`}
+                  className={`capitalize text-lg font-semibold ${
+                    pathName == `/category/${category}`
+                      ? "text-[#ed1c24]"
+                      : " text-gray-600 dark:text-dark-primaryText "
+                  } transition duration-100`}
+                >
+                  {category}
                 </Link>
               );
             })}

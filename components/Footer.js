@@ -1,10 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-
-const getCategories = async () => {
-  const res = await fetch(`${process.env.HOST}/api/getcategories`);
-  return await res.json();
-};
+import getCategories from "@/functions/getCategories";
 
 const Footer = async () => {
   const categories = await getCategories();
