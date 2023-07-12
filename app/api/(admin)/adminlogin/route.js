@@ -26,7 +26,6 @@ export async function POST(request) {
       );
       const decryptedPassword = bytes.toString(CryptoJS.enc.Utf8);
 
-      console.log(decryptedPassword);
       // and then matching decrypted password of admin saved in database with user entered password
       // we have not compared emails because if the user given email matches with taht of admin then this if block statement will open
       if (password == decryptedPassword) {

@@ -1,3 +1,7 @@
+import Image from "next/image";
+import img1 from "@/assets/header1.avif";
+import img2 from "@/assets/header2.avif";
+
 const HomeHero = () => {
   return (
     <>
@@ -19,20 +23,20 @@ const HomeHero = () => {
 
             <div className="mb-12 flex w-full md:mb-16 lg:w-2/3">
               <div className="relative top-12 left-12 z-10 -ml-12 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:top-16 md:left-16 lg:ml-0">
-                <img
-                  src="https://images.unsplash.com/photo-1622519407650-3df9883f76a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  loading="lazy"
-                  alt="hero photo"
+                <Image
+                  src={img1}
+                  priority={true}
                   className="h-full w-full object-cover object-center"
+                  alt="hero photo"
                 />
               </div>
 
               <div className="overflow-hidden rounded-lg bg-gray-100 shadow-lg">
-                <img
-                  src="https://images.unsplash.com/photo-1617114919297-3c8ddb01f599?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OXx8bWVuJTIwZmFzaGlvbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                  loading="lazy"
-                  alt="hero photo"
+                <Image
+                  src={img2}
+                  priority={true}
                   className="h-full w-full object-cover object-center"
+                  alt="hero photo"
                 />
               </div>
             </div>

@@ -3,6 +3,13 @@ import Product from "@/models/Product";
 import { NextResponse } from "next/server";
 import Admin from "@/models/Admin";
 const jwt = require("jsonwebtoken");
+import cloudinary from "cloudinary";
+
+cloudinary.config({
+  cloud_name: "dg9ywz9zc",
+  api_key: "154199816871412",
+  api_secret: process.env.CDN_SECRET,
+});
 
 export async function POST(request) {
   await connectDb();
@@ -34,11 +41,18 @@ export async function POST(request) {
       adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
+      const cdnUrl = await cloudinary.v2.uploader.upload(
+        img,
+        function (error, result) {
+          return result;
+        }
+      );
+
       let products = new Product({
         title: title,
         slug: slug,
         desc: desc,
-        img: img,
+        img: cdnUrl.url,
         otherimgs: otherimgs,
         category: category,
         size: size,

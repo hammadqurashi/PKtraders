@@ -1,7 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
-const HomeCategories = async ({ categories }) => {
+const HomeCategories = ({ categories }) => {
   return (
     <div className="bg-white dark:bg-dark-primaryBackground py-6 sm:py-8 lg:py-12">
       <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
@@ -11,17 +12,18 @@ const HomeCategories = async ({ categories }) => {
 
         <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-2 xl:grid-cols-2">
           {/* <!-- product - start --> */}
-          {categories &&
+          {categories.length > 0 &&
             categories.map((category) => {
               return (
                 <Link
                   key={category.slug}
                   href={`/category/${category.slug}`}
-                  className="group relative flex h-56 items-end overflow-hidden rounded-lg bg-gray-100 dark:bg-dark-primaryBackground p-4 shadow-lg"
+                  className="group relative flex h-40 md:h-56 items-end overflow-hidden rounded-lg bg-gray-100 dark:bg-dark-primaryBackground p-4 shadow-lg"
                 >
-                  <img
+                  <Image
                     src={category.pic}
-                    loading="lazy"
+                    width={500}
+                    height={100}
                     alt={category.name}
                     className="absolute inset-0 h-auto w-auto object-cover object-center transition duration-200 group-hover:scale-110"
                   />

@@ -1,9 +1,18 @@
+"use client";
+
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import getCategories from "@/functions/getCategories";
 
-const Footer = async () => {
-  const categories = await getCategories();
+const Footer = () => {
+  const [categories, setCategories] = useState({});
+
+  useEffect(() => {
+    getCategories().then((res) => {
+      setCategories(res);
+    });
+  }, []);
 
   return (
     <footer
@@ -37,7 +46,7 @@ const Footer = async () => {
               SHOP
             </h2>
             <nav className="list-none mb-10">
-              {categories &&
+              {categories.length > 0 &&
                 categories.map((category) => {
                   return (
                     <li key={category._id}>

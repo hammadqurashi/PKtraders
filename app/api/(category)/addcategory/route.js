@@ -3,6 +3,13 @@ import Category from "@/models/Category";
 import { NextResponse } from "next/server";
 import Admin from "@/models/Admin";
 const jwt = require("jsonwebtoken");
+import cloudinary from "cloudinary";
+
+cloudinary.config({
+  cloud_name: "dg9ywz9zc",
+  api_key: "154199816871412",
+  api_secret: process.env.CDN_SECRET,
+});
 
 export async function POST(request) {
   try {
@@ -26,11 +33,18 @@ export async function POST(request) {
       adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
+      const cdnUrl = await cloudinary.v2.uploader.upload(
+        pic,
+        function (error, result) {
+          return result;
+        }
+      );
+
       // making new category
       const category = new Category({
         name: name,
         slug: slug,
-        pic: pic,
+        pic: cdnUrl.url,
         metaDesc: metaDesc,
       });
 

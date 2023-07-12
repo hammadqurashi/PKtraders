@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useContext, useState, useEffect } from "react";
 import cartContext from "@/app/context/cart/cartContext";
 import Link from "next/link";
@@ -8,6 +9,7 @@ import ThemeSwitch from "../ThemeSwitch";
 import { usePathname } from "next/navigation";
 import CartBtn from "./CartBtn";
 import LoginBtn from "./LoginBtn";
+import getCategories from "@/functions/getCategories";
 
 const TopNavbar = ({ categories }) => {
   const pathName = usePathname();
@@ -17,6 +19,14 @@ const TopNavbar = ({ categories }) => {
 
   // desturcturing context
   const { user } = context;
+
+  // const [categories, setCategories] = useState({});
+
+  // useEffect(() => {
+  //   getCategories().then((res) => {
+  //     setCategories(res);
+  //   });
+  // }, []);
 
   // Mobile NavBar Toggle
 
@@ -49,7 +59,7 @@ const TopNavbar = ({ categories }) => {
             src={"/brandlogo.png"}
             width={50}
             height={50}
-            priority
+            priority={false}
             alt="brandlogo"
           />
           {process.env.NEXT_PUBLIC_SITE_TITLE}
@@ -72,7 +82,7 @@ const TopNavbar = ({ categories }) => {
           >
             Home
           </Link>
-          {categories &&
+          {categories.length > 0 &&
             categories.map((category) => {
               return (
                 <Link

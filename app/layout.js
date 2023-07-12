@@ -11,6 +11,7 @@ export const metadata = {
   title: "PKTraders - Trade With Pakistan",
   description:
     "An Online Platform to trade around the World with Pakistani Traders.",
+  keywords: "pktraders",
 };
 
 const roboto = Roboto({ subsets: ["latin"], weight: "300" });

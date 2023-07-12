@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
 
 const HomeProductGrid = (props) => {
   const { title, description, collection } = props;
@@ -35,11 +35,17 @@ const HomeProductGrid = (props) => {
                       <img
                         className="peer absolute top-0 right-0 h-full w-full object-cover"
                         src={item.img}
-                        alt="product image"
+                        width={100}
+                        height={100}
+                        loading="lazy"
+                        alt={item.title}
                       />
                       <img
                         className="peer absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0 peer-hover:right-0"
                         src={item.otherimgs[0] && item.otherimgs[0]}
+                        loading="lazy"
+                        width={100}
+                        height={100}
                         alt="product image"
                       />
                       <span className="absolute top-0 left-0 m-2 rounded-full bg-[#ed1c24] px-2 text-center text-sm font-medium text-white">

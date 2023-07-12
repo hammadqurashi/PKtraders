@@ -1,14 +1,16 @@
-import React from "react";
+import React, { Suspense } from "react";
 import TopNavbar from "./NavbarComponents/TopNavbar";
 import FloatingNavBar from "./NavbarComponents/FloatingNavBar";
 import getCategories from "@/functions/getCategories";
 
-const Navbar = async () => {
-  const categories = await getCategories();
+const categories = await getCategories();
 
+const Navbar = async () => {
   return (
     <>
-      <TopNavbar categories={categories} />
+      <Suspense fallback={<span>Loading...</span>}>
+        <TopNavbar categories={categories} />
+      </Suspense>
       <FloatingNavBar />
     </>
   );

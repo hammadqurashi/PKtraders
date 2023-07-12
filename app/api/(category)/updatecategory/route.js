@@ -3,6 +3,13 @@ import Category from "@/models/Category";
 import { NextResponse } from "next/server";
 import Admin from "@/models/Admin";
 const jwt = require("jsonwebtoken");
+import cloudinary from "cloudinary";
+
+cloudinary.config({
+  cloud_name: "dg9ywz9zc",
+  api_key: "154199816871412",
+  api_secret: process.env.CDN_SECRET,
+});
 
 export async function PUT(request) {
   try {
@@ -26,17 +33,27 @@ export async function PUT(request) {
       adminDetails._id == verifyDetails.id &&
       adminDetails.email == verifyDetails.email
     ) {
+      const cdnUrl = await cloudinary.v2.uploader.upload(
+        pic,
+        function (error, result) {
+          return result;
+        }
+      );
+
       // finding category by its id and updating it category
       await Category.findByIdAndUpdate(_id, {
         name: name,
         slug: slug,
-        pic: pic,
+        pic: cdnUrl.url,
         metaDesc: metaDesc,
       });
 
       // if category is updated giving response true with status 200
       return NextResponse.json(
-        { success: true, message: "Changes Saved Successfully!" },
+        {
+          success: true,
+          message: "Changes Saved Successfully!",
+        },
         { status: 200 }
       );
     } else {

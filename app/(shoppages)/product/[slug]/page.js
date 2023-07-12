@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ClientComponent from "./ClientComponent";
 import { notFound } from "next/navigation";
 import getProductDetails from "@/functions/getProductDetails";
+import ProductSkeleton from "@/components/ProductSkeleton";
 
 export async function generateMetadata({ params }) {
   // read route params
@@ -29,17 +30,19 @@ const Product = async ({ params }) => {
   }
 
   return (
-    <ClientComponent
-      params={params.slug}
-      title={product.title}
-      category={product.category}
-      img={product.img}
-      otherimgs={product.otherimgs}
-      price={product.price}
-      desc={product.desc}
-      color={product.color}
-      size={product.size}
-    />
+    <Suspense fallback={<ProductSkeleton />}>
+      <ClientComponent
+        params={params.slug}
+        title={product.title}
+        category={product.category}
+        img={product.img}
+        otherimgs={product.otherimgs}
+        price={product.price}
+        desc={product.desc}
+        color={product.color}
+        size={product.size}
+      />
+    </Suspense>
   );
 };
 
