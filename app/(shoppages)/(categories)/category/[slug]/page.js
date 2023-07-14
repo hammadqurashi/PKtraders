@@ -1,4 +1,4 @@
-import ShopPage from "../../ShopPage";
+import ShopPage from "@/components/ShopPage";
 import soldoutImg from "@/assets/soldout.jpg";
 import Image from "next/image";
 import { notFound } from "next/navigation";
@@ -61,7 +61,7 @@ const Category = async ({ params }) => {
         </Suspense>
       ) : (
         <div className="flex justify-center items-center font-bold text-2xl">
-          <Image src={soldoutImg} width={500} height={500} />
+          <Image src={soldoutImg} width={500} height={500} alt="sold out" />
         </div>
       )}
     </>

@@ -13,7 +13,7 @@ const CartBtn = () => {
   return (
     <Link
       href="/cart"
-      className="hidden md:flex h-12 w-12 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 md:h-24 md:w-24"
+      className="hidden md:flex h-12 w-12 md:h-24 md:w-24 flex-col items-center justify-center gap-1.5 transition duration-100 hover:bg-gray-100 dark:hover:bg-dark-primaryBackground active:bg-gray-200 "
     >
       {/* Showing Cart Length */}
       {cart && Object.keys(cart).length > 0 && (

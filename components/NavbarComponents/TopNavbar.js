@@ -9,7 +9,7 @@ import ThemeSwitch from "../ThemeSwitch";
 import { usePathname } from "next/navigation";
 import CartBtn from "./CartBtn";
 import LoginBtn from "./LoginBtn";
-import getCategories from "@/functions/getCategories";
+import SearchBar from "./SearchBar";
 
 const TopNavbar = ({ categories }) => {
   const pathName = usePathname();
@@ -20,17 +20,10 @@ const TopNavbar = ({ categories }) => {
   // desturcturing context
   const { user } = context;
 
-  // const [categories, setCategories] = useState({});
-
-  // useEffect(() => {
-  //   getCategories().then((res) => {
-  //     setCategories(res);
-  //   });
-  // }, []);
-
-  // Mobile NavBar Toggle
-
   const [mobileNavOpen, setmobileNavOpen] = useState(false);
+
+  // state for search bar
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const togglemobileNavOpen = () => {
     setmobileNavOpen(!mobileNavOpen);
@@ -48,7 +41,7 @@ const TopNavbar = ({ categories }) => {
 
   return (
     <header className="sticky top-0 w-full bg-white z-50 mb-8 border-b dark:bg-dark-secondaryBackground">
-      <div className="mx-auto flex max-w-screen-2xl items-center py-2 justify-between md:px-8">
+      <div className="relative mx-auto flex max-w-screen-2xl items-center py-2 justify-between md:px-8">
         {/* <!-- logo - start --> */}
         <Link
           href="/"
@@ -98,6 +91,26 @@ const TopNavbar = ({ categories }) => {
                 </Link>
               );
             })}
+          {/* Search Btn */}
+          <button
+            className="hidden md:flex"
+            onClick={() => setSearchOpen(!searchOpen)}
+          >
+            <svg
+              className="h-6 w-6 text-gray-800 dark:text-dark-primaryText"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
+          </button>
         </nav>
         {/* <!-- nav - end --> */}
 
@@ -105,6 +118,7 @@ const TopNavbar = ({ categories }) => {
         <div className="flex">
           {/* Theme Toggle Button */}
           <ThemeSwitch smallDeviceVisiblity={false} />
+
           {/* Cart Button */}
           <CartBtn />
 
@@ -141,6 +155,8 @@ const TopNavbar = ({ categories }) => {
           {/* Hamburger Ends */}
         </div>
         {/* <!-- buttons - end --> */}
+
+        <SearchBar searchOpen={searchOpen} />
       </div>
     </header>
   );

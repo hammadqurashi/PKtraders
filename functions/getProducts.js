@@ -1,6 +1,10 @@
-const getProducts = async (category, page, items) => {
+const getProducts = async (category, page, items, searchq) => {
   const res = await fetch(
-    `${process.env.HOST}/api/getproducts?category=${category}&page=${page}&items=${items}`,
+    `${
+      process.env.HOST
+    }/api/getproducts?category=${category}&page=${page}&items=${items}${
+      searchq ? `&searchq=${searchq}` : ""
+    }`,
     { cache: "no-store" }
   );
   return await res.json();

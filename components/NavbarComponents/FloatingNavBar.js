@@ -1,11 +1,12 @@
 "use client";
-import React, { useContext } from "react";
+
+import React, { useContext, useState } from "react";
 import cartContext from "@/app/context/cart/cartContext";
 import Link from "next/link";
 import AccountBtn from "./AccountBtn";
 import ThemeSwitch from "../ThemeSwitch";
 import { usePathname } from "next/navigation";
-import LoginBtn from "./LoginBtn";
+import SearchBar from "./SearchBar";
 
 const FloatingNavBar = () => {
   // useContext hook
@@ -15,6 +16,9 @@ const FloatingNavBar = () => {
   const { user } = context;
 
   const pathName = usePathname();
+
+  // state for search bar
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <div className="fixed bottom-0 z-[9999] bg-white dark:bg-dark-secondaryBackground pt-12 sm:pt-16 lg:hidden md:hidden">
@@ -36,7 +40,7 @@ const FloatingNavBar = () => {
             />
           </svg>
         </Link>
-        <div className="flex justify-between gap-8 border-t bg-white dark:bg-dark-secondaryBackground px-10 py-4 text-xs sm:rounded-t-xl sm:border-transparent sm:text-sm sm:shadow-2xl">
+        <div className="relative flex justify-between gap-8 border-t bg-white dark:bg-dark-secondaryBackground px-10 py-4 text-xs sm:rounded-t-xl sm:border-transparent sm:text-sm sm:shadow-2xl">
           <Link
             href={"/"}
             className={`flex flex-col items-center gap-1 ${
@@ -63,9 +67,9 @@ const FloatingNavBar = () => {
             <span>Theme</span>
           </div>
 
-          <a
-            href="#"
+          <button
             className="ml-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:ml-8"
+            onClick={() => setSearchOpen(!searchOpen)}
           >
             <svg
               className="h-6 w-6"
@@ -81,9 +85,8 @@ const FloatingNavBar = () => {
                 d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
               />
             </svg>
-
             <span>Search</span>
-          </a>
+          </button>
           {user.value ? (
             <div className="mr-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:mr-8">
               <AccountBtn />
@@ -119,6 +122,7 @@ const FloatingNavBar = () => {
               <span>Login</span>
             </Link>
           )}
+          <SearchBar searchOpen={searchOpen} />
         </div>
       </nav>
     </div>

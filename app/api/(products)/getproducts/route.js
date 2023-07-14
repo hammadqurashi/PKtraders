@@ -19,6 +19,11 @@ export async function GET(request) {
     ? request.nextUrl.searchParams.get("items")
     : 10;
 
+  // getting searchparams searchq from url
+  const searchQuery =
+    request.nextUrl.searchParams.get("searchq") &&
+    request.nextUrl.searchParams.get("searchq");
+
   let allItems = {};
 
   // filtering the products and returning those only with available qty greater than 1
@@ -30,6 +35,17 @@ export async function GET(request) {
         ? item
         : item.category == category);
   });
+
+  // if search query is available in url then filter the items acc to search query given
+  if (searchQuery) {
+    allItems = allItems.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.desc.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    });
+  }
 
   // calculating total products on behalf after above filteration
   const totalProducts = allItems.length;
