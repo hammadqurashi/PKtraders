@@ -30,8 +30,8 @@ const Search = async ({ searchParams }) => {
 
   return (
     <section className="container m-auto">
-      <h1 className="text-gray-800 dark:text-dark-primaryText text-2xl md:text-3xl font-bold my-4">
-        Search Results for {searchParams.q}
+      <h1 className="text-gray-800 dark:text-dark-primaryText text-2xl md:text-3xl my-4 text-center md:text-left">
+        Search Results for <b className="font-bold">{searchParams.q}</b>
       </h1>
       {products.products.length > 0 ? (
         <Suspense fallback={<ProductGridSkeleton />}>
