@@ -21,11 +21,12 @@ const FloatingNavBar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <div className="fixed bottom-0 z-[9999] bg-white dark:bg-dark-secondaryBackground pt-12 sm:pt-16 lg:hidden md:hidden">
-      <nav className="fixed bottom-0 mx-auto w-[100%]">
+    <div className="fixed bottom-0 z-[50] w-screen pt-12 sm:pt-16 lg:pt-24">
+      <nav className="sticky bottom-0 mx-auto w-full bg-white dark:bg-dark-secondaryBackground sm:max-w-md">
+        {/* Cart Btn */}
         <Link
           href="/cart"
-          className="absolute -top-7 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-3xl bg-[#ed1c24] text-white shadow-lg transition duration-100 sm:-top-8 sm:h-16 sm:w-16"
+          className="absolute -top-7 left-1/2 flex h-14 w-14 -translate-x-1/2 items-center justify-center rounded-3xl bg-[#ed1c24] text-white shadow-lg transition duration-100 hover:bg-indigo-600 sm:-top-8 sm:h-16 sm:w-16"
         >
           <svg
             className="h-6 w-6"
@@ -40,7 +41,8 @@ const FloatingNavBar = () => {
             />
           </svg>
         </Link>
-        <div className="relative flex justify-between gap-8 border-t bg-white dark:bg-dark-secondaryBackground px-10 py-4 text-xs sm:rounded-t-xl sm:border-transparent sm:text-sm sm:shadow-2xl">
+        <div className="flex justify-between gap-8 border-t px-10 py-4 text-xs sm:rounded-t-xl sm:border-transparent sm:text-sm sm:shadow-2xl">
+          {/* Home Btn */}
           <Link
             href={"/"}
             className={`flex flex-col items-center gap-1 ${
@@ -61,12 +63,14 @@ const FloatingNavBar = () => {
             <span>Home</span>
           </Link>
 
+          {/* Theme Btn */}
           <div className="mr-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:mr-8">
             <ThemeSwitch />
 
             <span>Theme</span>
           </div>
 
+          {/* Search Btn */}
           <button
             className="ml-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:ml-8"
             onClick={() => setSearchOpen(!searchOpen)}
@@ -87,6 +91,8 @@ const FloatingNavBar = () => {
             </svg>
             <span>Search</span>
           </button>
+
+          {/* If User Logged In then Account btn else Login btn */}
           {user.value ? (
             <div className="mr-4 flex flex-col items-center gap-1 text-gray-400 dark:text-dark-secondaryText transition duration-100 hover:text-gray-500 active:text-gray-600 sm:mr-8">
               <AccountBtn />
