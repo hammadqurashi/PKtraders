@@ -4,23 +4,29 @@ import { notFound } from "next/navigation";
 import getProductDetails from "@/functions/getProductDetails";
 import ProductSkeleton from "@/components/ProductSkeleton";
 
-export async function generateMetadata({ params }) {
-  // read route params
-  const slug = params.slug;
+// export async function generateMetadata(params) {
+//   "use server";
+//   // read route params
+//   // const slug = params.slug;
 
-  // fetch data
-  const product = await getProductDetails(slug);
+//   console.log("params");
+//   console.log(params);
 
-  if (!product) {
-    return notFound();
-  }
+//   const { product } = params ?? {};
 
-  return {
-    title: `${product.title} | PKTraders`,
-    description: `${product.desc.slice(0, 155)}...`,
-    keyword: product.title,
-  };
-}
+//   // fetch data
+//   // const product = await getProductDetails(slug);
+
+//   // if (!product) {
+//   //   return notFound();
+//   // }
+
+//   return {
+//     title: `${product?.title || "Hey"} | PKTraders`,
+//     description: `${product?.desc?.slice(0, 155)}...`,
+//     keyword: product?.title,
+//   };
+// }
 
 const Product = async ({ params }) => {
   const product = await getProductDetails(params.slug);
@@ -32,6 +38,7 @@ const Product = async ({ params }) => {
   return (
     <Suspense fallback={<ProductSkeleton />}>
       <ClientComponent
+        // generateMetadata={generateMetadata}
         params={params.slug}
         title={product.title}
         category={product.category}

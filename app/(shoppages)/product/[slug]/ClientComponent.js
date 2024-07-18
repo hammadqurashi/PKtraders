@@ -1,14 +1,25 @@
 "use client";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import cartContext from "@/app/context/cart/cartContext";
 import { useRouter } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useTitle } from "@/hooks";
 
 const ClientComponent = (props) => {
   const router = useRouter();
-  const { params, title, category, img, otherimgs, price, desc, color, size } =
-    props;
+  const {
+    params,
+    title,
+    category,
+    img,
+    otherimgs,
+    price,
+    desc,
+    color,
+    size,
+    // generateMetadata,
+  } = props;
 
   const context = useContext(cartContext);
 
@@ -23,6 +34,12 @@ const ClientComponent = (props) => {
       setcolorVariant(e.target.value);
     }
   };
+
+  const { generateTitle } = useTitle();
+
+  useEffect(() => {
+    generateTitle("dumy");
+  }, []);
 
   return (
     <div className="bg-white dark:bg-dark-primaryBackground py-6 sm:py-8 lg:py-12">

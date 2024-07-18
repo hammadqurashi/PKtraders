@@ -1,4 +1,47 @@
+"use client";
+
 import React from "react";
+
+const addContact = async (e) => {
+  try {
+    e.preventDefault();
+    const options = {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        "X-API-KEY":
+          "6602e4a93f3f6e12812c5dd4-YX2wk70sdmfq5CeJqFU1G97zr6QwmSM0tP2Gi57YWV4230eiPa",
+      },
+      body: JSON.stringify({
+        identifiers: [
+          {
+            type: "email",
+            channels: {
+              email: { status: "subscribed" },
+            },
+            id: "hammad@gmail.com",
+          },
+          {
+            type: "phone",
+            channels: {
+              sms: { status: "subscribed" },
+            },
+            id: "02100000",
+          },
+        ],
+        firstName: "hammad",
+      }),
+    };
+
+    fetch("https://api.omnisend.com/v3/contacts", options)
+      .then((response) => response.json())
+      .then((response) => console.log(response))
+      .catch((err) => console.error(err));
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const NewsLetter = () => {
   return (
@@ -21,7 +64,10 @@ const NewsLetter = () => {
                 className="bg-gray-white w-full flex-1 rounded border border-gray-300 dark:border-dark-primaryBackground px-3 py-2 text-gray-800 dark:text-dark-primaryText placeholder-gray-400 dark:placeholder-dark-secondaryText outline-none transition duration-100"
               />
 
-              <button className="inline-block rounded bg-[#ed1c24] px-8 py-2 text-center text-sm font-semibold text-white outline-none transition duration-100 focus-visible:ring md:text-base">
+              <button
+                onClick={addContact}
+                className="inline-block rounded bg-[#ed1c24] px-8 py-2 text-center text-sm font-semibold text-white outline-none transition duration-100 focus-visible:ring md:text-base"
+              >
                 Send
               </button>
             </form>
