@@ -7,7 +7,7 @@ export async function POST(request) {
   await connectDb();
   try {
     let body = await request.json();
-    const { subscription_tier, email, status } = body;
+    const { subscription_tier, email, status } = body?.data;
 
     const user = new User({
       name: subscription_tier,
